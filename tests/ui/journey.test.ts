@@ -123,6 +123,7 @@ it('plays the full success journey through the UI, stays interactive during long
   });
 
   const app = await mountJourneyApp({
+    entryMode: 'management',
     root: env.root as unknown as HTMLElement,
     live: env.live as unknown as HTMLElement,
     createTransport: harness.createTransport,
@@ -200,6 +201,7 @@ it('plays the full success journey through the UI, stays interactive during long
   // Reopen the UI from saved storage and confirm identical forecast & diagnosis.
   app.dispose();
   const reopened = await mountJourneyApp({
+    entryMode: 'management',
     root: env.root as unknown as HTMLElement,
     live: env.live as unknown as HTMLElement,
     createTransport: harness.createTransport,
@@ -224,6 +226,7 @@ it('plays the full success journey through the UI, stays interactive during long
 it('verifies UI failure paths: rejected shortfall payment, default escalation, end company, and readable statements', async () => {
   const harness = createMemoryHarness();
   const app = await mountJourneyApp({
+    entryMode: 'management',
     root: env.root as unknown as HTMLElement,
     live: env.live as unknown as HTMLElement,
     createTransport: harness.createTransport,

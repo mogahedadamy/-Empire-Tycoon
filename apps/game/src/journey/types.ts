@@ -151,6 +151,8 @@ export interface JourneyReadModel {
   readonly monthOneIncome: ReturnType<typeof incomeStatement> | null;
   readonly monthTwoIncome: ReturnType<typeof incomeStatement> | null;
   readonly cashFlow: ReturnType<typeof directCashFlow>;
+  readonly monthOneCashFlow: ReturnType<typeof directCashFlow> | null;
+  readonly monthTwoCashFlow: ReturnType<typeof directCashFlow> | null;
   readonly liquidity: ReturnType<typeof forecastLiquidity>;
   readonly distress: DistressCase;
   readonly journal: readonly JournalEntry[];

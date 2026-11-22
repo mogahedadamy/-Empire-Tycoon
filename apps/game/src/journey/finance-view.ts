@@ -46,6 +46,8 @@ export function journeyFinanceView(model: JourneyReadModel, labels: JourneyLabel
   const income = activePeriod === 'month-1' ? model.monthOneIncome!
     : activePeriod === 'month-2' ? model.monthTwoIncome! : model.income;
   const balance = activePeriod === 'month-1' && model.monthOneBalance ? model.monthOneBalance : model.balance;
+  const cashFlow = (activePeriod === 'month-1' ? model.monthOneCashFlow
+    : activePeriod === 'month-2' ? model.monthTwoCashFlow : model.cashFlow) ?? model.cashFlow;
 
   const incomeRows = [[c.netIncome, money(income.netIncome)]] as const;
   const balanceRows = [
@@ -53,8 +55,9 @@ export function journeyFinanceView(model: JourneyReadModel, labels: JourneyLabel
     [c.liabilities, money(balance.liabilities)], [c.equity, money(balance.equity)],
   ] as const;
   const flowRows = [
-    [c.operating, money(model.cashFlow.operating.net)], [c.investing, money(model.cashFlow.investing.net)],
-    [c.financing, money(model.cashFlow.financing.net)], [c.cash, money(model.cashFlow.closingCash)],
+    [c.openingCash, money(cashFlow.openingCash)],
+    [c.operating, money(cashFlow.operating.net)], [c.investing, money(cashFlow.investing.net)],
+    [c.financing, money(cashFlow.financing.net)], [c.closingCash, money(cashFlow.closingCash)],
   ] as const;
 
   const statement = options.statement;
@@ -68,9 +71,10 @@ export function journeyFinanceView(model: JourneyReadModel, labels: JourneyLabel
   const entries = options.account === 'cash'
     ? model.cashEntries
     : model.journal.filter(({ lines }) => options.account === null || lines.some(({ account }) => account === options.account));
+  const periodEntries = entries.filter((entry) => entry.day >= cashFlow.period.fromDay && entry.day <= cashFlow.period.throughDay);
   const filtered = options.account === null ? c.allEntries :
     options.account === 'cash' ? c.cashEntries : accountName(options.account, locale);
-  const entryRows = entries.map((entry) => {
+  const entryRows = periodEntries.map((entry) => {
     const control = action(entry.id, () => options.openEntry(entry.id), 'trace');
     control.dir = 'ltr';
     control.dataset.entry = entry.id;
@@ -92,7 +96,7 @@ export function journeyFinanceView(model: JourneyReadModel, labels: JourneyLabel
       ledgerTitle,
       el('div', 'company-controls', el('strong', '', filtered),
         options.account === null ? null : action(c.allEntries, () => options.selectAccount(null), 'secondary')),
-      entries.length ? dataTable(c.ledger, [c.entry, c.day, c.source], entryRows) : el('p', 'muted', c.noEntries),
+      entryRows.length ? dataTable(c.ledger, [c.entry, c.day, c.source], entryRows) : el('p', 'muted', c.noEntries),
     ),
   );
 }

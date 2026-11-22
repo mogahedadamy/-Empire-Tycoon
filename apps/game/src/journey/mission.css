@@ -1,0 +1,120 @@
+/* A touch-first mission screen with the warehouse as the player's starting location. */
+#app:has(.opening-mission) {
+  display: block;
+  min-height: 100dvh;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  background: radial-gradient(ellipse at top, #263e31, #0b1b16 65%);
+}
+.opening-mission {
+  --mission-background: #11251d;
+  --mission-paper: #fff8e9;
+  --mission-accent: #edc583;
+  --mission-muted: #b4c8bb;
+  --mission-line: #3a5144;
+  width: min(100%, 660px);
+  margin: auto;
+  padding: 0 clamp(14px, 4vw, 28px) 16px;
+  color: var(--mission-paper);
+}
+.opening-mission :focus-visible { outline-color: #ffe0a6; }
+.mission-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  min-height: 62px;
+  padding-block: 7px;
+}
+.mission-bar strong { margin-inline-end: auto; color: var(--mission-paper); font-size: 1.06rem; }
+.mission-bar > span { font-size: .84rem; color: var(--mission-muted); }
+.mission-bar .language {
+  color: var(--mission-paper);
+  min-inline-size: 52px;
+  padding-inline: 9px;
+  background: #1a3328;
+  border-color: var(--mission-line);
+}
+.mission-bar .language:hover { background: #294538; }
+.mission-scene {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: end;
+  min-height: 120px;
+  overflow: hidden;
+  padding: clamp(14px, 4vw, 26px);
+  border: 1px solid #7a7051;
+  border-radius: 18px;
+  background: #26392a;
+}
+.mission-scene-opening { min-height: clamp(180px, 47vw, 300px); }
+.mission-scene .scene-image { object-position: center 59%; }
+.mission-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, #0a1a13 3%, #0b2118c9 32%, transparent 92%);
+}
+.mission-scene h1 {
+  max-inline-size: 22ch;
+  color: #fff6df;
+  font: 700 clamp(1.75rem, 4.8vw, 3rem)/1.16 Georgia, serif;
+  overflow-wrap: anywhere;
+  text-shadow: 0 2px 8px #0d1c15;
+}
+[lang='ar'] .mission-scene h1 { font-family: inherit; }
+.mission-stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin: 14px 0;
+  padding: 0;
+  list-style: none;
+}
+.mission-stages li {
+  padding-block-start: 6px;
+  border-block-start: 3px solid #415549;
+  color: var(--mission-muted);
+  font-size: .76rem;
+  overflow-wrap: anywhere;
+}
+.mission-stages li[data-state='done'] { border-color: #82b48d; }
+.mission-stages li[aria-current] { border-color: var(--mission-accent); color: var(--mission-accent); font-weight: 760; }
+.mission-decision {
+  display: grid;
+  gap: 10px;
+  padding: clamp(14px, 4vw, 24px);
+  background: var(--mission-background);
+  border: 1px solid var(--mission-line);
+  border-radius: 18px;
+  overflow-wrap: anywhere;
+}
+.mission-decision h2 { font-size: clamp(1.4rem, 4vw, 2rem); line-height: 1.24; }
+.mission-copy { color: #d1dfd2; font-size: .95rem; }
+.mission-decision .detail-rows { border-block-start: 1px solid var(--mission-line); }
+.mission-decision .detail-rows > div { border-color: var(--mission-line); padding-block: 7px; }
+.mission-decision .detail-rows dt, .mission-funding { color: var(--mission-muted); font-size: .86rem; }
+.mission-decision .detail-rows dd { color: var(--mission-paper); }
+.mission-funding > summary { min-height: 44px; align-content: center; text-decoration: underline; text-underline-offset: .16em; }
+.mission-shipping { display: grid; gap: 6px; }
+.mission-counter { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; color: var(--mission-accent); }
+.mission-progress { inline-size: 100%; block-size: 10px; accent-color: #83b790; }
+.mission-worker:empty { position: absolute; clip-path: inset(50%); }
+.mission-worker { color: var(--mission-muted); }
+.mission-primary {
+  min-height: 52px;
+  background: var(--mission-accent);
+  color: #17251d;
+  font-weight: 800;
+}
+.mission-primary:enabled:hover { background: #ffda9b; }
+.mission-primary:disabled { background: #7b725c; color: #fff8e9; }
+.mission-link { background: transparent; color: #d8e6db; padding-block: 7px; text-decoration: underline; text-underline-offset: .18em; }
+.mission-link:hover { color: white; background: #1a3227; }
+.mission-save { margin: 10px 0 0; color: var(--mission-muted); text-align: center; }
+.mission-return { inline-size: fit-content; max-inline-size: 100%; margin-block-end: 8px; }
+
+@media (min-width: 700px) {
+  .opening-mission { padding-block-start: 16px; }
+}

@@ -13,6 +13,9 @@ import { companyView } from './company-view';
 import { journeyContractsView, type JourneyDeliveryState } from './contracts-view';
 import { journeyFinanceView, type ReportPeriod, type StatementTab } from './finance-view';
 import { renderWorkerBanner, type JourneyScreen, type WorkerBannerState } from './guidance';
+import { missionCopy } from './mission-copy';
+import { hasOpeningMission } from './mission-step';
+import { renderOpeningMission } from './mission-view';
 import { journeyOverview, type ForecastMode } from './overview-view';
 import { setupView } from './setup-view';
 import { renderJourneyShell } from './shell';
@@ -25,6 +28,7 @@ export interface MountJourneyOptions {
   readonly root: HTMLElement;
   readonly live: HTMLElement;
   readonly initialScenarioId?: string;
+  readonly entryMode?: 'mission' | 'management';
   readonly performance?: JourneyPerformance;
   readonly createTransport?: () => WorkerTransport;
   readonly openStorage?: (scenario: Scenario, report: (notice: SaveNotice) => void) => Promise<JourneyStorage>;
@@ -44,6 +48,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
   let scenario = loadScenario(scenarioId);
   let locale: Locale = 'ar';
   let screen: JourneyScreen = 'overview';
+  let management = options.entryMode === 'management';
   let selectedPlan: FundingPlan = 'loan';
   let guidanceSkipped = false;
   let forecastMode: ForecastMode = 'baseline';
@@ -59,6 +64,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
   let storage!: JourneyStorage;
   let client!: JourneyWorkerClient;
   let model!: JourneyReadModel;
+  const inMission = () => !management && hasOpeningMission(model, scenario);
 
   function focus(selector: string) {
     const item = root.querySelector<HTMLElement>(selector);
@@ -70,10 +76,18 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
     if (!status) return;
     status.setAttribute('role', 'status');
     status.dataset.state = saveNotice.kind;
-    status.textContent = saveMessage(locale, saveNotice);
+    status.textContent = inMission() && saveNotice.kind === 'saved' ? missionCopy(locale).saved : saveMessage(locale, saveNotice);
   }
 
   function updateWorkerStatus() {
+    const missionStatus = root.querySelector<HTMLElement>('.mission-worker');
+    if (missionStatus) {
+      const working = workerBanner.busy ? missionCopy(locale).working : '';
+      if (missionStatus.textContent !== working) missionStatus.textContent = working;
+      const primary = root.querySelector<HTMLButtonElement>('[data-mission-action]');
+      if (primary) primary.disabled = workerBanner.busy || !storage.canWrite();
+      return;
+    }
     const banner = root.querySelector<HTMLElement>('.worker-banner');
     if (!banner) return;
     renderWorkerBanner(banner, workerBanner, journeyLabels(locale));
@@ -91,7 +105,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
     client = createJourneyWorkerClient(createTransport(), `journey:${scenario.id}`, {
       onAck(ack) {
         workerBanner = { busy: true, ack, progress: null };
-        live.textContent = journeyLabels(locale).c.workerAck;
+        live.textContent = inMission() ? '' : journeyLabels(locale).c.workerAck;
         updateWorkerStatus();
         performance?.acknowledge();
       },
@@ -116,6 +130,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
 
   async function dispatch(actionPayload: JourneyAction) {
     if (workerBanner.busy || !storage.canWrite()) return;
+    const startedInMission = inMission();
     commandNotice = null;
     performance?.start(actionPayload, model);
     workerBanner = { busy: true, ack: null, progress: null };
@@ -128,15 +143,21 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
       if (outcome.status === 'rejected') {
         const text = outcome.code === 'insufficient-cash' && outcome.shortfallMinor
           ? `${strings.c.shortfallRejected} ${strings.format.money(BigInt(outcome.shortfallMinor))} ${strings.c.unit}`
-          : `${strings.c.commandRejected} ${outcome.code}`;
+          : startedInMission ? missionCopy(locale).retry : `${strings.c.commandRejected} ${outcome.code}`;
         commandNotice = { tone: 'error', text };
         live.textContent = text;
-      } else {
+      } else if (!startedInMission) {
         live.textContent = `${strings.c.day} ${model.day}`;
       }
+    } catch (error) {
+      if (!startedInMission) throw error;
+      const text = missionCopy(locale).retry;
+      commandNotice = { tone: 'error', text };
+      live.textContent = text;
     } finally {
       workerBanner = { busy: false, ack: null, progress: null };
       render();
+      if (startedInMission && !management) focus(inMission() ? '#mission-step-title' : '#page-title');
     }
   }
 
@@ -159,6 +180,13 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
     render();
     window.scrollTo?.(0, 0);
     focus(target);
+  }
+
+  function reviewCash(target = '#journal-title') {
+    statement = 'flow';
+    reportPeriod = 'cumulative';
+    account = 'cash';
+    navigate('finance', target);
   }
 
   async function submitDelivery() {
@@ -212,7 +240,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
       case 'overview': return journeyOverview(model, strings, {
         mode: forecastMode, busy: workerBanner.busy, canWrite: storage.canWrite(),
         selectMode(mode) { forecastMode = mode; render(); root.querySelector<HTMLElement>(`[data-mode="${mode}"]`)?.focus(); },
-        traceCash() { statement = 'flow'; account = 'cash'; navigate('finance', '#journal-title'); },
+        traceCash: reviewCash,
         openInvoices() { navigate('contracts', '#invoices h2'); },
         openEntry: showJournal,
         ackAlert(alertId) { void dispatch({ type: 'resolve-alert', alertId }); },
@@ -256,7 +284,19 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
 
   function render() {
     const strings = journeyLabels(locale);
-    renderJourneyShell({
+    if (inMission()) {
+      renderOpeningMission({
+        root, locale, labels: strings, scenario, model, plan: selectedPlan, busy: workerBanner.busy,
+        canWrite: storage.canWrite(), error: commandNotice?.text ?? null,
+        dispatch(command) { void dispatch(command); },
+        manage(next) {
+          management = true;
+          if (next === 'finance') reviewCash('#page-title');
+          else navigate(next ?? 'overview');
+        },
+        toggleLanguage,
+      });
+    } else renderJourneyShell({
       root, locale, screen, model, strings, busy: workerBanner.busy,
       canWrite: storage.canWrite(), guidanceSkipped, commandNotice,
       activeScreen: renderActiveScreen(strings),
@@ -264,14 +304,22 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
       advanceMilestone: (day) => { void dispatch({ type: 'advance-through', day }); },
       advanceOne: () => { void dispatch({ type: 'advance', days: 1 }); },
       toggleGuidance: () => { guidanceSkipped = !guidanceSkipped; render(); },
-      toggleLanguage: () => {
-        locale = locale === 'ar' ? 'en' : 'ar';
+      toggleLanguage,
+      returnToMission: hasOpeningMission(model, scenario) ? () => {
+        management = false;
         render();
-        root.querySelector<HTMLElement>('.language')?.focus();
-      },
+        window.scrollTo?.(0, 0);
+        focus('#mission-goal');
+      } : undefined,
     });
     updateSaveStatus();
     updateWorkerStatus();
+  }
+
+  function toggleLanguage() {
+    locale = locale === 'ar' ? 'en' : 'ar';
+    render();
+    root.querySelector<HTMLElement>('.language')?.focus();
   }
 
   root.textContent = 'جارٍ فتح رحلة الطلب الكبير…';

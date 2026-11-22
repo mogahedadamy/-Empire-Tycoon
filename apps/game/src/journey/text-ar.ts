@@ -99,6 +99,8 @@ export const journeyAr = {
   periodMonth1: 'إقفال الشهر الأول (١–٣٠)',
   periodCumulative: 'تراكمي إلى اليوم',
   periodMonth2: 'الشهر الثاني (٣١+)',
+  openingCash: 'النقد أول الفترة',
+  closingCash: 'النقد آخر الفترة',
   decisionsTitle: 'سجل القرارات وأثرها',
   decision_funding: 'خطة التأسيس',
   decision_restock: 'شراء دفعة التوسع',

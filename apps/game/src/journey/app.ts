@@ -4,6 +4,7 @@ import '../layout.css';
 import '../components.css';
 import '../company/company.css';
 import './journey.css';
+import './mission.css';
 import { createJourneyPerformance } from '../platform/performance';
 import { mountJourneyApp } from './mount';
 
@@ -14,4 +15,5 @@ const scenarioParam = params.get('scenario');
 const initialScenarioId = scenarioParam === 'big-order-tight' ? 'big-order-tight' : 'big-order';
 
 const performance = params.get('performance') === '1' ? createJourneyPerformance() : undefined;
-void mountJourneyApp({ root, live, initialScenarioId, performance });
+const entryMode = params.get('mode') === 'management' ? 'management' : 'mission';
+void mountJourneyApp({ root, live, initialScenarioId, entryMode, performance });

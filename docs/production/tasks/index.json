@@ -318,7 +318,8 @@
       "title": "التحقق من الشريحة ومراجعة UX",
       "stage": "B",
       "owner": "Quality Lead",
-      "status": "planned",
+      "status": "blocked",
+      "evidence": "docs/production/tasks/ET-015.md#دليل-الإنجاز",
       "dependencies": [
         "ET-013",
         "ET-014"
@@ -328,7 +329,8 @@
         "docs/agents/quality.md",
         "docs/agents/ui-ux.md",
         "docs/agents/economy.md",
-        "docs/agents/game-design.md"
+        "docs/agents/game-design.md",
+        "docs/agents/mobile.md"
       ],
       "references": [
         "docs/production/ROADMAP.md",

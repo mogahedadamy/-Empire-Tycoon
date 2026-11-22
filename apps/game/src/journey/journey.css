@@ -38,7 +38,11 @@
   flex: 1 1 260px;
   min-inline-size: 0;
 }
-.guidance-actions { flex: 0 0 auto; }
+.guidance-actions {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
 .panel-actions { margin-block-start: 14px; }
 .alert-card {
   display: flex;

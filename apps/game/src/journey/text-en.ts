@@ -99,6 +99,8 @@ export const journeyEn: Record<keyof typeof journeyAr, string> = {
   periodMonth1: 'Month 1 close (1–30)',
   periodCumulative: 'Cumulative to date',
   periodMonth2: 'Month 2 (31+)',
+  openingCash: 'Opening cash',
+  closingCash: 'Closing cash',
   decisionsTitle: 'Decision log & impact',
   decision_funding: 'Founding plan',
   decision_restock: 'Cash restock batch',

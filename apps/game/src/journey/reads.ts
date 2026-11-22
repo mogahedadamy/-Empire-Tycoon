@@ -118,14 +118,15 @@ export function buildJourneyReadModel(
   const period = { fromDay: scenario.calendar.startDay, throughDay: day };
   const income = incomeStatement(domain.ledger, period);
   const cashFlow = directCashFlow(domain.ledger, period);
-  const monthOneClosed = domain.treasury.closes.some(({ throughDay }) => throughDay === scenario.calendar.firstCloseDay);
-  const monthOneBalance = monthOneClosed ? balanceSheet(domain.ledger, scenario.calendar.firstCloseDay) : null;
-  const monthOneIncome = monthOneClosed
-    ? incomeStatement(domain.ledger, { fromDay: scenario.calendar.startDay, throughDay: scenario.calendar.firstCloseDay })
+  const firstCloseDay = scenario.calendar.firstCloseDay;
+  const monthOneClosed = domain.treasury.closes.some(({ throughDay }) => throughDay === firstCloseDay);
+  const monthOne = { fromDay: scenario.calendar.startDay, throughDay: firstCloseDay };
+  const monthTwo = monthOneClosed && day > firstCloseDay
+    ? { fromDay: firstCloseDay + 1, throughDay: day }
     : null;
-  const monthTwoIncome = monthOneClosed && day > scenario.calendar.firstCloseDay
-    ? incomeStatement(domain.ledger, { fromDay: scenario.calendar.firstCloseDay + 1, throughDay: day })
-    : null;
+  const monthOneBalance = monthOneClosed ? balanceSheet(domain.ledger, firstCloseDay) : null;
+  const monthOneIncome = monthOneClosed ? incomeStatement(domain.ledger, monthOne) : null;
+  const monthTwoIncome = monthTwo ? incomeStatement(domain.ledger, monthTwo) : null;
 
   const liquidityInput = readLiquidityInput({
     ledger: domain.ledger, treasury: domain.treasury, sales: domain.sales,
@@ -209,6 +210,8 @@ export function buildJourneyReadModel(
     monthOneIncome,
     monthTwoIncome,
     cashFlow,
+    monthOneCashFlow: monthOneClosed ? directCashFlow(domain.ledger, monthOne) : null,
+    monthTwoCashFlow: monthTwo ? directCashFlow(domain.ledger, monthTwo) : null,
     liquidity,
     distress,
     journal,

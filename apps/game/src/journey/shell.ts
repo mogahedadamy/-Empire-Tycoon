@@ -1,6 +1,7 @@
 /** Renders the responsive shell chrome, topbar controls, guidance strip, and worker status container. */
 import { action, applyLocale, el, notice, type Locale } from '../../../../packages/ui/src';
 import { guidanceBar, type JourneyScreen } from './guidance';
+import { missionCopy } from './mission-copy';
 import type { JourneyLabels } from './text';
 import type { JourneyReadModel } from './types';
 
@@ -34,6 +35,7 @@ export interface ShellOptions {
   advanceOne(): void;
   toggleGuidance(): void;
   toggleLanguage(): void;
+  returnToMission?: () => void;
 }
 
 /** Replaces the mounted shell tree while preserving ARIA landmarks and responsive classes. */
@@ -92,6 +94,8 @@ export function renderJourneyShell(options: ShellOptions) {
     onSkip: options.toggleGuidance,
     onNavigate: options.navigate,
   });
+  const mission = options.returnToMission ? action(missionCopy(locale).return, options.returnToMission, 'secondary mission-return') : null;
+  if (mission) mission.dataset.missionReturn = '';
 
   root.replaceChildren(
     el('aside', 'sidebar',
@@ -110,6 +114,7 @@ export function renderJourneyShell(options: ShellOptions) {
         el('p', 'save-status', ''),
         workerEl,
         commandNotice ? notice(c.review, commandNotice.text, commandNotice.tone) : null,
+        mission,
         guideEl,
         options.activeScreen,
       ),
