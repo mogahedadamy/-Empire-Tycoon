@@ -1,2 +1,5 @@
-/** Public entry point for the headless business simulation. ET-002 defines its first contracts. */
-export {};
+/** Public API for creating and replaying headless business simulation sessions. */
+export { daysPerMonth, maxAdvanceDays } from './clock';
+export type { CloseContext, ClosePhase, PhaseSchedule, PhaseWork } from './clock';
+export { createSimulationSession, replaySimulation } from './session';
+export type { SessionOptions, SimulationSession } from './session';

@@ -27,7 +27,8 @@
       "title": "عقود المحاكاة والوقت",
       "stage": "A",
       "owner": "Principal Simulation Engineer",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-002.md#دليل-الإنجاز",
       "dependencies": [
         "ET-001"
       ],
