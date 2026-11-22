@@ -48,7 +48,8 @@
       "title": "دفتر الأستاذ والمال والقوائم",
       "stage": "A",
       "owner": "Finance Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-003.md#دليل-الإنجاز",
       "dependencies": [
         "ET-001"
       ],
