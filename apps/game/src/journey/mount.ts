@@ -29,6 +29,7 @@ export interface MountJourneyOptions {
   readonly live: HTMLElement;
   readonly initialScenarioId?: string;
   readonly entryMode?: 'mission' | 'management';
+  readonly locale?: Locale;
   readonly performance?: JourneyPerformance;
   readonly createTransport?: () => WorkerTransport;
   readonly openStorage?: (scenario: Scenario, report: (notice: SaveNotice) => void) => Promise<JourneyStorage>;
@@ -46,7 +47,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
 
   let scenarioId = options.initialScenarioId ?? 'big-order';
   let scenario = loadScenario(scenarioId);
-  let locale: Locale = 'ar';
+  let locale: Locale = options.locale ?? 'ar';
   let screen: JourneyScreen = 'overview';
   let management = options.entryMode === 'management';
   let selectedPlan: FundingPlan = 'loan';

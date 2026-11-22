@@ -29,3 +29,7 @@ export type {
   Invoice, SalesCommand, SalesErrorCode, SalesOffer, SalesReceipt, SalesSessionCommand,
   SalesSessionOptions, SalesSnapshot, SalesTerms,
 } from './sales/types';
+
+export { quoteFactoryBatch, factoryBreakdownOccurs, type FactoryTerms, type FactorySupplier } from './projects/manufacturing';
+export { quoteShipment, type ShippingRoute, type ShippingOrder, type RouteBooking } from './projects/logistics';
+export { compareOperatingProperty, type PropertyTerms } from './projects/property';

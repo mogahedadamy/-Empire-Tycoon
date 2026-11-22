@@ -1,0 +1,56 @@
+/** Localized decisions and outcomes for the three Wadi Al Marsa projects. */
+import type { Locale } from '../../../../packages/ui/src';
+
+const ar = {
+  choose: 'اختر مجال شركتك', intro: 'ابدأ في وادي المرسى. لكل مجال مهمة أولى وقرار يغيّر نتيجتها.', city: 'وادي المرسى',
+  food: 'توزيع الأغذية', foodGoal: 'اقبل أول طلب خضار وجهّز البضاعة وأرسل الشاحنة.',
+  manufacturing: 'التصنيع الخفيف', manufacturingGoal: 'جهّز أول دفعة رفوف لمتجر المدينة. اختر المورد وقرّر إن كانت الآلة تحتاج إلى صيانة.',
+  logistics: 'النقل واللوجستيات', logisticsGoal: 'انقل أول شحنة إلى الميناء. وازن بين سرعة المسار وسعته وتكلفة التأخير.',
+  property: 'العقار التشغيلي', propertyGoal: 'شغّل مستودعًا تؤجّر مساحاته. قارن استئجاره بشرائه عندما تبقى بعض المساحات فارغة.',
+  language: 'English', supplier: 'مورد المواد', local: 'مورد محلي سريع', regional: 'مورد إقليمي أقل تكلفة',
+  service: 'صُن الآلة قبل التشغيل', route: 'مسار الشحنة', express: 'المسار السريع', consolidated: 'النقل المجمّع',
+  lease: 'استئجار المستودع', own: 'شراء المستودع', tenure: 'خطة التشغيل', vacancy: 'نسبة الشغور',
+  preview: 'نتيجة القرار', comparison: 'قارن الاستئجار والشراء', factoryCommit: 'اعتمد دفعة التصنيع',
+  logisticsCommit: 'احجز سعة الشحن', propertyCommit: 'اعتمد خطة المستودع', complete: 'اعتمدت قرارك الأول',
+  saved: 'حُفظ القرار على هذا الجهاز.', loading: 'جارٍ حساب النتيجة…', saving: 'جارٍ حفظ القرار…',
+  unavailable: 'تعذّر فتح المشروع على هذا الجهاز. أعد تحميل الصفحة للمحاولة مجددًا.',
+  saveFailed: 'تعذّر اعتماد القرار. أعد فتح المشروع إذا حفظته من نافذة أخرى.',
+  day: 'اليوم', due: 'موعد التسليم', ready: 'جاهز في', arrival: 'موعد الوصول', capacity: 'السعة المتاحة',
+  machine: 'الآلة', warehouse: 'المستودع', materials: 'المواد', bottleneck: 'ما يحدّ السعة الآن',
+  materialDetails: 'مواد الدفعة', 'wood-panels': 'ألواح الخشب', 'fastener-kit': 'أطقم التثبيت',
+  machinePlanned: 'طاقة الآلة المخططة', machineLost: 'الطاقة المفقودة للصيانة', failureRisk: 'احتمال تعطل الوردية التالية',
+  produced: 'الوحدات المصنّعة', rejects: 'وحدات رسبت في الفحص', delivered: 'الوحدات المقبولة',
+  loaded: 'الوحدات المحمّلة', late: 'وحدات وصلت متأخرة', unfilled: 'الوحدات المتبقية من الطلب', penalty: 'غرامة التأخير',
+  expense: 'التكلفة', proceeds: 'الإيراد', net: 'صافي نتيجة المشروع', initial: 'النقد اللازم للبدء', rent: 'دخل الإيجار المتوقع شهريًا',
+  operating: 'تكاليف التشغيل شهريًا', noi: 'صافي دخل التشغيل شهريًا', debt: 'خدمة الدين شهريًا',
+  monthly: 'النقد المتبقي شهريًا', exit: 'النقد عند الخروج من العقد', choice: 'قرارك', selected: 'الخطة المختارة',
+  refundable: 'تأمين قابل للاسترداد', insurance: 'قسط التأمين الشهري ضمن التشغيل', propertyDetails: 'تفاصيل التكاليف والخروج',
+};
+
+const en: Record<keyof typeof ar, string> = {
+  choose: 'Choose your industry', intro: 'Start in Wadi Al Marsa. Each industry has a first job and a decision that changes the outcome.', city: 'Wadi Al Marsa',
+  food: 'Food distribution', foodGoal: 'Accept your first produce order, stock your warehouse and send the truck.',
+  manufacturing: 'Light manufacturing', manufacturingGoal: 'Make a first batch of shelving for a city shop. Pick a supplier and decide whether to service the machine.',
+  logistics: 'Transport & logistics', logisticsGoal: 'Move your first load to the harbor. Balance route speed, space and late fees.',
+  property: 'Operating property', propertyGoal: 'Run a warehouse and rent out its bays. Compare leasing and buying when some bays sit empty.',
+  language: 'العربية', supplier: 'Materials supplier', local: 'Fast local supplier', regional: 'Lower-cost regional supplier',
+  service: 'Service the machine first', route: 'Shipping route', express: 'Express route', consolidated: 'Consolidated freight',
+  lease: 'Lease the warehouse', own: 'Buy the warehouse', tenure: 'Operating plan', vacancy: 'Vacancy',
+  preview: 'Decision preview', comparison: 'Compare leasing and buying', factoryCommit: 'Confirm the factory batch',
+  logisticsCommit: 'Book freight capacity', propertyCommit: 'Confirm the warehouse plan', complete: 'First decision confirmed',
+  saved: 'Decision saved on this device.', loading: 'Calculating the outcome…', saving: 'Saving your decision…',
+  unavailable: 'This project could not open on this device. Reload the page to try again.',
+  saveFailed: 'The decision could not be saved. Reopen the project if you saved it in another window.',
+  day: 'Day', due: 'Delivery deadline', ready: 'Ready on', arrival: 'Arrival', capacity: 'Available capacity',
+  machine: 'Machine', warehouse: 'Warehouse', materials: 'Materials', bottleneck: 'What limits capacity now',
+  materialDetails: 'Materials for this batch', 'wood-panels': 'Wood panels', 'fastener-kit': 'Fastener kits',
+  machinePlanned: 'Planned machine capacity', machineLost: 'Capacity lost to maintenance', failureRisk: 'Next-shift breakdown risk',
+  produced: 'Units produced', rejects: 'Failed inspection', delivered: 'Units accepted', loaded: 'Units loaded',
+  late: 'Units delivered late', unfilled: 'Unfilled units', penalty: 'Late fee',
+  expense: 'Cost', proceeds: 'Revenue', net: 'Net project result', initial: 'Cash needed upfront', rent: 'Expected monthly rent income',
+  operating: 'Monthly operating costs', noi: 'Monthly net operating income', debt: 'Monthly debt service',
+  monthly: 'Monthly cash after debt', exit: 'Cash at exit', choice: 'Your decision', selected: 'Selected plan',
+  refundable: 'Refundable deposit', insurance: 'Monthly insurance included in costs', propertyDetails: 'Costs and exit details',
+};
+
+export const projectText = (locale: Locale) => locale === 'ar' ? ar : en;

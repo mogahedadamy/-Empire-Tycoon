@@ -5,6 +5,8 @@ import { parseScenario, type Scenario } from './scenario';
 
 export { parseScenario };
 export type { Scenario };
+export { loadMarketScenario, parseMarketScenario } from './market-scenario';
+export { loadOperatingProjects, parseOperatingProjects } from './operating-projects';
 
 const catalog = new Map<string, unknown>([
   ['big-order', bigOrder],

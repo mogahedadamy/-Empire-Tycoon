@@ -112,6 +112,7 @@
 .mission-primary:disabled { background: #7b725c; color: #fff8e9; }
 .mission-link { background: transparent; color: #d8e6db; padding-block: 7px; text-decoration: underline; text-underline-offset: .18em; }
 .mission-link:hover { color: white; background: #1a3227; }
+.industry-selection.mission-link { border-color: var(--mission-line); }
 .mission-save { margin: 10px 0 0; color: var(--mission-muted); text-align: center; }
 .mission-return { inline-size: fit-content; max-inline-size: 100%; margin-block-end: 8px; }
 

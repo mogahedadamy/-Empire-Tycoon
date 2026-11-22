@@ -77,6 +77,7 @@
 .decision-card { border-color: #c2b280; background: #fdfbf2; }
 .report-panel .notice { margin-block: 10px 14px; }
 .navigation .nav-item:disabled { opacity: .55; }
+.industry-selection.button { text-decoration: none; }
 
 @media (max-width: 660px) {
   .top-actions { width: 100%; justify-content: start; }

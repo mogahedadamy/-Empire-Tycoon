@@ -2,6 +2,7 @@
 import type { Scenario } from '../../../../packages/content/src';
 import { action, applyLocale, detailRows, el, notice, type Locale } from '../../../../packages/ui/src';
 import { previewModel, type FundingPlan } from '../preview-model';
+import { industrySelectionLink } from '../projects/navigation';
 import type { JourneyScreen } from './guidance';
 import { missionCopy } from './mission-copy';
 import { readMissionStep, type MissionStep } from './mission-step';
@@ -138,7 +139,7 @@ export function renderOpeningMission(options: MissionViewOptions) {
   worker.setAttribute('role', 'status');
   const panel = el('section', 'mission-decision', heading, el('p', 'mission-copy', body),
     shipping, stageFacts(step, options), error ? notice(c.review, error, 'error') : null, worker,
-    primary, secondary,
+    step.id === 'found' ? industrySelectionLink(locale, 'mission-link') : null, primary, secondary,
   );
   panel.setAttribute('aria-labelledby', heading.id);
   const status = el('p', 'save-status mission-save');

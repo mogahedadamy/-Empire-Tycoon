@@ -16,4 +16,5 @@ const initialScenarioId = scenarioParam === 'big-order-tight' ? 'big-order-tight
 
 const performance = params.get('performance') === '1' ? createJourneyPerformance() : undefined;
 const entryMode = params.get('mode') === 'management' ? 'management' : 'mission';
-void mountJourneyApp({ root, live, initialScenarioId, entryMode, performance });
+const locale = params.get('lang') === 'en' ? 'en' : 'ar';
+void mountJourneyApp({ root, live, initialScenarioId, entryMode, performance, locale });

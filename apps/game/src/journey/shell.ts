@@ -1,5 +1,6 @@
 /** Renders the responsive shell chrome, topbar controls, guidance strip, and worker status container. */
 import { action, applyLocale, el, notice, type Locale } from '../../../../packages/ui/src';
+import { industrySelectionLink } from '../projects/navigation';
 import { guidanceBar, type JourneyScreen } from './guidance';
 import { missionCopy } from './mission-copy';
 import type { JourneyLabels } from './text';
@@ -82,6 +83,7 @@ export function renderJourneyShell(options: ShellOptions) {
   language.setAttribute('aria-label', c.language);
   language.lang = locale === 'ar' ? 'en' : 'ar';
   topActions.append(language);
+  topActions.append(industrySelectionLink(locale, 'secondary'));
 
   const title = el('h1', '', model.founded ? c[`${screen}Title`] : c.setupTitle);
   title.id = 'page-title';

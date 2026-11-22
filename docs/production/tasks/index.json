@@ -343,7 +343,8 @@
       "title": "طلب ومنافسون وصدمات السوق",
       "stage": "C",
       "owner": "Economy Lead",
-      "status": "planned",
+      "status": "blocked",
+      "evidence": "docs/production/tasks/ET-016.md#دليل-الإنجاز",
       "dependencies": [
         "ET-015"
       ],
@@ -363,7 +364,8 @@
       "title": "التصنيع واللوجستيات والعقار",
       "stage": "C",
       "owner": "Operations Lead",
-      "status": "planned",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-017.md#دليل-الإنجاز",
       "dependencies": [
         "ET-015"
       ],

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "rulesetVersion": 1,
+  "contentVersion": 1,
+  "id": "wadi-produce-market",
+  "seed": 202627,
+  "market": {
+    "id": "wadi-produce",
+    "productId": "produce-box",
+    "regionId": "wadi-al-marsa",
+    "currency": "GAME",
+    "referencePriceMinor": "8000",
+    "maxDemandUnits": 100,
+    "priceElasticityBps": 5000,
+    "reliabilityObservationBps": 3000,
+    "weights": {
+      "priceBps": 3000,
+      "qualityBps": 2500,
+      "reliabilityBps": 3500,
+      "availabilityBps": 1000
+    },
+    "buyers": [
+      {
+        "id": "city-grocers",
+        "baseDemandUnits": 70,
+        "maxDemandUnits": 90,
+        "minQualityBps": 7000,
+        "maxLeadDays": 3,
+        "maxUnitPriceMinor": "8600"
+      },
+      {
+        "id": "harbor-shops",
+        "baseDemandUnits": 40,
+        "maxDemandUnits": 60,
+        "minQualityBps": 7500,
+        "maxLeadDays": 2,
+        "maxUnitPriceMinor": "8000"
+      }
+    ],
+    "shocks": [
+      {
+        "id": "harvest-shortfall",
+        "chanceBps": 1800,
+        "demandBps": 10000,
+        "supplyBps": 6500,
+        "priceBps": 11500
+      },
+      {
+        "id": "harbor-festival",
+        "chanceBps": 1400,
+        "demandBps": 12500,
+        "supplyBps": 10000,
+        "priceBps": 10600
+      },
+      {
+        "id": "retail-slowdown",
+        "chanceBps": 900,
+        "demandBps": 6500,
+        "supplyBps": 10000,
+        "priceBps": 9600
+      }
+    ]
+  }
+}

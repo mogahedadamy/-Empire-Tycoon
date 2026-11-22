@@ -1,0 +1,77 @@
+/* Touch-first project selection and decision receipts using the Wadi Al Marsa palette. */
+#app:has(.operations-projects) {
+  display: block;
+  min-block-size: 100dvh;
+  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  background: #eae9dc;
+}
+.operations-projects { max-inline-size: 920px; margin-inline: auto; padding: 12px clamp(12px, 4vw, 28px) 28px; }
+.project-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-block-end: 12px; }
+.project-header strong { margin-inline-end: auto; color: #14362a; }
+.industry-selection { text-decoration: none; }
+.project-back { color: var(--green); font-size: .9rem; padding-inline: 6px; text-decoration: underline; text-underline-offset: .18em; }
+.project-content { display: grid; gap: 14px; }
+.project-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: end;
+  min-block-size: 205px;
+  padding: clamp(16px, 5vw, 32px);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #1a3328;
+  color: #fff8e9;
+}
+.project-hero .scene-image { object-position: center 57%; }
+.project-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, #10251d, #10251de8 31%, transparent 100%);
+}
+.project-hero h1, .project-heading h1 { font-size: clamp(1.65rem, 5vw, 3rem); line-height: 1.2; overflow-wrap: anywhere; }
+.project-heading {
+  display: grid;
+  gap: 8px;
+  padding: clamp(16px, 4vw, 28px);
+  background: #17382c;
+  color: #fff8e9;
+  border-radius: 18px;
+  border-inline-start: 6px solid #d4a969;
+}
+.industry-grid, .project-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.industry-option {
+  display: grid;
+  gap: 4px;
+  min-block-size: 72px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid #c5cebf;
+  border-inline-start: 5px solid #498370;
+  border-radius: 14px;
+  padding: 13px 15px;
+  text-decoration: none;
+}
+.industry-option:hover { background: #f2f5ea; }
+.industry-option h2, .project-receipt h2 { color: #153f31; font-size: 1.25rem; }
+.industry-option p { color: var(--muted); }
+.industry-option[data-industry='manufacturing'] { border-inline-start-color: #aa7453; }
+.industry-option[data-industry='logistics'] { border-inline-start-color: #477b99; }
+.industry-option[data-industry='property'] { border-inline-start-color: #807749; }
+.project-inputs { display: grid; gap: 12px; }
+.project-choice, .project-receipt { overflow-wrap: anywhere; }
+.project-options .plan, .project-service { min-block-size: 46px; }
+[data-project-options='vacancy'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.project-comparison { margin-block-start: 10px; }
+.project-comparison-card { min-inline-size: 0; padding: 12px; background: #f1f3e7; border: 1px solid #cdd8c8; border-radius: 12px; }
+.project-comparison-card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.project-selected, .project-status[data-project-state='saved'] { color: #24543d; font-weight: 700; }
+.project-status[data-project-state='error'], .project-status[data-project-state='saveFailed'] { color: var(--danger); }
+.project-status:empty { position: absolute; clip-path: inset(50%); }
+.project-materials summary { min-block-size: 44px; align-content: center; text-decoration: underline; }
+[data-confirm-project] { min-block-size: 52px; }
+@media (max-width: 600px) {
+  .industry-grid { grid-template-columns: minmax(0, 1fr); }
+}

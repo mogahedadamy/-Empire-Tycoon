@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "rulesetVersion": 1,
+  "contentVersion": 1,
+  "id": "wadi-operating-projects",
+  "currency": "GAME",
+  "factory": {
+    "recipe": [
+      { "materialId": "wood-panels", "unitsPerProduct": 2 },
+      { "materialId": "fastener-kit", "unitsPerProduct": 1 }
+    ],
+    "targetUnits": 52,
+    "machineUnits": 58,
+    "warehouseUnits": 44,
+    "serviceCapacityLoss": 20,
+    "serviceCostMinor": "20000",
+    "processUnitCostMinor": "700",
+    "failureRiskBps": 1600,
+    "servicedFailureRiskBps": 400,
+    "customerUnitPriceMinor": "9000",
+    "dueDay": 4
+  },
+  "suppliers": [
+    {
+      "id": "local", "leadDays": 1, "passRateBps": 9600,
+      "materials": [
+        { "materialId": "wood-panels", "units": 120, "unitCostMinor": "2200" },
+        { "materialId": "fastener-kit", "units": 65, "unitCostMinor": "500" }
+      ]
+    },
+    {
+      "id": "regional", "leadDays": 4, "passRateBps": 9000,
+      "materials": [
+        { "materialId": "wood-panels", "units": 140, "unitCostMinor": "1350" },
+        { "materialId": "fastener-kit", "units": 72, "unitCostMinor": "400" }
+      ]
+    }
+  ],
+  "shipping": { "units": 40, "dispatchDay": 1, "dueDay": 4, "graceDays": 2, "unitRevenueMinor": "2500", "latePenaltyBps": 2500 },
+  "routes": [
+    { "id": "express", "dailyUnits": 34, "loadingDays": 1, "transitDays": 1, "unloadingDays": 0, "fixedCostMinor": "18000", "unitCostMinor": "700" },
+    { "id": "consolidated", "dailyUnits": 64, "loadingDays": 1, "transitDays": 3, "unloadingDays": 1, "fixedCostMinor": "10000", "unitCostMinor": "320" }
+  ],
+  "bookings": [
+    { "routeId": "express", "day": 1, "units": 4 },
+    { "routeId": "consolidated", "day": 1, "units": 12 }
+  ],
+  "property": {
+    "rentableUnits": 20,
+    "rentPerUnitMinor": "65000",
+    "lease": {
+      "depositMinor": "720000", "refundableDepositMinor": "720000", "setupMinor": "520000",
+      "monthlyRentMinor": "720000", "monthlyInsuranceMinor": "45000", "monthlyMaintenanceMinor": "40000"
+    },
+    "own": {
+      "priceMinor": "16000000", "financedMinor": "12200000", "setupMinor": "360000",
+      "monthlyInsuranceMinor": "65000", "monthlyMaintenanceMinor": "120000", "monthlyDebtServiceMinor": "450000",
+      "exitPriceMinor": "16800000", "exitCostsMinor": "400000", "outstandingDebtAtExitMinor": "10700000"
+    }
+  }
+}
