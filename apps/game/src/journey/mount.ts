@@ -7,6 +7,8 @@ import { saveMessage } from '../company/save-notice';
 import type { SaveNotice } from '../company/storage';
 import { labels as companyLabels } from '../company/view-tools';
 import type { FundingPlan } from '../preview-model';
+import { bindGameLifecycle } from '../platform/lifecycle';
+import type { JourneyPerformance } from '../platform/performance';
 import { companyView } from './company-view';
 import { journeyContractsView, type JourneyDeliveryState } from './contracts-view';
 import { journeyFinanceView, type ReportPeriod, type StatementTab } from './finance-view';
@@ -23,6 +25,7 @@ export interface MountJourneyOptions {
   readonly root: HTMLElement;
   readonly live: HTMLElement;
   readonly initialScenarioId?: string;
+  readonly performance?: JourneyPerformance;
   readonly createTransport?: () => WorkerTransport;
   readonly openStorage?: (scenario: Scenario, report: (notice: SaveNotice) => void) => Promise<JourneyStorage>;
 }
@@ -33,7 +36,7 @@ const mutatingSelector = '[data-advance-one], [data-advance-milestone], [data-fo
   '[data-end-company], [data-ack-alert]';
 
 export async function mountJourneyApp(options: MountJourneyOptions) {
-  const { root, live } = options;
+  const { root, live, performance } = options;
   const createTransport = options.createTransport ?? createBrowserWorkerTransport;
   const openStorage = options.openStorage ?? openJourneyStorage;
 
@@ -90,6 +93,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
         workerBanner = { busy: true, ack, progress: null };
         live.textContent = journeyLabels(locale).c.workerAck;
         updateWorkerStatus();
+        performance?.acknowledge();
       },
       onProgress(progress) {
         workerBanner = { busy: true, ack: workerBanner.ack, progress };
@@ -113,11 +117,13 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
   async function dispatch(actionPayload: JourneyAction) {
     if (workerBanner.busy || !storage.canWrite()) return;
     commandNotice = null;
+    performance?.start(actionPayload, model);
     workerBanner = { busy: true, ack: null, progress: null };
     updateWorkerStatus();
     try {
       const { outcome, model: nextModel } = await client.command(actionPayload);
       model = nextModel;
+      performance?.finish(model);
       const strings = journeyLabels(locale);
       if (outcome.status === 'rejected') {
         const text = outcome.code === 'insufficient-cash' && outcome.shortfallMinor
@@ -168,10 +174,11 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
     workerBanner = { busy: true, ack: null, progress: null };
     render();
     try {
-      const { outcome, model: nextModel } = await client.command(
-        { type: 'deliver', offerId: scenario.contract.id, quantity: prev.quantity }, prev.revision,
-      );
+      const action: JourneyAction = { type: 'deliver', offerId: scenario.contract.id, quantity: prev.quantity };
+      performance?.start(action, model);
+      const { outcome, model: nextModel } = await client.command(action, prev.revision);
       model = nextModel;
+      performance?.finish(model);
       const { c } = journeyLabels(locale);
       if (outcome.status === 'rejected' && outcome.code === 'stale-revision') {
         delivery = { type: 'preview', preview: await client.previewDelivery(prev.quantity), previous: prev };
@@ -269,25 +276,19 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
 
   root.textContent = 'جارٍ فتح رحلة الطلب الكبير…';
   await bootScenario(scenarioId);
+  performance?.opened(model);
 
-  const onVisibility = () => {
-    if (document.hidden) storage.commit(client.currentSave());
-    else { storage.foreground(); storage.commit(client.currentSave()); }
-  };
-  const onPageShow = () => { storage.foreground(); storage.commit(client.currentSave()); };
-  const onPageHide = () => { storage.commit(client.currentSave()); };
-  document.addEventListener('visibilitychange', onVisibility);
-  window.addEventListener('pageshow', onPageShow);
-  window.addEventListener('pagehide', onPageHide);
+  const unbindLifecycle = bindGameLifecycle({
+    background() { storage.commit(client.currentSave()); },
+    foreground() { storage.foreground(); storage.commit(client.currentSave()); },
+  });
 
   return {
     getModel: () => model,
     getClient: () => client,
     flushSave: () => storage.flush(),
     dispose() {
-      document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('pageshow', onPageShow);
-      window.removeEventListener('pagehide', onPageHide);
+      unbindLifecycle();
       client?.dispose();
       storage?.close();
     },

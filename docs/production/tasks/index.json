@@ -294,7 +294,8 @@
       "title": "Capacitor ومصفوفة الأداء",
       "stage": "B",
       "owner": "Platform Lead",
-      "status": "ready",
+      "status": "blocked",
+      "evidence": "docs/production/tasks/ET-014.md#دليل-الإنجاز",
       "dependencies": [
         "ET-005",
         "ET-012"

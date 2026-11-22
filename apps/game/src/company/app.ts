@@ -4,6 +4,7 @@ import { action, applyLocale, el, focusHeading, type Locale } from '../../../../
 import { contracts, type DeliveryDecision } from './contracts';
 import { financeView, journalDialog, type Statement } from './finance';
 import type { CompanyHost } from './host';
+import { bindGameLifecycle } from '../platform/lifecycle';
 import { company, overview, type ForecastMode } from './overview';
 import { saveMessage } from './save-notice';
 import { openCompanyStorage, type SaveNotice } from './storage';
@@ -215,16 +216,10 @@ async function start() {
   quantity = String(host.preview(1).max || 1);
   render();
 
-  const foreground = () => {
-    persistence.foreground();
-    persistence.save();
-  };
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) persistence.save();
-    else foreground();
+  bindGameLifecycle({
+    background() { persistence.save(); },
+    foreground() { persistence.foreground(); persistence.save(); },
   });
-  window.addEventListener('pageshow', foreground);
-  window.addEventListener('pagehide', () => persistence.save());
 }
 
 void start();

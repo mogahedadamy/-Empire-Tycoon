@@ -1,12 +1,17 @@
 /* Responsive shell and screen composition for phone, tablet and desktop. */
-#app { min-block-size: 100dvh; display: grid; grid-template-columns: 226px minmax(0, 1fr); }
+#app {
+  min-block-size: 100dvh;
+  display: grid;
+  grid-template-columns: 226px minmax(0, 1fr);
+  padding: var(--safe-top) var(--safe-right) 0 var(--safe-left);
+}
 .sidebar {
   position: sticky;
-  inset-block-start: 0;
-  block-size: 100dvh;
+  inset-block-start: var(--safe-top);
+  block-size: calc(100dvh - var(--safe-top) - var(--safe-bottom));
   background: var(--forest);
   color: #f8f5e8;
-  padding: max(28px, env(safe-area-inset-top)) 16px 24px;
+  padding: 28px 16px 24px;
 }
 .brand { display: flex; gap: 12px; align-items: center; padding-inline: 8px; margin-block-end: 52px; }
 .brand-mark {
@@ -40,7 +45,7 @@
 .content {
   max-inline-size: 1440px;
   margin-inline: auto;
-  padding: clamp(26px, 4vw, 54px) clamp(16px, 4vw, 58px) max(30px, env(safe-area-inset-bottom));
+  padding: clamp(26px, 4vw, 54px) clamp(16px, 4vw, 58px) max(30px, var(--safe-bottom));
 }
 .view-header { margin-block-end: 26px; }
 .view-header h1 {
@@ -64,7 +69,7 @@
 }
 @media (max-width: 660px) {
   #app { display: block; }
-  .sidebar { position: static; block-size: auto; padding: max(14px, env(safe-area-inset-top)) 12px 10px; }
+  .sidebar { position: static; block-size: auto; padding: 14px 12px 10px; }
   .brand { margin-block-end: 12px; }
   .brand-mark { flex-basis: 34px; }
   .brand small { display: none; }
