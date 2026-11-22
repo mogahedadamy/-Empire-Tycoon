@@ -21,6 +21,12 @@ Start with [the product charter](docs/product/CHARTER.md), [the decision log](do
 | Test, CI, release, docs routing | [Quality](docs/agents/quality.md) |
 | Ownership, scope changes, dependency rules | [Organization](docs/organization/ORG.md) · [Architecture](docs/architecture/ARCHITECTURE.md) |
 
+## Code organization and file size
+
+Use the feature folders and public entry points described in the [engineering standards](docs/engineering/STANDARDS.md#تنظيم-الميزات-وحجم-ملفات-الكود). Keep one cohesive responsibility per hand-written code file. Aim for 200 lines or fewer, review the split when approaching 200, and keep every such file at or below 350 physical lines after formatting. This also applies to UI, styles, tests, build scripts, and workflows. Split by responsibility and preserve the public contract and behavior. Keep inline module and public-contract documentation current, and record the feature entry point and test path in its task card.
+
+Run the repository's file-size check before marking implementation done. [ET-001](docs/production/tasks/ET-001.md) defines its implementation and CI acceptance.
+
 ## Product invariants
 
 The provincial grid under src/ is an earlier prototype. Use the product and task specs for rules and UX of the business game. Web technologies and Capacitor package the app with no game engine. The headless domain owns money and operational state; UI consumes read models and sends typed commands. Single-player and online share rules but retain separate authority and saves. Keep original content and assets. [Engineering standards](docs/engineering/STANDARDS.md) govern code and quality.
