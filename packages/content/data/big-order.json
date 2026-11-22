@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "rulesetVersion": 1,
+  "contentVersion": 1,
+  "id": "big-order",
+  "seed": 202627,
+  "name": "الطلب الكبير",
+  "currency": "GAME",
+  "city": { "id": "wadi-al-marsa", "name": "وادي المرسى" },
+  "sector": { "id": "food-distribution", "name": "توزيع الأغذية" },
+  "company": { "id": "sanabel-al-wadi", "name": "سنابل الوادي", "cityId": "wadi-al-marsa", "sectorId": "food-distribution" },
+  "supplier": { "id": "hasad-al-rabwa", "name": "حصاد الربوة", "cityId": "wadi-al-marsa" },
+  "customer": { "id": "aswaq-al-sunbul", "name": "أسواق السنبل", "cityId": "wadi-al-marsa" },
+  "product": { "id": "produce-box", "name": "صندوق خضار", "sectorId": "food-distribution", "shelfLifeDays": 21 },
+  "calendar": { "startDay": 1, "firstCloseDay": 30, "endDay": 45 },
+  "opening": {
+    "cashMinor": "0",
+    "inventoryQuantity": 0,
+    "capitalMinor": "3000000",
+    "loanPrincipalMinor": "1000000",
+    "loanMonthlyInterestBps": 100,
+    "rentalDepositMinor": "200000",
+    "equipmentMinor": "600000",
+    "dailyHandlingCapacity": 50
+  },
+  "supply": {
+    "supplierId": "hasad-al-rabwa",
+    "productId": "produce-box",
+    "quantity": 100,
+    "unitCostMinor": "4000",
+    "arrivalDay": 8
+  },
+  "contract": {
+    "id": "weekly-produce-order",
+    "customerId": "aswaq-al-sunbul",
+    "productId": "produce-box",
+    "quantity": 70,
+    "unitPriceMinor": "7500",
+    "offerExpiresDay": 7,
+    "deliveryStartsDay": 18,
+    "deliveryDueDay": 20,
+    "paymentDueDay": 38,
+    "earlyPaymentDiscountBps": 200
+  },
+  "monthlyClose": { "utilitiesMinor": "30000", "depreciationMinor": "10000", "incomeTaxBps": 2000 },
+  "payroll": { "amountMinor": "120000", "dueDay": 28 },
+  "firstDecision": { "day": 1, "contractId": "weekly-produce-order", "options": ["accept-contract", "review-alternatives"] },
+  "objectives": { "deliverContractByDueDay": true, "payPayrollByDueDay": true, "minimumClosingCashMinor": "0" }
+}

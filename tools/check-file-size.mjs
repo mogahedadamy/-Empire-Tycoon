@@ -8,6 +8,7 @@ const run = promisify(execFile);
 const maximumLines = 350;
 const dataFiles = new Set([
   'docs/production/tasks/index.json',
+  'packages/content/data/big-order.json',
   'docs/research/football-2026-27/competition-calendar.json',
   'docs/research/football-2026-27/continental-membership.json',
   'docs/research/football-2026-27/domestic-membership.json',

@@ -69,7 +69,8 @@
       "title": "قالب السيناريو والشركة الأولى",
       "stage": "A",
       "owner": "Game Director",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-004.md#دليل-الإنجاز",
       "dependencies": [
         "ET-001"
       ],

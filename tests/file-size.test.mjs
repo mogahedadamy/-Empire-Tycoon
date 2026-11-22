@@ -60,6 +60,7 @@ it('excludes data, docs and generated files while checking handwritten code besi
   const oversized = '\n'.repeat(351);
   const data = '[' + '\n'.repeat(350) + ']';
   writeFixture('docs/production/tasks/index.json', data);
+  writeFixture('packages/content/data/big-order.json', data);
   writeFixture('docs/README.md', oversized);
   writeFixture('package-lock.json', oversized);
   writeFixture('node_modules/example/index.js', oversized);
