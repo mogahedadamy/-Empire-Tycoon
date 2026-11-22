@@ -10,6 +10,7 @@ export type {
 
 export { readOperatingCapacity } from './workforce/capacity';
 export type { CapacityInput } from './workforce/capacity';
+export { scheduledPayrollAmount } from './workforce/payroll';
 export { applyWorkforceCommand, createWorkforce } from './workforce/state';
 export type { WorkforceResult } from './workforce/state';
 export { WorkforceError } from './workforce/types';

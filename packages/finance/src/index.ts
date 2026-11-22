@@ -15,3 +15,12 @@ export type {
   ClosePolicy, FinanceCommand, FinanceErrorCode, FinanceResult, FinanceState, Loan, LoanTerms,
   MonthlyClose, Obligation, ObligationKind, OperatingObligation, PrincipalInstallment,
 } from './treasury/types';
+
+export { forecastLiquidity } from './liquidity/forecast';
+export { liquidityHorizonDays } from './liquidity/projection';
+export { reviewDistress } from './liquidity/distress';
+export type { DistressAction, DistressCase, DistressCause, DistressStage } from './liquidity/distress';
+export type {
+  ApprovedCredit, LiquidityAlert, LiquidityGap, LiquidityInput, LiquidityPolicy, LiquidityProjection,
+  LiquiditySource, ProjectedMovement, ScheduledCashFlow,
+} from './liquidity/types';

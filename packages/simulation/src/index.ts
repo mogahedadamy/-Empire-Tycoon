@@ -6,3 +6,5 @@ export type { SessionOptions, SimulationSession } from './session';
 export type { StagedAdvance } from './session';
 export { createFinancialSimulation } from './finance-session';
 export type { FinancialSimulationOptions } from './finance-session';
+export { readLiquidityInput } from './liquidity';
+export type { LiquiditySnapshot } from './liquidity';

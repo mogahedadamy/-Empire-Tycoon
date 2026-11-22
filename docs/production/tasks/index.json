@@ -201,7 +201,8 @@
       "title": "توقع السيولة والتعثر",
       "stage": "B",
       "owner": "Finance Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-010.md#دليل-الإنجاز",
       "dependencies": [
         "ET-008",
         "ET-009"
@@ -223,7 +224,7 @@
       "title": "واجهات إدارة الشركة والمراجعة المالية",
       "stage": "B",
       "owner": "UX Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-005",
         "ET-008",

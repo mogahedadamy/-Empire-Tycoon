@@ -14,6 +14,12 @@ function postPayrollEntry(ledger: Ledger, command: PayrollCommand, lines: readon
   };
 }
 
+/** Returns the current roster's fixed wage for a scheduled period, in minor units. */
+export function scheduledPayrollAmount(state: WorkforceState): string {
+  return state.roles.reduce((sum, role) =>
+    sum + BigInt(role.workers) * BigInt(role.wagePerWorkerMinor), 0n).toString();
+}
+
 export function accruePayroll(state: WorkforceState, ledger: Ledger, command: PayrollCommand) {
   const schedule = state.payroll.find(({ id }) => id === command.payrollId);
   if (!schedule) throw new WorkforceError('unknown-payroll');
@@ -21,8 +27,7 @@ export function accruePayroll(state: WorkforceState, ledger: Ledger, command: Pa
   if (command.day !== schedule.accrualDay) throw new WorkforceError('wrong-accrual-day');
 
   // Scheduled salary is earned regardless of attendance, output, or cash in this slice.
-  const amount = state.roles.reduce((sum, role) =>
-    sum + BigInt(role.workers) * BigInt(role.wagePerWorkerMinor), 0n).toString();
+  const amount = scheduledPayrollAmount(state);
   const posting = postPayrollEntry(ledger, command, [
     { account: 'payrollExpense', side: 'debit', amount },
     { account: 'payrollPayable', side: 'credit', amount },
