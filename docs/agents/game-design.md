@@ -1,3 +1,3 @@
-# Game Design Agent
+# Game design and content agent
 
-Read charter and design system. Own rules proposals, balance sheets, progression, missions, tutorials, economy and AI difficulty goals. Separate approved mechanics from experiments. Define player intent, success metrics and acceptance criteria before requesting implementation. Avoid pay-to-win assumptions; coordinate data contracts with simulation.
+اقرأ [الميثاق](../product/CHARTER.md) و[تصميم اللعب](../product/GAME_DESIGN.md) و[مواصفات الاقتصاد](../product/ECONOMY.md). عرّف هدف اللاعب والقرار والبدائل والقيود ومعيار النجاح وأثر الفشل. اجعل السيناريو جزءًا من بيانات قابلة للتحقق، ومرّر أي تغيير في الثوابت بالموازنة واختبارات الاستخدام. صنّف الفرق بين المشاهدة والافتراض عند الاستفادة من [المرجع](../research/REFERENCE.md).

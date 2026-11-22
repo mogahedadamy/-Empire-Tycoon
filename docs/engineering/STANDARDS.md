@@ -1,19 +1,17 @@
-# Engineering Standards
+# معايير الهندسة والجودة
 
-## Required
-Strict TypeScript; explicit public APIs; small cohesive modules; composition over deep inheritance; SOLID where beneficial; no God Objects or uncontrolled singletons; data-oriented hot paths after profiling; no circular package dependencies; typed commands and events; deterministic simulation boundaries.
+- TypeScript strict، أسماء تنقل مسؤولية المجال، وعقود ذات رسائل وأخطاء واضحة. SOLID عبر مسؤولية متماسكة، عقود ضيقة قابلة للاستبدال واعتماد على المنافذ عند الحاجة. استخدم OOP لدورة حياة المحولات ولعزل مواردها، وComposition ودوال مجال واضحة لقواعد اللعبة. أعد استخدام المصدر المرجعي للتكلفة والتقريب والتحويل.
+- تُنتج المكونات UI من حالات مقروءة وتستدعي أوامر. اختبر عقود التركيز واللمس وRTL وحالات الرفض. أي تغيير يكسر اعتمادًا أو يصعب ترحيله يُوثّق بقرار وعقد ترحيل.
+- تحقق من كل مدخل خارجي عند حد النظام. سجّل ارتباط الأمر ومراجعة الحالة ونوع الرفض، مع إبقاء الأسرار والبيانات الشخصية خارج السجلات. سلامة أفعال الخادم تظل بملك الخادم.
+- تغييرات قواعد المال أو الحفظ أو الاتصال تحتاج اختبارًا للآثار الجزئية والمحاولات المكررة والتزامن. أي حالة فشل يُتوقع فيها احتفاظ المستخدم بالعمل تُختبر عند الاستعادة. عقد مسار إنجاز مغلق وواضح لكل مهمة.
 
-## Quality gates
-Format, lint, typecheck, unit tests and dependency checks on PR; integration and replay/determinism tests on merge/nightly; device performance, accessibility, network soak and security checks before release. Never fabricate passing tests.
+| المستوى | أقل تغطية للشريحة |
+|---|---|
+| وحدة وخصائص | توازن القيد، حدود النقد والمخزون، التقريب، صلاحية الاستحقاق، اتساق المعاينة مع التنفيذ |
+| تكامل وإعادة تشغيل | السيناريو المالي كاملًا بقيم متطابقة، خطأ وسط معاملة، إعادة أمر، عدة أيام مقابل يوم بيوم |
+| حفظ ومنصة | سجل قديم، إصدار جديد، كتابة منقطعة، ملف فاسد، إغلاق التطبيق واستئنافه |
+| واجهة وسيناريو | تأسيس وعقد وتوريد وإقفال وتشخيص، بالعربية والإنجليزية، عبر لمس ولوحة مفاتيح |
+| أداء وتشغيل | p95 من الإقرار، تحميل الحفظ، زمن التقدم، حجم الذاكرة، واختبار حمل موسم قبل الإصدار |
+| اتصال | أرصدة وعروض متقادمة، إعادة اتصال، أمر وصل وإقرار انقطع، عزل جلسات ومعلومات |
 
-## Testing
-Unit: economy, costs, damage, invariants. Property-based: no invalid resources/ownership. Determinism: identical commands/seed -> canonical hashes. Integration: save/load, commands, renderer adapter. E2E: mobile touch, onboarding, accessibility. Security: untrusted commands and storage. Performance: map draw time, memory, tick latency, thermal behavior.
-
-## Code review
-At least one qualified reviewer; high-risk security, persistence, protocol and architectural changes require domain owner. Protected main branch; CI required. ADR for changes to package boundaries or runtime strategy.
-
-## Definition of Done
-Acceptance criteria, tests, a11y and performance impact, documentation, observability, migration/rollback as applicable. Never commit secrets, credentials, generated native build outputs or third-party licenses without review.
-
-## Metrics
-P95 frame time, tick duration, memory, crash-free sessions, build latency, flaky tests, defect escape rate, MTTR. Do not use lines of code as productivity measure.
+تسجل نتيجة المهمة أوامر الفحص والنسخ والأجهزة، والفروق عن بنود القبول، والخطوة التالية. يسجل تغير سلوك المستخدم أو سياسات البيانات في وثائقه. يحدد قائد الجودة تغطية المراجعة بحسب المخاطرة ومراحل [الخارطة](../production/ROADMAP.md).

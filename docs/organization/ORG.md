@@ -1,45 +1,41 @@
-# Organization, Teams and Decision Rights
+# الفرق والصلاحيات
 
-## Executive triad
-CEO: funding and business strategy. CTO: technical strategy, architecture and engineering risk. Game Director: creative direction, mechanics, UX vision. Executive Producer: schedule, staffing, delivery coordination. These are parallel responsibilities, not a CTO reporting chain.
+الأدوار التالية تعيينات تنظيمية للمشروع. العدد يمثل مقاعد تخطيطية وقد يعمل الشخص عبر أكثر من تخصص في الشريحة، مع احتساب وقته مرة واحدة. عمود التوسع افتراض لدراسة القدرة والتمويل بعد الشريحة.
 
-## Peak staffing model — 350 FTE, illustrative
-| Group | FTE | Accountability |
-|---|---:|---|
-| Engine/web runtime & core | 55 | Web runtime, rendering, tools, assets, platform |
-| Gameplay & simulation | 52 | Features, deterministic rules, campaigns |
-| Networking & backend | 28 | Authoritative services, accounts, transport |
-| AI & strategy systems | 24 | Planning, navigation, opponent AI |
-| Game & level design | 30 | Mechanics, maps, balance, progression |
-| Art, animation & technical art | 75 | World visuals, VFX, content pipeline |
-| QA & automation | 35 | Test infrastructure, compatibility, accessibility |
-| DevOps, build & tools | 18 | CI, builds, deployments, developer productivity |
-| Audio, narrative & UX | 17 | Audio, narrative, research, interaction design |
-| Production & leadership | 16 | Delivery, staffing, program management |
-| **Total** | **350** | Planning estimate only |
+| الفريق | نواة الشريحة | توسع مشروط | القيادة والتخصصات | تسليم الفريق |
+|---|---:|---:|---|---|
+| المنتج وتصميم اللعبة والمحتوى | 4 | 11 | Game Director، مصمم أنظمة، مصمم سيناريو وتوازن، أدوات محتوى عند التوسع | رؤية المنتج، قواعد تقدم وصعوبة، قطاعات وسيناريوهات |
+| الاقتصاد والمحاسبة | 3 | 8 | Lead Economy Designer، مستشار محاسبة، مهندس Finance | دفتر الأستاذ، التمويل والضرائب، معايرة محاكاة واختبارات مالية |
+| المحاكاة والعمليات | 5 | 14 | Principal Simulation Engineer، مهندسو تشغيل وبيانات، مهندس سلوك السوق | الزمن والأوامر والمخزون والعمليات والطلب |
+| تجربة اللاعب والاتجاه الفني | 5 | 14 | UX Lead، Product Designer، Design Systems Engineer، Art Director، باحث UX يجمع الكتابة وإتاحة الوصول في الشريحة | هوية ونموذج تفاعلي ومكونات وإتاحة وتعريب؛ يتخصص البحث والكتابة والفنون عند التوسع |
+| المنصة والويب والهاتف | 3 | 9 | CTO/Platform Lead، مهندس Web/Mobile، مهندس Build | غلاف التطبيق، التخزين، Capacitor وتجارب الأجهزة وCI |
+| المنصة المتصلة | 1 | 9 | Online Lead في تصميم الشريحة، مهندسو Backend وSRE عند التوسع | سلطة الخادم وإعادة الاتصال ومواسم ومراقبة |
+| الجودة والإنتاج | 3 | 10 | Technical Producer، SDET، Quality Lead | حوكمة الإنجاز، مصفوفة الجودة، التشغيل والتحقق والإصدار |
+| **الإجمالي** | **24** | **75** | تقديرات نواة ثم توسع | المراجعة عند بوابات الإنتاج |
 
-**Capacitor pivot:** these legacy budget categories must be revalidated. Replace traditional engine-heavy staffing with web rendering, mobile performance, UI/UX, and tooling roles as discovery results dictate.
+## تشكيل فرق تسليم متعددة التخصصات
 
-## Functional ownership and cross-functional squads
-- Platform & Runtime: web rendering, assets, performance, Capacitor bridges.
-- Simulation & Gameplay: world state, commands, economy, construction, combat, AI.
-- Online: authentication, matchmaking, dedicated authoritative simulation, observability.
-- Experience: UI engineering, interaction design, design system, accessibility, localization.
-- Content: art, technical art, levels, sound, narrative.
-- Quality & Delivery: QA, CI/CD, release, security, production.
-Feature squads borrow experts from functional departments; each feature has one accountable owner.
+- **الشركة الأولى:** Game Design يقود سيناريو الطلب الكبير؛ العمليات والاقتصاد وUX والجودة يمتلكون جميع حلقات قرار الشراء والتسليم والإقفال.
+- **التشخيص المالي:** يقوده Finance Lead مع مصمم معلومات وباحث استخدام ومهندس واجهة؛ يملك الدقة وشرح السبب من المؤشر إلى القيد.
+- **تشغيل الهاتف وأمان الحفظ:** يقوده Platform Lead مع SDET وتمثيل UX؛ يملك الأداء والتخزين والتوافق وإتاحة الوصول عبر الواجهات.
+- **الموسم المتصل:** يقوده Online Lead مع Game Design والاقتصاد وSRE وQA؛ يملك قواعد الترتيب، الاستئناف والخصوصية وإصدار الموسم.
 
-## Decision matrix
-| Decision | Final owner | Consult |
+## صلاحيات القرار
+
+| القرار | المسؤول النهائي | الاستشارة أو الاعتماد |
 |---|---|---|
-| Budget and major investment | CEO | CTO, Producer |
-| Game rules and creative direction | Game Director | Design, UX, CTO |
-| Runtime architecture and stack | CTO | Principal Engineers |
-| Simulation protocol | Principal Simulation Lead within CTO-approved constraints | Online, QA |
-| UI design direction | UX/Art Director with Game Director | Accessibility, Engineering |
-| Release readiness | Release committee | QA, CTO, Game Director, Producer |
-| Hiring | Functional manager | Tech Lead, HR |
-| Feature acceptance | Feature owner + Design owner | QA |
+| التمويل، التوظيف على مستوى الميزانية وتغيير اتجاه المنتج | CEO | CTO، Game Director، Executive Producer |
+| تجربة اللعب، نطاق الميزات وتوازن الصعوبة | Game Director | الاقتصاد والبحث والإنتاج |
+| صحة القواعد المحاسبية ومرجع الاختبار | Finance Lead | مختص محاسبة، فريق QA |
+| بنية الوحدات وعقود الوقت والحفظ ومخاطر التوافق | CTO | أصحاب المجالات وPlatform وOnline |
+| تجربة UI ونظام التصميم وإتاحة الوصول | UX Lead | Art Director، Game Director، QA |
+| تواريخ التسليم وأولويات التبعيات وتعيين مالك لكل مهمة | Executive Producer | قادة الفرق |
+| جاهزية الإصدار وقرار الإطلاق | Executive Producer | موافقة تقنية من CTO، جودة من Quality Lead، قبول منتج من Game Director |
 
-## Governance
-ADRs for cross-module decisions. Protected branches, review ownership, weekly architecture sync, sprint demos, monthly performance/risk reviews. Escalate security, cost, privacy, or irreversible scope decisions.
+يقود Tech Lead خيارات التنفيذ والمراجعات العابرة للفرق، ويملك الفريق المطلوب سلوكه واختباراته. يراقب المنتج والاقتصاد إغلاق قرارات التوازن. يتغير عقد مالي أو صيغة حفظ أو بروتوكول بالرجوع إلى سجل القرارات والاختبارات ذات الصلة.
+
+## ترتيب التمويل والتوظيف
+
+تبدأ النواة عند التكليف بالتنفيذ بقادة المنتج والاقتصاد والمحاكاة والتجربة والمنصة والجودة والإنتاج. بعد تشغيل الأساس محليًا وتثبيت سجل القرار، يضاف مهندسو العمليات والحفظ والواجهة وإتاحة الوصول. تُراجع الحاجة إلى فريق سوق ومحتوى إضافي بعد الشريحة. يتوسع Online وSRE بعد إثبات جدوى المنافسة وتحديد التكلفة لكل موسم. لا تصبح أرقام التوظيف جزءًا من جدول الإطلاق قبل قياس إنتاج المحتوى والاختبارات.
+
+[بوابات الإنتاج](../production/ROADMAP.md) · [المهام والمالكون](../production/TASKS.md)

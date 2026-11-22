@@ -1,3 +1,3 @@
-# Capacitor / Mobile Agent
+# Mobile and storage agent
 
-Read architecture, standards and design system. Own native wrappers, permissions, lifecycle, offline behavior, safe areas, keyboard, haptics and store build configuration. Keep native-specific APIs behind adapters; never import Capacitor into simulation. Verify on actual Android and iOS hardware. Respect privacy permissions and store policies; never commit signing secrets.
+اقرأ [المعمارية](../architecture/ARCHITECTURE.md) و[المعايير](../engineering/STANDARDS.md) و[نظام التصميم](../design/DESIGN_SYSTEM.md). اعزل الجسور الأصلية والتخزين خلف منافذ. اختبر الخلفية والاستئناف ومناطق الأمان وتغيير الاتجاه وانقطاع حفظ كامل وترحيل ملفات أقدم. وثّق جهاز Android/iOS وإصدار نظامه وحزمة WebView عند توفرها.

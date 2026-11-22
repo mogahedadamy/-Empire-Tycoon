@@ -1,23 +1,18 @@
 # Empire Tycoon
 
-AAA-aspiration strategy/tycoon game built **without a traditional game engine**. Browser-native TypeScript game runtime, Canvas/WebGL rendering, and Capacitor packaging for mobile. Web is a first-class target.
+محاكاة استراتيجية لإدارة الشركات وبناء مجموعة اقتصادية. تبدأ اللعبة من مشروع يواجه قرارات تسعير وتمويل وتشغيل حقيقية داخل اقتصاد خيالي، وتمتد إلى إدارة مجموعة واستثمارات وأسواق تنافسية. نستخدم TypeScript وتقنيات الويب، مع Capacitor لتغليف التطبيق للهواتف، من دون محرك ألعاب.
 
-> Status: architecture and production foundation. No claim of finished gameplay or production-ready multiplayer.
+> **المرحلة الحالية هي النقاش والتوثيق.** المسار التنفيذي معرّف ومربوط بملفات المهام، ويبدأ عند التكليف بالتنفيذ. الكود الموجود نموذج سابق لبناء المقاطعات؛ قواعده وشاشاته ليست مواصفات لعبة الأعمال.
 
-## Start here
-- [Agent routing](AGENTS.md)
-- [Product charter](docs/product/CHARTER.md)
-- [Architecture](docs/architecture/ARCHITECTURE.md)
-- [Organization and decision rights](docs/organization/ORG.md)
-- [UI/UX design system](docs/design/DESIGN_SYSTEM.md)
-- [Delivery roadmap](docs/production/ROADMAP.md)
-- [Engineering quality](docs/engineering/STANDARDS.md)
+| المسار | المرجع |
+|---|---|
+| الرؤية وحدود المنتج | [ميثاق اللعبة](docs/product/CHARTER.md) · [تصميم اللعب](docs/product/GAME_DESIGN.md) · [تحليل المرجع](docs/research/REFERENCE.md) |
+| قواعد المحاكاة | [مواصفات الاقتصاد](docs/product/ECONOMY.md) · [مثال مالي مرجعي](docs/product/ECONOMY_FIXTURE.md) |
+| تجربة الاستخدام | [نظام التصميم والشاشات](docs/design/DESIGN_SYSTEM.md) |
+| الهندسة والقرارات | [المعمارية](docs/architecture/ARCHITECTURE.md) · [سجل القرارات](docs/architecture/DECISIONS.md) · [معايير الجودة](docs/engineering/STANDARDS.md) |
+| الأدوار والتسليم | [الفرق والصلاحيات](docs/organization/ORG.md) · [الخارطة](docs/production/ROADMAP.md) · [بنك المهام](docs/production/TASKS.md) |
+| نقطة دخول الوكيل | [AGENTS.md](AGENTS.md) · [فهرس المهام المقروء آليًا](docs/production/tasks/index.json) · [ET-001](docs/production/tasks/ET-001.md) |
 
-## Architecture principles
-Deterministic-capable headless simulation; commands instead of direct state mutation; rendering as a projection of simulation; modular feature ownership; accessible responsive touch-first UI; backend authority for competitive online play.
+## تشغيل النموذج الموجود
 
-## Important constraints
-Capacitor is a native web application shell, **not** a renderer, simulation framework, or multiplayer backend. The web runtime implements those capabilities separately. Avoid prematurely promising AAA performance on all mobile hardware.
-
-## Next milestone
-Validate target devices and a playable vertical slice before expanding scope. See docs/production/ROADMAP.md.
+يتطلب Node.js 22. شغّل npm install ثم npm run dev. لفحص النموذج استخدم npm run typecheck وnpm test وnpm run build. اختبار النموذج الحالي لا يثبت جاهزية محاكاة الأعمال أو تثبيت Android وiOS.

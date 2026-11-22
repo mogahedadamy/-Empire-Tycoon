@@ -1,22 +1,30 @@
-# Production Roadmap & Hiring Gates
+# خارطة التنفيذ وبوابات الإنتاج
 
-## Stage 0: Days 1–15
-Confirm game subgenre, camera, devices, budget, visual ambition; appoint CTO/architecture, game design, UX/art, technical production. Publish product charter and technical risk register.
+**الوضع الحالي:** توثيق ومراجعة. تبدأ المرحلة الأولى عندما يطلب صاحب المشروع بدء التنفيذ. الأرقام التالية فرضيات قياس وتخضع للتحقق.
 
-## Stage 1: Days 16–30
-Architecture spike: TypeScript simulation, WebGL renderer benchmark, Capacitor test builds, touch interaction prototype, CI. Decide UI library and asset pipeline via ADR.
+| المرحلة | النتيجة القابلة للمراجعة | بوابة الانتقال |
+|---|---|---|
+| A · الأساس | بناء قابل للتكرار، فصل الكود السابق، مسارات المحاكاة والواجهة، ساعة وأوامر ودفتر أستاذ، تصميم أول تدفق | تثبيت الحزم بأوامر قابلة للتكرار. بدء المحاكاة في بيئة headless. مطابقة القيد والقراءة، ووثيقة قياس أساسية |
+| B · شريحة كاملة | شركة الغذاء قابلة للعب من التأسيس إلى أول إقفال؛ توريد وتسليم وتمويل وأزمة وحفظ وUX عربي/إنجليزي | القوائم تطابق المثال، استعادة الحفظ بعد توقف، اختبارات الفشل والنجاح، تجربة استخدام تحقق مقياس التصميم، عرض Web وCapacitor على مصفوفة الأجهزة المختارة |
+| C · ما قبل الإنتاج | تصنيع ولوجستيات وعقار تشغيلي، منافسون، أدوات تأليف محتوى | قطاع إضافي يؤلف من بيانات مختبرة بالأدوات، ونتائج قابلة لاستنساخ توازن السوق، ومقاييس أداء على محتوى ممتد |
+| D · ألفا فردي وموسم تجريبي | حملة وصندوق رمل، مدن ومنافسون حسب النطاق؛ موسم مقيد واختبار استئناف وتكلفة وتوازن | الشريحة والترحيل يمران من إصدار سابق. لا أثر مزدوج عند الاستئناف. تجربة موسمية خاصة بمعايير تكلفة وعدالة موثقة |
+| E · بيتا وإطلاق | تحسين وأجهزة وترجمة، مراقبة وإدارة حوادث واستعادة، حزم إصدار أصلية | مصفوفة إصدار موقعة من الملاك، اختبارات إيقاف واستعادة، وأدلة تحقق للهواتف والمتصل، مع مراجعة قرار إطلاق ونطاق |
+| F · توسعات | الاستحواذ والأسواق المالية والتعاون أو أي نموذج إيراد معتمد | تجربة مستقلة وتقييم تأثير اقتصاد اللعب والعدالة وعبء الإنتاج |
 
-## Stage 2: Days 31–60
-Playable core: select units, pan/zoom, place buildings, produce resources, deterministic tick, basic save/load, first UI kit components.
+## الجودة والنشر المخططان
 
-## Stage 3: Days 61–90
-Vertical-slice feasibility review: one map, 2 resources, 3 buildings, one mission, responsive HUD, accessibility, performance measurements on real devices, online transport spike.
+يقسم CI بعد بدء ET-001 إلى فحوص سريعة للتغيير (تثبيت من lockfile، تنسيق، lint، typecheck، اختبارات وحدة وبناء)، ثم تشغيل تكامل وإعادة تشغيل عند الدمج، ثم أعمال دورية للتأكد من الحفظ والتوازن وأداء مصفوفة الأجهزة. إصدار الويب وغلاف الهاتف يحزّمان نفس نسخة الويب المعتمدة. خدمة الموسم ترقّى إلى بيئة تجارب ثم إطلاق محدود، بنسخ بيانات واختبار استعادة وتوافق. يحفظ كل إصدار معرف commit وإصدارات المحتوى والقواعد والحفظ. تخطّط الجودة للتحقق من الاسترجاع قبل تبديل بروتوكول أو حفظ غير قابل للعكس.
 
-## Longer horizon
-Preproduction -> vertical slice -> production -> alpha -> beta -> launch/live operations. Expansion to 350 FTE is a ceiling planning scenario, not an immediate hiring order. Staffing ramps only after measured technical/product gates.
+## سجل المخاطر الأولي
 
-## Milestone exit criteria
-Playable artifact; tests and reproducible build; recorded device benchmarks; UX usability feedback; top risks and cost forecast; explicit go/no-go by accountable leadership.
+| الخطر | الإشارة | المالك | إجراء البوابة |
+|---|---|---|---|
+| واقعية لا يستطيع اللاعب قراءتها | أكثر من مشارك واحد من خمسة يفشل في شرح فجوة السيولة | UX + Game Design | مراجعة مسار التشخيص قبل توسيع الأنظمة |
+| مغالطة محاسبية | فرق قيد أو ميزانية أو حركة نقد | Finance | تثبيت مصدر حساب واحد ومقارنة القوائم بالمثال المرجعي |
+| اقتصاد قابل للاستغلال أو يعاقب دون تفسير | سيطرة خطة واحدة عبر البذور، أو خسارة بلا أثر قابل للتفسير | Economy + QA | محاكاة سياسات متعددة، تعديل التوازن وتوثيق الشواهد |
+| حفظ قابل للفساد أو عدم اتساق بعد ترقية | لا يُستعاد آخر حفظ صالح | Platform | تجارب توقف وعودة وملفات حفظ قديمة |
+| أداء الهاتف | تجاوز زمن الإقرار أو تحميل الحفظ المتفق عليه | Platform | ميزانيات واقعية لكل جهاز، وتقييد الشاشة أو العمل في الخلفية حسب القياس |
+| تكلفة الموسم أو تحيز المنافسة | تجاوز حدود تكلفة أو اختلاف شروط نتيجة الشبكة | Online | موسم خاص، قياس الحمل والاستئناف، وتعديل قواعد الاستضافة |
+| تباطؤ تأليف المحتوى | كل سيناريو جديد يحتاج تعديل محرك القواعد | Content | إنشاء سيناريو ثان عبر القالب والتحقق الآلي قبل التوسع |
 
-## Risks
-WebView rendering limits; battery/thermal; large-world performance; deterministic replay across devices; cheating; content production throughput; UI complexity; accessibility/localization; scope creep. Maintain risk owner and mitigation per item.
+[خريطة المهام](TASKS.md) · [معايير الهندسة](../engineering/STANDARDS.md)

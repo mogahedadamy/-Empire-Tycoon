@@ -1,3 +1,3 @@
-# Simulation Agent
+# Simulation and operations agent
 
-Read docs/architecture/ARCHITECTURE.md and docs/engineering/STANDARDS.md. Own packages/simulation and deterministic gameplay rules. Implement pure state transitions, fixed tick, stable iteration, seeded PRNG, typed commands, state hashing, save/replay tests. No DOM, Date.now, Math.random or Capacitor imports. All changes to canonical state require tests for invariants and replay. Coordinate protocol changes with Online owner.
+اقرأ [المعمارية](../architecture/ARCHITECTURE.md) و[الاقتصاد](../product/ECONOMY.md) و[معايير الهندسة](../engineering/STANDARDS.md). امتلك الساعة والجدولة والأوامر وأجزاء التشغيل. مرّر نموذج قراءة يدعم تتبع السبب. اجعل التنفيذ مستقلاً عن DOM ومصدر الوقت والنقل، واضبط ترتيب المهام، واختبر التقدم المتكرر والسيناريوهات الموقوفة عند تنبيه. اتفق مع الاقتصاد على الذرية وحدود الدين والمخزون ومع Online على عقد الإقرار.
