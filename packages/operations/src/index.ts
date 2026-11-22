@@ -17,3 +17,12 @@ export type {
   Absence, PayrollRecord, PayrollSchedule, Shift, WorkforceCommand, WorkforceErrorCode,
   WorkforcePlan, WorkforceRole, WorkforceState,
 } from './workforce/types';
+
+export { createSalesSession } from './sales/session';
+export type { SalesSession } from './sales/session';
+export { readSalesStatus } from './sales/reads';
+export { SalesError } from './sales/types';
+export type {
+  Invoice, SalesCommand, SalesErrorCode, SalesOffer, SalesReceipt, SalesSessionCommand,
+  SalesSessionOptions, SalesSnapshot, SalesTerms,
+} from './sales/types';

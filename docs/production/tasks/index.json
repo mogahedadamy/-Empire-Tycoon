@@ -156,7 +156,8 @@
       "title": "عقود وتسليم وفوترة وتحصيل",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-008.md#دليل-الإنجاز",
       "dependencies": [
         "ET-006",
         "ET-007"
@@ -243,7 +244,7 @@
       "title": "حفظ وترحيل واستعادة اللعب الفردي",
       "stage": "B",
       "owner": "Platform Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-002",
         "ET-008"
