@@ -47,7 +47,8 @@
 | D | [ET-040 · جدول الموسم وقوة الأندية ومحاكاة المنافسات](tasks/ET-040.md) | Principal Simulation Engineer | [ET-037](tasks/ET-037.md) · [ET-039](tasks/ET-039.md) |
 | D | [ET-041 · واجهات اختيار البلد ومجلس النادي والسوق](tasks/ET-041.md) | UX Lead | [ET-036](tasks/ET-036.md) · [ET-039](tasks/ET-039.md) · [ET-040](tasks/ET-040.md) |
 | D | [ET-042 · بوابة قابلية اللعب للعالم والأندية 2026/27](tasks/ET-042.md) | Quality Lead | [ET-031](tasks/ET-031.md) · [ET-041](tasks/ET-041.md) |
-| E | [ET-021 · اختبارات الإطلاق والمراقبة](tasks/ET-021.md) | Quality Lead | [ET-018](tasks/ET-018.md)، [ET-020](tasks/ET-020.md)، [ET-031](tasks/ET-031.md)، [ET-042](tasks/ET-042.md) |
+| D | [ET-043 · اختبار أداء العالم واختيار وحدة التسريع عند الحاجة](tasks/ET-043.md) | Principal Simulation Engineer | [ET-042](tasks/ET-042.md) |
+| E | [ET-021 · اختبارات الإطلاق والمراقبة](tasks/ET-021.md) | Quality Lead | [ET-018](tasks/ET-018.md)، [ET-020](tasks/ET-020.md)، [ET-031](tasks/ET-031.md)، [ET-042](tasks/ET-042.md)، [ET-043](tasks/ET-043.md) |
 | F | [ET-022 · المجموعة والاستحواذ وإعادة الهيكلة](tasks/ET-022.md) | Finance Lead | [ET-018](tasks/ET-018.md)، [ET-021](tasks/ET-021.md)، [ET-035](tasks/ET-035.md) |
 | F | [ET-023 · أوراق مالية وأصول استثمارية خيالية](tasks/ET-023.md) | Economy Lead | [ET-022](tasks/ET-022.md) |
 | F | [ET-024 · قرارات التوسعات والإيراد والتعاون](tasks/ET-024.md) | Executive Producer | [ET-020](tasks/ET-020.md)، [ET-021](tasks/ET-021.md) |

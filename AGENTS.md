@@ -24,6 +24,10 @@ Start with [the product charter](docs/product/CHARTER.md), [the decision log](do
 | Test, CI, release, docs routing | [Quality](docs/agents/quality.md) |
 | Ownership, scope changes, dependency rules | [Organization](docs/organization/ORG.md) · [Architecture](docs/architecture/ARCHITECTURE.md) |
 
+## Language and simulation performance
+
+Write the UI and headless game rules in strict TypeScript. Keep the domain independent of the UI, platform APIs, and wall clock. Run local simulation through a Web Worker host and use the same domain rules on the server. Profile changes on the target devices under the [performance plan](docs/engineering/PERFORMANCE.md). Use Rust/WebAssembly for a measured computational bottleneck according to [ADR-0012](docs/architecture/ADR-0012.md) and [ET-043](docs/production/tasks/ET-043.md). Keep versioned commands, stable ordering, and replay parity across runtimes.
+
 ## Code organization and file size
 
 Use the feature folders and public entry points described in the [engineering standards](docs/engineering/STANDARDS.md#تنظيم-الميزات-وحجم-ملفات-الكود). Keep one cohesive responsibility per hand-written code file. Aim for 200 lines or fewer, review the split when approaching 200, and keep every such file at or below 350 physical lines after formatting. This also applies to UI, styles, tests, build scripts, and workflows. Split by responsibility and preserve the public contract and behavior. Keep inline module and public-contract documentation current, and record the feature entry point and test path in its task card.
