@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "types": [],
+    "strict": true,
+    "rootDir": ".",
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "contracts/src",
+    "simulation/src",
+    "finance/src",
+    "operations/src",
+    "ai-industry/src",
+    "world-economy/src",
+    "club-management/src",
+    "market/src",
+    "content/src"
+  ]
+}

@@ -1,6 +1,6 @@
 # AGENTS.md — Empire Tycoon
 
-Start with [the product charter](docs/product/CHARTER.md), [the decision log](docs/architecture/DECISIONS.md), and [the task board](docs/production/TASKS.md). The current phase is design and documentation. Begin implementation when the owner asks to start or gives an implementation task. A task marked ready has enough information to start after that instruction. This phase does not prohibit ordinary implementation once authorized.
+Start with [the product charter](docs/product/CHARTER.md), [the decision log](docs/architecture/DECISIONS.md), and [the task board](docs/production/TASKS.md). The owner has activated implementation of stage A through ET-001. A task marked ready has enough information to start when requested.
 
 ## Route work independently
 

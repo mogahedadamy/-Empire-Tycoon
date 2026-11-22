@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "projectPhase": "design-and-documentation",
+  "projectPhase": "implementation",
   "implementationActivation": "owner implementation instruction",
   "tasks": [
     {
@@ -8,7 +8,8 @@
       "title": "تهيئة المستودع ومرجع العمل",
       "stage": "A",
       "owner": "Platform Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-001.md#دليل-الإنجاز",
       "dependencies": [],
       "file": "docs/production/tasks/ET-001.md",
       "guides": [
@@ -26,7 +27,7 @@
       "title": "عقود المحاكاة والوقت",
       "stage": "A",
       "owner": "Principal Simulation Engineer",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-001"
       ],
@@ -46,7 +47,7 @@
       "title": "دفتر الأستاذ والمال والقوائم",
       "stage": "A",
       "owner": "Finance Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-001"
       ],
@@ -66,7 +67,7 @@
       "title": "قالب السيناريو والشركة الأولى",
       "stage": "A",
       "owner": "Game Director",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-001"
       ],
@@ -86,7 +87,7 @@
       "title": "اتجاه UX والأساس المشترك",
       "stage": "A",
       "owner": "UX Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-001"
       ],

@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "dev:game": "vite apps/game --host 0.0.0.0",
+    "build": "npm run typecheck && vite build && vite build apps/game",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc -p packages/tsconfig.domain.json",
+    "check:file-size": "node tools/check-file-size.mjs"
   },
   "dependencies": {
     "@capacitor/core": "^7.0.0"
