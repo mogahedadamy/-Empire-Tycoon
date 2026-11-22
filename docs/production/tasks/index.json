@@ -111,7 +111,8 @@
       "title": "توريد ومخزون وتكاليف",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-006.md#دليل-الإنجاز",
       "dependencies": [
         "ET-002",
         "ET-003",

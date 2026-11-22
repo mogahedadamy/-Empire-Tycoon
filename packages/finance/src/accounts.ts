@@ -20,6 +20,7 @@ export const chartOfAccounts = Object.freeze({
   utilitiesExpense: 'operatingExpenses',
   rentExpense: 'operatingExpenses',
   depreciationExpense: 'operatingExpenses',
+  inventorySpoilageExpense: 'operatingExpenses',
   interestExpense: 'interestExpense',
   taxExpense: 'taxExpense',
 } as const);
