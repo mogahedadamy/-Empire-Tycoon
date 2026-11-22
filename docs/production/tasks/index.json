@@ -224,7 +224,8 @@
       "title": "واجهات إدارة الشركة والمراجعة المالية",
       "stage": "B",
       "owner": "UX Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-011.md#دليل-الإنجاز",
       "dependencies": [
         "ET-005",
         "ET-008",

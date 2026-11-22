@@ -1,0 +1,120 @@
+/* Extends the founding theme for company screens and the compact delivery action dock. */
+.company-workspace .topbar { min-block-size: 70px; }
+.top-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.top-actions .secondary { font-size: .82rem; }
+.company-header h1 { font-size: clamp(1.9rem, 3.6vw, 3.25rem); }
+.company-content { padding-block-start: clamp(24px, 3.25vw, 42px); }
+.company-content .panel-heading h2 { min-inline-size: 0; }
+.company-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-block: 13px 9px; }
+.company-controls button { font-size: .82rem; }
+.company-controls button[aria-pressed="true"] { background: #e6efe5; border-color: var(--green); }
+.button.trace {
+  padding-inline: 4px;
+  color: var(--green);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: .24em;
+  justify-content: start;
+  text-align: start;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  font-size: .83rem;
+}
+.button.trace:hover { text-decoration-thickness: 2px; }
+.metric { display: grid; gap: 6px; align-content: start; }
+.company-metrics .metric > .figure { font-size: clamp(1.44rem, 2.65vw, 2.5rem); }
+.metric-primary .trace, .metric-primary .metric-note { color: #e4f1df; }
+.metric .trace { justify-self: start; }
+.metric-note { display: block; align-content: center; min-block-size: 44px; font-size: .82rem; color: var(--muted); }
+.liquidity-plot {
+  display: grid;
+  grid-template-columns: repeat(30, minmax(0, 1fr));
+  align-items: end;
+  gap: 3px;
+  block-size: 154px;
+  margin-block: 23px 7px;
+  border-block-end: 1px solid #a6b4a3;
+  background: repeating-linear-gradient(to top, #edf0e5 0 1px, transparent 1px 25%);
+}
+.liquidity-plot span {
+  block-size: var(--level);
+  background: #6e9a8a;
+  border-radius: 4px 4px 0 0;
+}
+.liquidity-plot.has-negative {
+  align-items: center;
+  background: linear-gradient(transparent 49.5%, #a6b4a3 50%, transparent 50.5%);
+}
+.liquidity-plot.has-negative span {
+  block-size: calc(var(--level) / 2);
+  transform: translateY(-50%);
+}
+.liquidity-plot.has-negative .below-zero {
+  background: var(--danger);
+  transform: translateY(50%);
+  border-radius: 0 0 4px 4px;
+}
+.plot-dates { display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); }
+.company-events .trace { display: flex; }
+.company-photo { display: block; width: 100%; aspect-ratio: 1.9; object-fit: cover; border-radius: 11px; margin-block-end: 16px; }
+.preview-link { text-decoration: none; margin-block-start: 15px; }
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-block-start: 12px;
+}
+.company-table :is(th, td) {
+  text-align: start;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+  padding: 8px 6px;
+  border-block-end: 1px solid var(--line);
+}
+.company-table th { font-size: .8rem; color: var(--muted); }
+.entry-reference { display: block; max-inline-size: 100%; overflow-wrap: anywhere; font: .79rem ui-monospace, monospace; color: var(--muted); }
+.source-dialog { inline-size: min(calc(100% - 28px), 560px); }
+.source-dialog > button { margin-block-start: 15px; }
+.invoice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-block-start: 13px; }
+.invoice-row { border: 1px solid var(--line); min-inline-size: 0; border-radius: 12px; padding: 13px; background: #fbfaf3; }
+.invoice-heading { display: flex; align-items: start; justify-content: space-between; gap: 8px; }
+.invoice-heading .badge { flex: 0 0 auto; }
+.quantity-field { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-block: 12px; }
+.delivery-quantity {
+  inline-size: 9ch;
+  min-block-size: 44px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid #9daa9e;
+  border-radius: 8px;
+  padding-inline: 9px;
+}
+.field-error { color: var(--danger); margin-block: 6px; }
+.decision-dock { display: flex; justify-content: end; margin-block-start: 14px; }
+.delivery-details .entry-reference { margin-block-start: 6px; }
+
+@media (max-width: 910px) {
+  .invoice-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 660px) {
+  .company-nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .company-workspace .topbar { flex-wrap: wrap; }
+  .top-actions { flex: 1; justify-content: end; }
+  .company-metrics { gap: 10px; }
+  .company-metrics .metric > .figure { margin-block: 0; }
+  .company-metrics .metric { gap: 3px; }
+  .company-table :is(th, td) { padding-inline: 3px; }
+  .with-decision .company-content { padding-block-end: calc(92px + env(safe-area-inset-bottom)); }
+  .decision-dock {
+    position: fixed;
+    z-index: 2;
+    inset-inline: 0;
+    inset-block-end: 0;
+    margin: 0;
+    padding: 10px 16px max(10px, env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-block-start: 1px solid var(--line);
+  }
+  .decision-dock button { width: 100%; }
+  .liquidity-plot { block-size: 125px; gap: 2px; }
+}
