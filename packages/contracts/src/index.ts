@@ -94,3 +94,19 @@ export type SimulationReply =
 export interface SimulationHost {
   handle(request: unknown): SimulationReply;
 }
+
+export type {
+  WorkerAck,
+  WorkerCommandRequest,
+  WorkerCommittedResult,
+  WorkerErrorReply,
+  WorkerHostReply,
+  WorkerHostRequest,
+  WorkerInitRequest,
+  WorkerPreviewReply,
+  WorkerPreviewRequest,
+  WorkerProgress,
+  WorkerReadRequest,
+  WorkerSnapshotReply,
+  WorkerTransport,
+} from './worker';

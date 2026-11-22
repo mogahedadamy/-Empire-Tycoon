@@ -37,6 +37,7 @@ function decodeScenario(input: unknown) {
     monthlyClose: Object.freeze(decode.monthlyClose(data.monthlyClose)),
     firstDecision: Object.freeze(decode.firstDecision(data.firstDecision)),
     objectives: Object.freeze(decode.objectives(data.objectives)),
+    postClose: Object.freeze(decode.postClose(data.postClose)),
   });
 }
 

@@ -1,4 +1,5 @@
-/** Opens company management, with the original founding preview still available. */
-const preview = new URLSearchParams(location.search).get('preview') === '1';
-if (preview) void import('./preview');
-else void import('./company/app');
+/** Opens the Big Order journey by default, keeping preview and checkpoint entry points reachable. */
+const params = new URLSearchParams(location.search);
+if (params.get('preview') === '1') void import('./preview');
+else if (params.get('checkpoint') === '1') void import('./company/app');
+else void import('./journey/app');

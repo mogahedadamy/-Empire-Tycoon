@@ -105,3 +105,25 @@ export function objectives(value: unknown) {
     minimumClosingCashMinor: money(item.minimumClosingCashMinor, 'objectives.minimumClosingCashMinor', true),
   };
 }
+
+export function postClose(value: unknown) {
+  const item = section(value, 'postClose');
+  return {
+    day: integer(item.day, 'postClose.day'),
+    rentObligationId: id(item.rentObligationId, 'postClose.rentObligationId'),
+    rentAmountMinor: money(item.rentAmountMinor, 'postClose.rentAmountMinor'),
+    rentDueDay: integer(item.rentDueDay, 'postClose.rentDueDay'),
+    restockOrderId: id(item.restockOrderId, 'postClose.restockOrderId'),
+    restockQuantity: integer(item.restockQuantity, 'postClose.restockQuantity'),
+    restockUnitCostMinor: money(item.restockUnitCostMinor, 'postClose.restockUnitCostMinor'),
+    rescueLoanId: id(item.rescueLoanId, 'postClose.rescueLoanId'),
+    rescueLoanPrincipalMinor: money(item.rescueLoanPrincipalMinor, 'postClose.rescueLoanPrincipalMinor'),
+    rescueLoanMonthlyInterestBps: integer(item.rescueLoanMonthlyInterestBps, 'postClose.rescueLoanMonthlyInterestBps', 0, 10_000),
+    rescueLoanDueDay: integer(item.rescueLoanDueDay, 'postClose.rescueLoanDueDay'),
+    customerDelayDays: integer(item.customerDelayDays, 'postClose.customerDelayDays', 0),
+    utilitiesDueAfterCloseDays: integer(item.utilitiesDueAfterCloseDays, 'postClose.utilitiesDueAfterCloseDays'),
+    interestDueAfterCloseDays: integer(item.interestDueAfterCloseDays, 'postClose.interestDueAfterCloseDays'),
+    taxDueAfterCloseDays: integer(item.taxDueAfterCloseDays, 'postClose.taxDueAfterCloseDays'),
+    defaultGraceDays: integer(item.defaultGraceDays, 'postClose.defaultGraceDays'),
+  };
+}

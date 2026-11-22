@@ -60,4 +60,18 @@ export function validateScenarioRules(scenario: Scenario): void {
   if (totalCapacity < BigInt(contract.quantity)) {
     invalid('contract.quantity', 'fresh stock and daily capacity cannot meet delivery by the deadline');
   }
+
+  const { postClose } = scenario;
+  if (postClose.day <= firstCloseDay || postClose.day >= endDay) {
+    invalid('postClose.day', 'post-close operations must follow the first close and precede scenario end');
+  }
+  if (postClose.rentDueDay < postClose.day || postClose.rentDueDay >= contract.paymentDueDay) {
+    invalid('postClose.rentDueDay', 'post-close rent must be due after recognition and before collection');
+  }
+  if (contract.paymentDueDay + postClose.customerDelayDays > endDay) {
+    invalid('postClose.customerDelayDays', 'delayed collection must remain inside the scenario calendar');
+  }
+  if (postClose.rescueLoanDueDay <= postClose.day) {
+    invalid('postClose.rescueLoanDueDay', 'rescue loan principal must mature after disbursement');
+  }
 }

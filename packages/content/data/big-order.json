@@ -11,7 +11,7 @@
   "company": { "id": "sanabel-al-wadi", "name": "سنابل الوادي", "cityId": "wadi-al-marsa", "sectorId": "food-distribution" },
   "supplier": { "id": "hasad-al-rabwa", "name": "حصاد الربوة", "cityId": "wadi-al-marsa" },
   "customer": { "id": "aswaq-al-sunbul", "name": "أسواق السنبل", "cityId": "wadi-al-marsa" },
-  "product": { "id": "produce-box", "name": "صندوق خضار", "sectorId": "food-distribution", "shelfLifeDays": 21 },
+  "product": { "id": "produce-box", "name": "صندوق خضار", "sectorId": "food-distribution", "shelfLifeDays": 38 },
   "calendar": { "startDay": 1, "firstCloseDay": 30, "endDay": 45 },
   "opening": {
     "cashMinor": "0",
@@ -45,5 +45,23 @@
   "monthlyClose": { "utilitiesMinor": "30000", "depreciationMinor": "10000", "incomeTaxBps": 2000 },
   "payroll": { "amountMinor": "120000", "dueDay": 28 },
   "firstDecision": { "day": 1, "contractId": "weekly-produce-order", "options": ["accept-contract", "review-alternatives"] },
-  "objectives": { "deliverContractByDueDay": true, "payPayrollByDueDay": true, "minimumClosingCashMinor": "0" }
+  "objectives": { "deliverContractByDueDay": true, "payPayrollByDueDay": true, "minimumClosingCashMinor": "0" },
+  "postClose": {
+    "day": 31,
+    "rentObligationId": "warehouse-rent-32",
+    "rentAmountMinor": "220000",
+    "rentDueDay": 32,
+    "restockOrderId": "seasonal-restock",
+    "restockQuantity": 625,
+    "restockUnitCostMinor": "4000",
+    "rescueLoanId": "working-capital-loan",
+    "rescueLoanPrincipalMinor": "600000",
+    "rescueLoanMonthlyInterestBps": 100,
+    "rescueLoanDueDay": 90,
+    "customerDelayDays": 3,
+    "utilitiesDueAfterCloseDays": 4,
+    "interestDueAfterCloseDays": 4,
+    "taxDueAfterCloseDays": 10,
+    "defaultGraceDays": 3
+  }
 }

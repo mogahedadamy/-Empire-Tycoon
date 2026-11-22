@@ -92,4 +92,18 @@ it('rejects infeasible calendar, supply, shelf life and capacity combinations', 
     .toThrow('contract.quantity');
   expect(() => parseScenario({ ...base, opening: { ...base.opening, dailyHandlingCapacity: 20 } }))
     .toThrow('contract.quantity');
+  expect(() => parseScenario({ ...base, postClose: { ...base.postClose, day: 30 } }))
+    .toThrow('postClose.day');
+  expect(() => parseScenario({ ...base, postClose: { ...base.postClose, rentDueDay: 38 } }))
+    .toThrow('postClose.rentDueDay');
+  expect(() => parseScenario({ ...base, postClose: { ...base.postClose, customerDelayDays: 10 } }))
+    .toThrow('postClose.customerDelayDays');
+
+  const tight = loadScenario('big-order-tight');
+  expect(tight).toMatchObject({
+    id: 'big-order-tight',
+    seed: 202628,
+    opening: { capitalMinor: '2400000', dailyHandlingCapacity: 40 },
+    product: { shelfLifeDays: 21 },
+  });
 });

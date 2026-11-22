@@ -21,6 +21,8 @@ export type {
 
 export { createSalesSession } from './sales/session';
 export type { SalesSession } from './sales/session';
+export { applySalesCommand, createSalesState, readSalesCapacity } from './sales/state';
+export type { SalesDailyLimits, SalesTransition } from './sales/state';
 export { readSalesStatus } from './sales/reads';
 export { SalesError } from './sales/types';
 export type {

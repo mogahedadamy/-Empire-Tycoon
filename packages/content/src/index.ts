@@ -1,11 +1,18 @@
 /** Public entry point for loading the shipped content or validating edited scenario data. */
 import bigOrder from '../data/big-order.json';
+import bigOrderTight from '../data/big-order-tight.json';
 import { parseScenario, type Scenario } from './scenario';
 
 export { parseScenario };
 export type { Scenario };
 
-const catalog = new Map<string, unknown>([['big-order', bigOrder]]);
+const catalog = new Map<string, unknown>([
+  ['big-order', bigOrder],
+  ['big-order-tight', bigOrderTight],
+]);
+
+/** Identifiers of all shipped scenarios available from the catalog. */
+export const scenarioIds = Object.freeze(Array.from(catalog.keys()));
 
 /** Loads the scenario and its pinned seed by ID. Throws if the ID or bundled data is invalid. */
 export function loadScenario(id: string): Scenario {

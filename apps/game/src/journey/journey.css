@@ -1,0 +1,82 @@
+/* Journey guidance, worker progress meter, containment options, and evaluation styling. */
+.rev-pill {
+  font-size: .76rem;
+  color: var(--muted);
+  background: #ecefe5;
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+.worker-banner {
+  display: grid;
+  gap: 8px;
+  margin-block-end: 14px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  background: #e6efe5;
+  border: 1px solid #9ab5a6;
+  color: #163d31;
+}
+.worker-banner[hidden] { display: none; }
+.worker-meter {
+  width: 100%;
+  block-size: 10px;
+  accent-color: var(--green);
+}
+.guidance-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block-end: 16px;
+  background: #f9f6ea;
+  border-color: #cfc8aa;
+}
+.guidance-copy {
+  display: grid;
+  gap: 6px;
+  flex: 1 1 260px;
+  min-inline-size: 0;
+}
+.guidance-actions { flex: 0 0 auto; }
+.panel-actions { margin-block-start: 14px; }
+.alert-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-block-start: 0;
+}
+.alert-card > div { flex: 1 1 240px; min-inline-size: 0; }
+.badge-warn { background: #f5ead2; color: #5c3d0c; }
+.badge-danger { background: #f9e4df; color: #84231c; }
+.button.danger { background: var(--danger); color: white; }
+.button.danger:enabled:hover { background: #892822; }
+.containment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-block-start: 14px;
+}
+.containment-card {
+  display: grid;
+  gap: 10px;
+  align-content: space-between;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fbfaf3;
+  min-inline-size: 0;
+}
+.containment-card > .button { width: 100%; }
+.decision-card { border-color: #c2b280; background: #fdfbf2; }
+.report-panel .notice { margin-block: 10px 14px; }
+.navigation .nav-item:disabled { opacity: .55; }
+
+@media (max-width: 660px) {
+  .top-actions { width: 100%; justify-content: start; }
+  .top-actions .button { font-size: .78rem; padding-inline: 10px; }
+  .containment-grid { grid-template-columns: minmax(0, 1fr); }
+  .guidance-bar { padding: 14px; }
+}

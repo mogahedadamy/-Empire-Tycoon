@@ -269,7 +269,8 @@
       "title": "رحلة الطلب الكبير",
       "stage": "B",
       "owner": "Game Director",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-013.md#دليل-الإنجاز",
       "dependencies": [
         "ET-011",
         "ET-012"
