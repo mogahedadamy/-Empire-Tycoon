@@ -382,6 +382,72 @@
       ]
     },
     {
+      "id": "ET-025",
+      "title": "تأسيس شركة ذكاء اصطناعي وبيانات القطاع",
+      "stage": "C",
+      "owner": "Game Director",
+      "status": "planned",
+      "dependencies": [
+        "ET-015",
+        "ET-016"
+      ],
+      "file": "docs/production/tasks/ET-025.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-026",
+      "title": "توريد المسرّعات والطاقة وتخصيص الحوسبة",
+      "stage": "C",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-017",
+        "ET-025"
+      ],
+      "file": "docs/production/tasks/ET-026.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/architecture/ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "ET-027",
+      "title": "مختبر النماذج والتقييم والإطلاق",
+      "stage": "C",
+      "owner": "Principal Simulation Engineer",
+      "status": "planned",
+      "dependencies": [
+        "ET-026"
+      ],
+      "file": "docs/production/tasks/ET-027.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/architecture/ARCHITECTURE.md"
+      ]
+    },
+    {
       "id": "ET-019",
       "title": "أساس الخدمة المتصلة",
       "stage": "D",
@@ -426,6 +492,100 @@
       ]
     },
     {
+      "id": "ET-028",
+      "title": "خدمة API والفواتير وهامش التشغيل",
+      "stage": "D",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-027"
+      ],
+      "file": "docs/production/tasks/ET-028.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-029",
+      "title": "المنافسون وتوزيع الطلب والصفقات",
+      "stage": "D",
+      "owner": "Economy Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-016",
+        "ET-028"
+      ],
+      "file": "docs/production/tasks/ET-029.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-030",
+      "title": "واجهة تأسيس شركة الذكاء الاصطناعي وتشغيلها",
+      "stage": "D",
+      "owner": "UX Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-026",
+        "ET-027",
+        "ET-028",
+        "ET-029"
+      ],
+      "file": "docs/production/tasks/ET-030.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-031",
+      "title": "شريحة الذكاء الاصطناعي والتحقق عبر القطاعات",
+      "stage": "D",
+      "owner": "Quality Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-030"
+      ],
+      "file": "docs/production/tasks/ET-031.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/quality.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/product/AI_INDUSTRY.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
       "id": "ET-021",
       "title": "اختبارات الإطلاق والمراقبة",
       "stage": "E",
@@ -433,7 +593,8 @@
       "status": "planned",
       "dependencies": [
         "ET-018",
-        "ET-020"
+        "ET-020",
+        "ET-031"
       ],
       "file": "docs/production/tasks/ET-021.md",
       "guides": [
@@ -510,6 +671,31 @@
       "references": [
         "docs/product/CHARTER.md",
         "docs/architecture/DECISIONS.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-032",
+      "title": "موسم تنافسي خاص بشركات الذكاء الاصطناعي",
+      "stage": "F",
+      "owner": "Online Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-020",
+        "ET-021",
+        "ET-031"
+      ],
+      "file": "docs/production/tasks/ET-032.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/backend.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/architecture/ARCHITECTURE.md",
         "docs/production/ROADMAP.md"
       ]
     }

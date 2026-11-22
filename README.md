@@ -7,6 +7,7 @@
 | المسار | المرجع |
 |---|---|
 | الرؤية وحدود المنتج | [ميثاق اللعبة](docs/product/CHARTER.md) · [تصميم اللعب](docs/product/GAME_DESIGN.md) · [تحليل المرجع](docs/research/REFERENCE.md) |
+| قطاع الذكاء الاصطناعي | [تأسيس الشركة وسلسلة الإمداد والمنافسة](docs/product/AI_INDUSTRY.md) · [مثال السعة والفواتير](docs/product/AI_INDUSTRY_FIXTURE.md) |
 | قواعد المحاكاة | [مواصفات الاقتصاد](docs/product/ECONOMY.md) · [مثال مالي مرجعي](docs/product/ECONOMY_FIXTURE.md) |
 | تجربة الاستخدام | [نظام التصميم والشاشات](docs/design/DESIGN_SYSTEM.md) |
 | الهندسة والقرارات | [المعمارية](docs/architecture/ARCHITECTURE.md) · [سجل القرارات](docs/architecture/DECISIONS.md) · [معايير الجودة](docs/engineering/STANDARDS.md) |

@@ -4,6 +4,8 @@
 
 حالات الفهرس هي planned وready وin_progress وdone وblocked. تعني ready جاهزية التعليمات عند التكليف؛ ولا تعني أن التنفيذ بدأ. يمكن تنفيذ مهام مستقلة بعد اكتمال مقدماتها. يحفظ الفهرس مسارات من جذر المستودع. عند إضافة مهمة جديدة تُحدَّث البطاقة والفهرس والجدول.
 
+مسار شركات الذكاء الاصطناعي موثّق في [مواصفات القطاع](../product/AI_INDUSTRY.md). يبدأ من ET-025 بعد مقدماته. يعرض الجدول أرقام المهام، ويحفظ الفهرس ترتيب التبعيات.
+
 | المرحلة | المهمة | المالك | التبعيات |
 |---|---|---|---|
 | A | [ET-001 · تهيئة المستودع ومرجع العمل](tasks/ET-001.md) | Platform Lead | — |
@@ -24,9 +26,17 @@
 | C | [ET-016 · طلب ومنافسون وصدمات السوق](tasks/ET-016.md) | Economy Lead | [ET-015](tasks/ET-015.md) |
 | C | [ET-017 · التصنيع واللوجستيات والعقار](tasks/ET-017.md) | Operations Lead | [ET-015](tasks/ET-015.md) |
 | C | [ET-018 · تأليف محتوى وحملة وتوازن](tasks/ET-018.md) | Content Lead | [ET-016](tasks/ET-016.md)، [ET-017](tasks/ET-017.md) |
+| C | [ET-025 · تأسيس شركة ذكاء اصطناعي وبيانات القطاع](tasks/ET-025.md) | Game Director | [ET-015](tasks/ET-015.md)، [ET-016](tasks/ET-016.md) |
+| C | [ET-026 · توريد المسرّعات والطاقة وتخصيص الحوسبة](tasks/ET-026.md) | Operations Lead | [ET-017](tasks/ET-017.md)، [ET-025](tasks/ET-025.md) |
+| C | [ET-027 · مختبر النماذج والتقييم والإطلاق](tasks/ET-027.md) | Principal Simulation Engineer | [ET-026](tasks/ET-026.md) |
 | D | [ET-019 · أساس الخدمة المتصلة](tasks/ET-019.md) | Online Lead | [ET-015](tasks/ET-015.md) |
 | D | [ET-020 · قواعد موسم وتجربة التنافس](tasks/ET-020.md) | Game Director | [ET-016](tasks/ET-016.md)، [ET-019](tasks/ET-019.md) |
-| E | [ET-021 · اختبارات الإطلاق والمراقبة](tasks/ET-021.md) | Quality Lead | [ET-018](tasks/ET-018.md)، [ET-020](tasks/ET-020.md) |
+| D | [ET-028 · خدمة API والفواتير وهامش التشغيل](tasks/ET-028.md) | Finance Lead | [ET-027](tasks/ET-027.md) |
+| D | [ET-029 · المنافسون وتوزيع الطلب والصفقات](tasks/ET-029.md) | Economy Lead | [ET-016](tasks/ET-016.md)، [ET-028](tasks/ET-028.md) |
+| D | [ET-030 · واجهة تأسيس شركة الذكاء الاصطناعي وتشغيلها](tasks/ET-030.md) | UX Lead | [ET-026](tasks/ET-026.md)، [ET-027](tasks/ET-027.md)، [ET-028](tasks/ET-028.md)، [ET-029](tasks/ET-029.md) |
+| D | [ET-031 · شريحة الذكاء الاصطناعي والتحقق عبر القطاعات](tasks/ET-031.md) | Quality Lead | [ET-030](tasks/ET-030.md) |
+| E | [ET-021 · اختبارات الإطلاق والمراقبة](tasks/ET-021.md) | Quality Lead | [ET-018](tasks/ET-018.md)، [ET-020](tasks/ET-020.md)، [ET-031](tasks/ET-031.md) |
 | F | [ET-022 · المجموعة والاستحواذ وإعادة الهيكلة](tasks/ET-022.md) | Finance Lead | [ET-018](tasks/ET-018.md)، [ET-021](tasks/ET-021.md) |
 | F | [ET-023 · أوراق مالية وأصول استثمارية خيالية](tasks/ET-023.md) | Economy Lead | [ET-022](tasks/ET-022.md) |
 | F | [ET-024 · قرارات التوسعات والإيراد والتعاون](tasks/ET-024.md) | Executive Producer | [ET-020](tasks/ET-020.md)، [ET-021](tasks/ET-021.md) |
+| F | [ET-032 · موسم تنافسي خاص بشركات الذكاء الاصطناعي](tasks/ET-032.md) | Online Lead | [ET-020](tasks/ET-020.md)، [ET-021](tasks/ET-021.md)، [ET-031](tasks/ET-031.md) |
