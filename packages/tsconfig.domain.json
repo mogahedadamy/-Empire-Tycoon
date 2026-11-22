@@ -20,6 +20,7 @@
     "world-economy/src",
     "club-management/src",
     "market/src",
-    "content/src"
+    "content/src",
+    "storage/src"
   ]
 }

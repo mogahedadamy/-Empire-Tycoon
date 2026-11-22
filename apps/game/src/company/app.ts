@@ -3,8 +3,10 @@ import { loadScenario } from '../../../../packages/content/src';
 import { action, applyLocale, el, focusHeading, type Locale } from '../../../../packages/ui/src';
 import { contracts, type DeliveryDecision } from './contracts';
 import { financeView, journalDialog, type Statement } from './finance';
-import { createCompanyHost } from './host';
+import type { CompanyHost } from './host';
 import { company, overview, type ForecastMode } from './overview';
+import { saveMessage } from './save-notice';
+import { openCompanyStorage, type SaveNotice } from './storage';
 import { labels } from './view-tools';
 import '../theme.css';
 import '../layout.css';
@@ -13,7 +15,9 @@ import './company.css';
 
 type Screen = 'overview' | 'business' | 'contracts' | 'finance';
 const screens: Screen[] = ['overview', 'business', 'contracts', 'finance'];
-const host = createCompanyHost(loadScenario('big-order'));
+let host: CompanyHost;
+let persistence: Awaited<ReturnType<typeof openCompanyStorage>>;
+let saveNotice: SaveNotice;
 const root = document.querySelector<HTMLElement>('#app')!;
 const live = document.querySelector<HTMLElement>('#announcements')!;
 
@@ -22,7 +26,7 @@ let locale: Locale = 'ar';
 let scenarioMode: ForecastMode = 'baseline';
 let statement: Statement = 'income';
 let account: string | null = null;
-let quantity = String(host.preview(1).max || 1);
+let quantity = '1';
 let decision: DeliveryDecision = { type: 'idle' };
 
 function focus(id: string) {
@@ -61,7 +65,7 @@ function changeQuantity(value: string) {
 }
 
 function submitDecision() {
-  if (decision.type === 'pending') return;
+  if (decision.type === 'pending' || !persistence.canWrite()) return;
   if (decision.type !== 'preview' || !decision.preview.valid) {
     decision = { type: 'preview', preview: host.preview(Number(quantity)) };
     render();
@@ -83,6 +87,7 @@ function submitDecision() {
       decision = { type: 'accepted', invoiceId: receipt.invoiceId };
       live.textContent = c.accepted;
       quantity = String(host.preview(1).max || 1);
+      persistence.save();
     } else {
       decision = { type: 'rejected' };
       live.textContent = c.rejected;
@@ -154,7 +159,9 @@ function render() {
   language.setAttribute('aria-label', c.language);
   language.lang = locale === 'ar' ? 'en' : 'ar';
   const next = action(c.nextDay, () => {
-    host.advance();
+    if (!persistence.canWrite()) return;
+    const receipt = host.advance();
+    if (receipt?.status === 'accepted') persistence.save();
     render();
     const control = root.querySelector<HTMLButtonElement>('[data-next-day]');
     if (control?.disabled) focus('#page-title');
@@ -177,10 +184,47 @@ function render() {
       ),
       el('div', 'content company-content',
         el('header', 'view-header company-header', el('span', 'badge', c.checkpoint), title),
+        el('p', 'save-status', ''),
         renderScreen(model, strings),
       ),
     ),
   );
+  updateSaveStatus();
 }
 
-render();
+function updateSaveStatus() {
+  const status = root.querySelector<HTMLElement>('.save-status');
+  if (!status) return;
+  status.setAttribute('role', 'status');
+  status.dataset.state = saveNotice.kind;
+  status.textContent = saveMessage(locale, saveNotice);
+  if (!persistence.canWrite()) {
+    root.querySelectorAll<HTMLButtonElement>('[data-delivery-action], [data-next-day]')
+      .forEach((control) => { control.disabled = true; });
+  }
+}
+
+async function start() {
+  root.textContent = 'جارٍ فتح نقطة الحفظ…';
+  persistence = await openCompanyStorage(loadScenario('big-order'), (notice) => {
+    saveNotice = notice;
+    updateSaveStatus();
+  });
+  host = persistence.host;
+  saveNotice = persistence.notice;
+  quantity = String(host.preview(1).max || 1);
+  render();
+
+  const foreground = () => {
+    persistence.foreground();
+    persistence.save();
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) persistence.save();
+    else foreground();
+  });
+  window.addEventListener('pageshow', foreground);
+  window.addEventListener('pagehide', () => persistence.save());
+}
+
+void start();

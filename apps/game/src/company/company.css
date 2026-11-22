@@ -118,3 +118,15 @@
   .decision-dock button { width: 100%; }
   .liquidity-plot { block-size: 125px; gap: 2px; }
 }
+
+.save-status {
+  color: var(--muted);
+  font-size: .82rem;
+  margin-block-end: 12px;
+}
+.save-status:not([data-state="saved"], [data-state="saving"]) {
+  color: #533a13;
+  background: #f5ead2;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
