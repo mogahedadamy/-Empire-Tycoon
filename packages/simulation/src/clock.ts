@@ -1,7 +1,7 @@
 /** Closes virtual days in economy order and produces authoritative clock snapshots. */
-import type { DecisionAlert, SimulationSnapshot } from '../../contracts/src';
+import { daysPerMonth, type DecisionAlert, type SimulationSnapshot } from '../../contracts/src';
 
-export const daysPerMonth = 30;
+export { daysPerMonth };
 export const maxAdvanceDays = 360;
 
 const dailyPhases = [

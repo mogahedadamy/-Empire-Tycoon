@@ -1,6 +1,9 @@
 /** Versioned request and response data shared by simulation hosts and their clients. */
 export const simulationProtocolVersion = 1;
 
+/** Fixed month length in virtual days for the first ruleset. */
+export const daysPerMonth = 30;
+
 /** Advance by a count, close through an inclusive date, or clear a resolved decision. */
 export type CommandPayload =
   | { readonly type: 'advance'; readonly days: number }

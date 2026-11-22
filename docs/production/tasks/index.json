@@ -178,7 +178,8 @@
       "title": "تمويل وضرائب واستحقاقات",
       "stage": "B",
       "owner": "Finance Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-009.md#دليل-الإنجاز",
       "dependencies": [
         "ET-002",
         "ET-003",
@@ -200,7 +201,7 @@
       "title": "توقع السيولة والتعثر",
       "stage": "B",
       "owner": "Finance Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-008",
         "ET-009"

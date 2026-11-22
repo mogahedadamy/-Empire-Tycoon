@@ -10,6 +10,7 @@ export const chartOfAccounts = Object.freeze({
   loanPrincipal: 'liabilities',
   payrollPayable: 'liabilities',
   utilitiesPayable: 'liabilities',
+  rentPayable: 'liabilities',
   interestPayable: 'liabilities',
   taxPayable: 'liabilities',
   contributedCapital: 'equity',

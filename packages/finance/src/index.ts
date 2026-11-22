@@ -8,3 +8,10 @@ export type { LedgerScope } from './ledger';
 export { applyBasisPoints, parseMinorUnits } from './money';
 export { balanceSheet, incomeStatement } from './statements';
 export type { ReportingPeriod } from './statements';
+
+export { applyFinanceCommand, createFinanceState } from './treasury/state';
+export { FinanceError } from './treasury/types';
+export type {
+  ClosePolicy, FinanceCommand, FinanceErrorCode, FinanceResult, FinanceState, Loan, LoanTerms,
+  MonthlyClose, Obligation, ObligationKind, OperatingObligation, PrincipalInstallment,
+} from './treasury/types';

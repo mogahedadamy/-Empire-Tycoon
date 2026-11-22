@@ -18,6 +18,14 @@ export interface SessionOptions {
   readonly seed: number;
   /** Use the same deterministic schedule and content for both live execution and replay. */
   readonly schedule?: PhaseSchedule;
+  /** Stages transactional domain work separately for each accepted advance attempt. */
+  readonly prepareAdvance?: () => StagedAdvance;
+}
+
+export interface StagedAdvance {
+  readonly schedule: PhaseSchedule;
+  /** Publishes a prepared immutable state after all scheduled work succeeds. Must not throw. */
+  commit(): void;
 }
 
 export interface SimulationSession extends SimulationHost {
@@ -43,7 +51,7 @@ function reject(command: SimulationCommand, revision: number, code: RejectionCod
 
 /** Starts on day 1 at revision 0. Throws RangeError for an invalid session ID or seed. */
 export function createSimulationSession(options: SessionOptions): SimulationSession {
-  const { sessionId, seed, schedule = () => [] } = options;
+  const { sessionId, seed, schedule = () => [], prepareAdvance } = options;
   if (!isIdentifier(sessionId) || !Number.isInteger(seed) || seed < 0 || seed > 0xffffffff) {
     throw new RangeError('Expected a session ID and an unsigned 32-bit seed');
   }
@@ -115,7 +123,11 @@ export function createSimulationSession(options: SessionOptions): SimulationSess
       return reject(command, snapshot.revision, 'invalid-target');
     }
 
-    const next = advanceClock(snapshot, days, schedule);
+    const staged = prepareAdvance?.();
+    const next = advanceClock(snapshot, days, staged
+      ? (context) => [...schedule(context), ...staged.schedule(context)]
+      : schedule);
+    staged?.commit();
     return accept(command, next, Object.freeze({
       type: 'progress',
       sessionId,
