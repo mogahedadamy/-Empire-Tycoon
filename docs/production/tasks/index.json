@@ -134,7 +134,8 @@
       "title": "عمالة وطاقة وأجور",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-007.md#دليل-الإنجاز",
       "dependencies": [
         "ET-002",
         "ET-003",
@@ -155,7 +156,7 @@
       "title": "عقود وتسليم وفوترة وتحصيل",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-006",
         "ET-007"
