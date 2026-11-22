@@ -3,6 +3,7 @@ import { action, applyLocale, el, notice, type Locale } from '../../../../packag
 import { industrySelectionLink } from '../projects/navigation';
 import { guidanceBar, type JourneyScreen } from './guidance';
 import { missionCopy } from './mission-copy';
+import { playbookLink } from './playbook-entry';
 import type { JourneyLabels } from './text';
 import type { JourneyReadModel } from './types';
 
@@ -84,6 +85,7 @@ export function renderJourneyShell(options: ShellOptions) {
   language.lang = locale === 'ar' ? 'en' : 'ar';
   topActions.append(language);
   topActions.append(industrySelectionLink(locale, 'secondary'));
+  topActions.append(playbookLink(locale));
 
   const title = el('h1', '', model.founded ? c[`${screen}Title`] : c.setupTitle);
   title.id = 'page-title';

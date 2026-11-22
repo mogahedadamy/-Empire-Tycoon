@@ -9,6 +9,7 @@ import { preview } from 'vite';
 import { audit, reviewLayout } from './accessibility.mjs';
 import { checkMigration, command, firstClose, navigate, open, readOrReplaceSave, snapshot } from './journey.mjs';
 import { verifyOpeningMission } from './mission.mjs';
+import { verifyPlaybook } from './playbook.mjs';
 import { verifyOperatingProjects } from './projects.mjs';
 
 let server;
@@ -53,6 +54,17 @@ test('chooses any operating sector and confirms its opening decision on a phone-
     const page = await browser.newPage({ viewport: { width: 360, height: 800 }, hasTouch: true });
     page.setDefaultTimeout(8000);
     await verifyOperatingProjects(page, missionUrl);
+  } finally {
+    await browser.close();
+  }
+});
+
+test('launches authored chapters and independent free play on a phone-sized viewport', { timeout: 80_000 }, async () => {
+  const browser = await chromium.launch({ executablePath });
+  try {
+    const page = await browser.newPage({ viewport: { width: 360, height: 800 }, hasTouch: true });
+    page.setDefaultTimeout(8000);
+    await verifyPlaybook(page, missionUrl);
   } finally {
     await browser.close();
   }

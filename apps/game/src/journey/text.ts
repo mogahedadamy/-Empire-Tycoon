@@ -1,11 +1,19 @@
 /** Combines shared company labels with journey-specific Arabic and English strings. */
+import { getPlaybookRun } from '../../../../packages/content/src';
 import { createFormatters, el, figure, type Locale } from '../../../../packages/ui/src';
 import { companyText } from '../company/text';
 import { journeyAr } from './text-ar';
 import { journeyEn } from './text-en';
 
-export function journeyLabels(locale: Locale) {
+export function journeyLabels(locale: Locale, scenarioId?: string) {
   const c = { ...companyText(locale), ...(locale === 'ar' ? journeyAr : journeyEn) };
+  const run = scenarioId ? getPlaybookRun(scenarioId) : undefined;
+  if (run) {
+    c.journeyBadge = run.title[locale];
+    c.setupTitle = run.title[locale];
+    c.setupIntro = run.summary[locale];
+    c.contractTerms = run.title[locale];
+  }
   const format = createFormatters(locale);
   return {
     c,

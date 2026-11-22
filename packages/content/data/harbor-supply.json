@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1, "rulesetVersion": 1, "contentVersion": 1,
+  "id": "harbor-supply", "seed": 302018, "name": "تموين الميناء", "currency": "GAME",
+  "city": { "id": "wadi-al-marsa", "name": "وادي المرسى" },
+  "sector": { "id": "food-distribution", "name": "توزيع الأغذية" },
+  "company": { "id": "sanabel-al-wadi", "name": "سنابل الوادي", "cityId": "wadi-al-marsa", "sectorId": "food-distribution" },
+  "supplier": { "id": "coastal-growers", "name": "مزارعو الساحل", "cityId": "wadi-al-marsa" },
+  "customer": { "id": "harbor-kitchens", "name": "مطابخ الميناء", "cityId": "wadi-al-marsa" },
+  "product": { "id": "produce-box", "name": "صندوق خضار", "sectorId": "food-distribution", "shelfLifeDays": 18 },
+  "calendar": { "startDay": 1, "firstCloseDay": 30, "endDay": 48 },
+  "opening": {
+    "cashMinor": "0", "inventoryQuantity": 0, "capitalMinor": "2750000", "loanPrincipalMinor": "750000",
+    "loanMonthlyInterestBps": 120, "rentalDepositMinor": "200000", "equipmentMinor": "600000", "dailyHandlingCapacity": 36
+  },
+  "supply": { "supplierId": "coastal-growers", "productId": "produce-box", "quantity": 112, "unitCostMinor": "4200", "arrivalDay": 12 },
+  "contract": {
+    "id": "harbor-produce-contract", "customerId": "harbor-kitchens", "productId": "produce-box", "quantity": 96,
+    "unitPriceMinor": "8300", "offerExpiresDay": 8, "deliveryStartsDay": 16, "deliveryDueDay": 19,
+    "paymentDueDay": 39, "earlyPaymentDiscountBps": 250
+  },
+  "payroll": { "amountMinor": "145000", "dueDay": 27 },
+  "monthlyClose": { "utilitiesMinor": "31000", "depreciationMinor": "10000", "incomeTaxBps": 2000 },
+  "firstDecision": { "day": 1, "contractId": "harbor-produce-contract", "options": ["accept-contract", "review-alternatives"] },
+  "objectives": { "deliverContractByDueDay": true, "payPayrollByDueDay": true, "minimumClosingCashMinor": "400000" },
+  "postClose": {
+    "day": 31, "rentObligationId": "warehouse-rent-32", "rentAmountMinor": "270000", "rentDueDay": 32,
+    "restockOrderId": "harbor-restock", "restockQuantity": 470, "restockUnitCostMinor": "4200",
+    "rescueLoanId": "harbor-bridge-loan", "rescueLoanPrincipalMinor": "550000", "rescueLoanMonthlyInterestBps": 150,
+    "rescueLoanDueDay": 90, "customerDelayDays": 4, "utilitiesDueAfterCloseDays": 4,
+    "interestDueAfterCloseDays": 4, "taxDueAfterCloseDays": 10, "defaultGraceDays": 3
+  }
+}

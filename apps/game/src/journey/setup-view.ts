@@ -1,5 +1,5 @@
 /** Renders Day 1 founding: scenario terms, funding plan comparison, and guidance preference. */
-import type { Scenario } from '../../../../packages/content/src';
+import { getPlaybookRun, type Scenario } from '../../../../packages/content/src';
 import { action, detailRows, el } from '../../../../packages/ui/src';
 import { previewModel, type FundingPlan } from '../preview-model';
 import type { JourneyLabels } from './text';
@@ -20,6 +20,7 @@ export function setupView(labels: JourneyLabels, options: SetupOptions) {
   const { c, money } = labels;
   const { scenario, scenarioId, plan, guidanceSkipped, busy } = options;
   const model = previewModel(scenario, plan);
+  const run = getPlaybookRun(scenarioId);
 
   const scenarios = el('fieldset', 'plans', el('legend', '', c.scenarioLabel));
   for (const [id, title, hint] of [
@@ -79,7 +80,7 @@ export function setupView(labels: JourneyLabels, options: SetupOptions) {
       el('figcaption', 'scene-caption', el('span', '', c.sector), el('strong', '', c.company), el('span', '', c.city)),
     ),
     el('section', 'panel funding-panel view-stack',
-      scenarios,
+      run ? null : scenarios,
       plans,
       detailRows([
         [c.capital, money(model.capital.toString())],

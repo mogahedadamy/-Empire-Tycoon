@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "levels": [
+    { "id": "supported", "openingCapitalBps": 11000, "loanInterestBps": 7500, "customerDelayAdjustmentDays": -1, "guided": true },
+    { "id": "standard", "openingCapitalBps": 10000, "loanInterestBps": 10000, "customerDelayAdjustmentDays": 0, "guided": false },
+    { "id": "expert", "openingCapitalBps": 9000, "loanInterestBps": 15000, "customerDelayAdjustmentDays": 2, "guided": false }
+  ],
+  "campaign": {
+    "id": "wadi-foundations",
+    "chapters": [
+      {
+        "scenarioId": "big-order", "contractId": "weekly-produce-order", "sectorId": "food-distribution", "productId": "produce-box",
+        "title": { "ar": "الطلب الكبير", "en": "The Big Order" },
+        "summary": { "ar": "افتح شركتك، وسلّم أول طلب وواجه فجوة السيولة بعد الإقفال.", "en": "Open your company, deliver its first order and navigate the cash gap after close." }
+      },
+      {
+        "scenarioId": "harbor-supply", "contractId": "harbor-produce-contract", "sectorId": "food-distribution", "productId": "produce-box",
+        "title": { "ar": "تموين الميناء", "en": "Harbor Supply" },
+        "summary": { "ar": "موّن مطابخ الميناء بـ96 صندوقًا، وحافظ على احتياطي نقدي رغم تأخر الدفعة.", "en": "Supply 96 crates to the harbor kitchens and keep a cash reserve through the payment delay." }
+      }
+    ]
+  },
+  "sandbox": { "scenarioIds": ["big-order", "harbor-supply"], "endDay": 60 }
+}

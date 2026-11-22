@@ -4,6 +4,7 @@ import '../layout.css';
 import '../components.css';
 import './style.css';
 import { action, applyLocale, el, focusHeading, type Locale } from '../../../../packages/ui/src';
+import { playbookLink } from '../journey/playbook-entry';
 import { createProjectClient } from './client';
 import { defaultChoice, isProject, projects, type Project, type ProjectChoice, type ProjectReceipt } from './model';
 import { industrySelectionLink, projectHref } from './navigation';
@@ -43,7 +44,7 @@ function showIndustries() {
     return link;
   });
   const hero = el('section', 'project-hero', photo, el('div', '', el('h1', '', l.choose), el('p', '', l.intro)));
-  shell(el('div', 'project-content', hero, el('div', 'industry-grid', ...cards)), showIndustries, false);
+  shell(el('div', 'project-content', hero, el('div', 'industry-grid', ...cards), playbookLink(locale)), showIndustries, false);
 }
 
 async function showProject(project: Project) {

@@ -1,5 +1,5 @@
 /** Orchestrates the Big Order journey session over the revision-checked Worker client and storage. */
-import { loadScenario, type Scenario } from '../../../../packages/content/src';
+import { getPlaybookRun, loadScenario, type Scenario } from '../../../../packages/content/src';
 import type { WorkerTransport } from '../../../../packages/contracts/src';
 import { focusHeading, type Locale } from '../../../../packages/ui/src';
 import { journalDialog } from '../company/finance';
@@ -51,7 +51,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
   let screen: JourneyScreen = 'overview';
   let management = options.entryMode === 'management';
   let selectedPlan: FundingPlan = 'loan';
-  let guidanceSkipped = false;
+  let guidanceSkipped = getPlaybookRun(scenarioId)?.guided === false;
   let forecastMode: ForecastMode = 'baseline';
   let statement: StatementTab = 'income';
   let reportPeriod: ReportPeriod = 'month-1';
@@ -284,7 +284,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
   }
 
   function render() {
-    const strings = journeyLabels(locale);
+    const strings = journeyLabels(locale, scenarioId);
     if (inMission()) {
       renderOpeningMission({
         root, locale, labels: strings, scenario, model, plan: selectedPlan, busy: workerBanner.busy,
@@ -323,7 +323,7 @@ export async function mountJourneyApp(options: MountJourneyOptions) {
     root.querySelector<HTMLElement>('.language')?.focus();
   }
 
-  root.textContent = 'جارٍ فتح رحلة الطلب الكبير…';
+  root.textContent = locale === 'ar' ? 'جارٍ فتح الجولة…' : 'Opening your run…';
   await bootScenario(scenarioId);
   performance?.opened(model);
 

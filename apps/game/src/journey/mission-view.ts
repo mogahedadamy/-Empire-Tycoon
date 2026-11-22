@@ -1,5 +1,5 @@
 /** Renders the Android-first opening mission from committed journey data. */
-import type { Scenario } from '../../../../packages/content/src';
+import { getPlaybookRun, type Scenario } from '../../../../packages/content/src';
 import { action, applyLocale, detailRows, el, notice, type Locale } from '../../../../packages/ui/src';
 import { previewModel, type FundingPlan } from '../preview-model';
 import { industrySelectionLink } from '../projects/navigation';
@@ -95,7 +95,8 @@ export function renderOpeningMission(options: MissionViewOptions) {
   const { c, day, format } = labels;
   const m = missionCopy(locale);
   const step = readMissionStep(model, scenario, plan);
-  const [title, body, button] = m[step.id];
+  const [title, defaultBody, button] = m[step.id];
+  const body = step.id === 'found' ? getPlaybookRun(scenario.id)?.summary[locale] ?? defaultBody : defaultBody;
   applyLocale(document.documentElement, locale);
 
   const language = action(c.otherLanguage, options.toggleLanguage, 'language');

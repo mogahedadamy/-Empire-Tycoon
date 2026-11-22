@@ -11,6 +11,8 @@
     "prepare:mobile": "npm run build:game && node tools/prepare-mobile.mjs",
     "test": "vitest run",
     "test:acceptance": "node --test tests/acceptance/verify.mjs",
+    "content:check": "node tools/content.mjs check",
+    "balance:sample": "node tools/content.mjs balance",
     "typecheck": "tsc --noEmit && tsc -p packages/tsconfig.domain.json",
     "check:file-size": "node tools/check-file-size.mjs"
   },

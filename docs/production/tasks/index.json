@@ -386,7 +386,8 @@
       "title": "تأليف محتوى وحملة وتوازن",
       "stage": "C",
       "owner": "Content Lead",
-      "status": "planned",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-018.md#دليل-الإنجاز",
       "dependencies": [
         "ET-016",
         "ET-017"
