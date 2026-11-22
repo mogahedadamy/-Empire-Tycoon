@@ -1,0 +1,76 @@
+/* Responsive shell and screen composition for phone, tablet and desktop. */
+#app { min-block-size: 100dvh; display: grid; grid-template-columns: 226px minmax(0, 1fr); }
+.sidebar {
+  position: sticky;
+  inset-block-start: 0;
+  block-size: 100dvh;
+  background: var(--forest);
+  color: #f8f5e8;
+  padding: max(28px, env(safe-area-inset-top)) 16px 24px;
+}
+.brand { display: flex; gap: 12px; align-items: center; padding-inline: 8px; margin-block-end: 52px; }
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  aspect-ratio: 1;
+  color: #14362c;
+  background: #d6dfab;
+  border-radius: 12px;
+  font: 700 .95rem Georgia, serif;
+  letter-spacing: -.05em;
+}
+.brand strong, .brand small { display: block; }
+.brand small { margin-block-start: 4px; font-size: .76rem; color: #bbcdc3; }
+.navigation { display: grid; gap: 8px; }
+.sidebar :focus-visible { outline-color: #d6dfab; }
+.workspace { min-inline-size: 0; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 11px clamp(16px, 4vw, 58px);
+  border-block-end: 1px solid var(--line);
+  background: #fbfaf4;
+}
+.breadcrumb { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: .84rem; }
+.breadcrumb span:first-child { color: var(--muted); }
+.breadcrumb span + span::before { content: "/"; margin-inline-end: 10px; color: #667a70; }
+.content {
+  max-inline-size: 1440px;
+  margin-inline: auto;
+  padding: clamp(26px, 4vw, 54px) clamp(16px, 4vw, 58px) max(30px, env(safe-area-inset-bottom));
+}
+.view-header { margin-block-end: 26px; }
+.view-header h1 {
+  font-size: clamp(2rem, 4.3vw, 3.6rem);
+  line-height: 1.14;
+  letter-spacing: -.055em;
+  margin-block: 11px 7px;
+}
+[dir="rtl"] .view-header h1 { letter-spacing: normal; }
+.view-header p { color: var(--muted); }
+.view-layout { display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr); gap: 20px; }
+.view-stack { display: grid; gap: 20px; }
+.finance-layout { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.contract-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); align-items: start; }
+.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1000px) {
+  #app { grid-template-columns: 180px minmax(0, 1fr); }
+  .sidebar { padding-inline: 12px; }
+  .brand { padding-inline: 2px; }
+  .view-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 660px) {
+  #app { display: block; }
+  .sidebar { position: static; block-size: auto; padding: max(14px, env(safe-area-inset-top)) 12px 10px; }
+  .brand { margin-block-end: 12px; }
+  .brand-mark { flex-basis: 34px; }
+  .brand small { display: none; }
+  .navigation { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .navigation .nav-item { font-size: .76rem; padding-inline: 4px; justify-content: center; text-align: center; }
+  .nav-mark { display: none; }
+  .metrics { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .view-layout, .view-stack { gap: 14px; }
+}

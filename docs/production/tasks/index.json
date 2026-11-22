@@ -90,7 +90,8 @@
       "title": "اتجاه UX والأساس المشترك",
       "stage": "A",
       "owner": "UX Lead",
-      "status": "ready",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-005.md#دليل-الإنجاز",
       "dependencies": [
         "ET-001"
       ],
@@ -110,7 +111,7 @@
       "title": "توريد ومخزون وتكاليف",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-002",
         "ET-003",
@@ -132,7 +133,7 @@
       "title": "عمالة وطاقة وأجور",
       "stage": "B",
       "owner": "Operations Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-002",
         "ET-003",
@@ -174,7 +175,7 @@
       "title": "تمويل وضرائب واستحقاقات",
       "stage": "B",
       "owner": "Finance Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-002",
         "ET-003",

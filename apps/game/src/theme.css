@@ -1,0 +1,48 @@
+/* Color, type and focus tokens for the financial editorial style. */
+:root {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  color: #142528;
+  background: #f6f4ec;
+  font-synthesis: none;
+  --ink: #142528;
+  --paper: #f6f4ec;
+  --surface: #fffdf7;
+  --forest: #102b25;
+  --green: #155d50;
+  --blue: #224f78;
+  --danger: #a8352e;
+  --muted: #52645d;
+  --line: #dcded2;
+  --radius: 16px;
+}
+
+:root[lang="ar"] {
+  font-family: "IBM Plex Sans Arabic", "Noto Sans Arabic", Tahoma, system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; min-inline-size: 0; }
+h1, h2, p, figure, dl, dd { margin: 0; }
+h1, h2, strong { font-weight: 680; }
+button, input { font: inherit; }
+button, summary, label.plan { cursor: pointer; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.muted { color: var(--muted); }
+p { line-height: 1.65; }
+.figure { display: inline-flex; gap: .35em; align-items: baseline; flex-wrap: wrap; }
+.figure bdi { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.figure small { font-size: .72em; font-weight: 500; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; scroll-behavior: auto !important; }
+}

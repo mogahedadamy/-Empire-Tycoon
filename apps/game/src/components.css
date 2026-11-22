@@ -1,0 +1,141 @@
+/* Shared component styling and visual treatment of the three preview views. */
+.button {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px 15px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 650;
+  text-align: center;
+  overflow-wrap: anywhere;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.button.primary { background: var(--green); color: white; }
+.button.primary:enabled:hover { background: #104a3e; }
+.button.primary:disabled { background: #405f55; color: #f1f5ee; }
+.button.secondary, .button.language { background: var(--surface); color: var(--green); border-color: var(--line); }
+.button.secondary:hover, .button.language:hover { background: #e8f0e9; }
+.button.language { font-size: .82rem; min-inline-size: 76px; flex: 0 0 auto; }
+.button.nav-item { width: 100%; justify-content: start; text-align: start; color: #d8e6dd; background: transparent; }
+.button.nav-item:hover, .button.nav-item[aria-current] { background: #24483d; color: white; }
+.button.nav-item[aria-current] { border-color: #5a796b; }
+.nav-mark { color: #d6dfab; font-size: 1.13em; }
+.badge {
+  display: inline-block;
+  background: #e4ede3;
+  color: #214e41;
+  border-radius: 20px;
+  padding: 5px 11px;
+  font-size: .75rem;
+  font-weight: 690;
+}
+.panel {
+  min-inline-size: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(15px, 2.3vw, 25px);
+}
+.panel h2, .plans legend { font-size: 1.22rem; font-weight: 700; }
+.panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.scene {
+  min-block-size: 420px;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #193b32;
+  color: #fffdf2;
+}
+.scene-image, .scene::after { position: absolute; inset: 0; width: 100%; height: 100%; }
+.scene-image { object-fit: cover; object-position: center 55%; z-index: -2; }
+.scene::after {
+  content: "";
+  background: linear-gradient(0deg, #091f19f5 0%, #0b2c20c2 18%, #0a21191a 61%, transparent 95%);
+  z-index: -1;
+}
+.scene-caption { display: grid; gap: 6px; padding: clamp(18px, 3.6vw, 36px); }
+.scene-caption strong { font-size: clamp(1.45rem, 3vw, 2.45rem); line-height: 1.15; }
+.scene-caption span { font-size: .86rem; }
+.plans { min-inline-size: 0; display: grid; gap: 8px; padding: 0; margin: 0; border: 0; }
+.plans legend { padding: 0; margin-block-end: 12px; }
+.plan {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  min-block-size: 56px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.plan:has(:checked) { border-color: var(--green); background: #edf3e9; }
+.plan input { margin: 0; flex: 0 0 auto; accent-color: var(--green); }
+.plan strong, .plan small { display: block; }
+.plan small { color: var(--muted); line-height: 1.5; }
+.funding-hint { font-size: .83rem; margin-block: 11px 3px; }
+.detail-rows > div, .funding-total {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 5px 12px;
+  padding: 10px 0;
+  border-block-end: 1px solid var(--line);
+}
+.detail-rows dt { color: var(--muted); }
+.detail-rows dd { font-weight: 650; max-inline-size: 100%; }
+.funding-total { font-weight: 740; color: var(--green); border: 0; margin-block: 4px 9px; }
+.funding-panel > .button { width: 100%; }
+.metric h2 { font-size: .9rem; color: var(--muted); }
+.metric > .figure { font-size: clamp(1.3rem, 2.15vw, 2rem); font-weight: 700; margin-block: 7px; }
+.metric-primary { background: #173e34; color: white; border-color: #173e34; }
+.metric-primary h2, .metric-primary details { color: #e0ede2; }
+.metric-primary :focus-visible { outline-color: #d6dfab; }
+.figure-detail { font-size: .82rem; color: var(--muted); }
+.figure-detail summary { min-block-size: 44px; padding-block: 10px; text-decoration: underline; }
+.bar-chart { min-block-size: 200px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-block-start: 22px; }
+.bar-column { min-inline-size: 0; display: grid; grid-template-rows: auto 132px auto; row-gap: 5px; justify-items: center; font-size: .83rem; }
+.bar-column .figure { justify-content: center; }
+.bar-column > .figure:first-child small { display: none; }
+.bar-track { width: 100%; display: flex; align-items: end; justify-content: center; border-block-end: 1px solid var(--line); }
+.bar { block-size: var(--height); inline-size: min(60%, 60px); border-radius: 7px 7px 0 0; background: #78a195; }
+.bar.accent { background: var(--green); }
+.bar.negative { background: var(--danger); }
+.forecast-table { width: 100%; border-collapse: collapse; }
+.forecast-table :is(th, td) { text-align: start; padding: 9px 3px; border-block-end: 1px solid var(--line); }
+.event-list { list-style: none; padding: 0; margin: 10px 0; }
+.event-list li { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 10px 0; border-block-end: 1px solid var(--line); }
+.event-list li > div { min-inline-size: 0; }
+.event-list strong { display: block; }
+.event-list .figure { font-size: .82rem; }
+.milestones > .button { margin-block-start: 10px; }
+.notice { border-radius: 10px; background: #f5ead2; color: #533a13; padding: 11px 13px; margin-block-start: 13px; }
+.notice p { font-size: .9rem; }
+.notice.success { background: #e4eee3; color: #224d39; }
+.notice.error { background: #f9e9e3; color: #862b22; }
+.contract-status { margin-block: 8px; }
+.contract-status code { display: block; direction: ltr; text-align: start; overflow-wrap: anywhere; margin-block: 4px; }
+.dates, .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.confirmation-dialog {
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  inline-size: min(calc(100% - 32px), 460px);
+}
+.confirmation-dialog::backdrop { background: #102b25bd; }
+.confirmation-dialog p { margin-block: 8px 20px; }
+@media (max-width: 1000px) {
+  .scene { min-block-size: 285px; }
+}
+@media (max-width: 660px) {
+  .scene { min-block-size: 216px; }
+  .funding-panel > .button { margin-block-start: 4px; }
+  .metric > .figure { font-size: 1.45rem; }
+}
