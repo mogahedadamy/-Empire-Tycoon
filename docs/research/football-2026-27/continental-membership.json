@@ -1,0 +1,249 @@
+{
+  "season": "2026/27",
+  "observedAt": "2026-11-22",
+  "competitions": [
+    {
+      "id": "uefa-champions-league",
+      "stage": "league-phase",
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2174c9e9019d-f909a77bd77a-1000--2026-27-champions-league-al/",
+      "clubSource": "https://www.uefa.com/uefachampionsleague/news/02a6-20d57cfcd03e-407c22a7f465-1000--2026-27-champions-league-teams-draws-format-final/",
+      "clubs": [
+        {
+          "associationCode": "AUT",
+          "name": "LASK"
+        },
+        {
+          "associationCode": "AZE",
+          "name": "Sabah"
+        },
+        {
+          "associationCode": "BEL",
+          "name": "Club Brugge"
+        },
+        {
+          "associationCode": "CZE",
+          "name": "Slavia Praha"
+        },
+        {
+          "associationCode": "ENG",
+          "name": "Arsenal"
+        },
+        {
+          "associationCode": "ENG",
+          "name": "Aston Villa"
+        },
+        {
+          "associationCode": "ENG",
+          "name": "Liverpool"
+        },
+        {
+          "associationCode": "ENG",
+          "name": "Manchester City"
+        },
+        {
+          "associationCode": "ENG",
+          "name": "Manchester United"
+        },
+        {
+          "associationCode": "FRA",
+          "name": "RC Lens"
+        },
+        {
+          "associationCode": "FRA",
+          "name": "LOSC Lille"
+        },
+        {
+          "associationCode": "FRA",
+          "name": "Paris Saint-Germain"
+        },
+        {
+          "associationCode": "GER",
+          "name": "Bayern München"
+        },
+        {
+          "associationCode": "GER",
+          "name": "Borussia Dortmund"
+        },
+        {
+          "associationCode": "GER",
+          "name": "RB Leipzig"
+        },
+        {
+          "associationCode": "GER",
+          "name": "VfB Stuttgart"
+        },
+        {
+          "associationCode": "GRE",
+          "name": "AEK Athens"
+        },
+        {
+          "associationCode": "ITA",
+          "name": "Como"
+        },
+        {
+          "associationCode": "ITA",
+          "name": "Inter"
+        },
+        {
+          "associationCode": "ITA",
+          "name": "Napoli"
+        },
+        {
+          "associationCode": "ITA",
+          "name": "Roma"
+        },
+        {
+          "associationCode": "NED",
+          "name": "Feyenoord"
+        },
+        {
+          "associationCode": "NED",
+          "name": "PSV Eindhoven"
+        },
+        {
+          "associationCode": "NOR",
+          "name": "Bodø/Glimt"
+        },
+        {
+          "associationCode": "NOR",
+          "name": "Viking"
+        },
+        {
+          "associationCode": "POR",
+          "name": "Porto"
+        },
+        {
+          "associationCode": "POR",
+          "name": "Sporting CP"
+        },
+        {
+          "associationCode": "SVK",
+          "name": "Slovan Bratislava"
+        },
+        {
+          "associationCode": "ESP",
+          "name": "Atlético de Madrid"
+        },
+        {
+          "associationCode": "ESP",
+          "name": "FC Barcelona"
+        },
+        {
+          "associationCode": "ESP",
+          "name": "Real Betis"
+        },
+        {
+          "associationCode": "ESP",
+          "name": "Real Madrid"
+        },
+        {
+          "associationCode": "ESP",
+          "name": "Villarreal CF"
+        },
+        {
+          "associationCode": "TUR",
+          "name": "Fenerbahçe"
+        },
+        {
+          "associationCode": "TUR",
+          "name": "Galatasaray"
+        },
+        {
+          "associationCode": "UKR",
+          "name": "Shakhtar Donetsk"
+        }
+      ]
+    },
+    {
+      "id": "caf-champions-league",
+      "stage": "group-stage",
+      "source": "https://www.cafonline.com/caf-champions-league/news/zamalek-mc-alger-and-tunisian-rivals-collide-as-totalenergies-caf-champions-league-group-stage-draw-delivers-blockbuster-clashes",
+      "groups": [
+        {
+          "group": "A",
+          "clubs": [
+            {
+              "associationCode": "TUN",
+              "name": "Espérance Sportive de Tunis"
+            },
+            {
+              "associationCode": "ANG",
+              "name": "Petro Atlético"
+            },
+            {
+              "associationCode": "MTN",
+              "name": "FC Nouadhibou"
+            },
+            {
+              "associationCode": "ANG",
+              "name": "Wiliete SC"
+            }
+          ]
+        },
+        {
+          "group": "B",
+          "clubs": [
+            {
+              "associationCode": "EGY",
+              "name": "Zamalek SC"
+            },
+            {
+              "associationCode": "TAN",
+              "name": "Young Africans"
+            },
+            {
+              "associationCode": "ALG",
+              "name": "MC Alger"
+            },
+            {
+              "associationCode": "TUN",
+              "name": "Club Africain"
+            }
+          ]
+        },
+        {
+          "group": "C",
+          "clubs": [
+            {
+              "associationCode": "MAR",
+              "name": "RS Berkane"
+            },
+            {
+              "associationCode": "TAN",
+              "name": "Simba SC"
+            },
+            {
+              "associationCode": "RSA",
+              "name": "Orlando Pirates"
+            },
+            {
+              "associationCode": "CMR",
+              "name": "Colombe Sportive"
+            }
+          ]
+        },
+        {
+          "group": "D",
+          "clubs": [
+            {
+              "associationCode": "EGY",
+              "name": "Pyramids FC"
+            },
+            {
+              "associationCode": "SDN",
+              "name": "Al Hilal Omdurman"
+            },
+            {
+              "associationCode": "GUI",
+              "name": "Horoya AC"
+            },
+            {
+              "associationCode": "MAR",
+              "name": "MAS de Fès"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

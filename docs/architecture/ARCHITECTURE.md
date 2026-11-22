@@ -1,41 +1,57 @@
-# Architecture — Browser-Native Strategy Game
+# المعمارية التنفيذية المقترحة
 
-## Stack decision
-TypeScript strict mode; browser APIs and Canvas/WebGL renderer (evaluate PixiJS or direct WebGL after benchmark); Capacitor shell for Android/iOS; Vite for web bundling; optional React for application UI; Node/TypeScript backend as a provisional choice. Do not introduce Unity, Unreal, Godot, or a bespoke native C++ engine.
+## الوضع الحالي والاتجاه
 
-Capacitor packages a web application and exposes native plugins; it does not supply simulation, renderer, backend, or UI design.
+يمثل src/ نموذج المقاطعات السابق ويستمر في العمل إلى أن توفر المهام بديلًا قابلًا للتحقق. تبدأ لعبة الأعمال في نفس المستودع بتطبيق TypeScript وVite وواجهة DOM/CSS وغلاف Capacitor. اختيار إطار واجهة إضافي، تشغيل المحاكاة في Worker، والتخزين المحلي النهائي قرارات تحقق مبكرًا. يظل شكل الحزم أدناه هدفًا عمليًا يحكم اتجاه التبعيات عند التفكيك.
 
-## Logical layers
-- apps/web: browser bootstrap, responsive shell and UI.
-- apps/mobile: Capacitor config and native bridge adapters.
-- packages/simulation: pure headless TypeScript state transition engine, no DOM/Capacitor imports.
-- packages/gameplay: commands, economy, construction, factions, research, missions, AI.
-- packages/renderer: visual projection, camera, scene graph, assets, effects.
-- packages/ui: reusable accessible components, tokens, navigation, HUD.
-- packages/contracts: versioned commands, state snapshots, events, DTOs.
-- services/server: future authoritative simulation, auth and matchmaking.
-- tools: content validation, map editors, build and test tooling.
+| المسار المستهدف | المسؤولية |
+|---|---|
+| apps/game | نقطة تركيب خدمات التطبيق، التنقل، الجلسة، واجهة التحكم في السيناريو |
+| packages/contracts | أنواع الأوامر والنتائج والواجهات المشتركة، إصدارات وتمثيل بيانات النقل |
+| packages/simulation | ساعة افتراضية ومنسق المراحل وتطبيق الأوامر وواجهات القراءة |
+| packages/finance | دفتر الأستاذ والضرائب والتمويل والذمم والقوائم |
+| packages/operations | المخزون والمشتريات والعمالة والإنتاج والعقود |
+| packages/ai-industry | وحدات التوريد والبحث وخدمة النماذج والمنافسة القطاعية. تستهلك عقود المحاكاة والمالية والسوق، وتعطي الواجهة نماذج قراءة دون إدخال أي خدمة ذكاء اصطناعي فعلية |
+| packages/world-economy | ملفات الولايات والقواعد، شبكة الإمداد، العلاقات والمنافسة والصعوبة. يعيد استخدام العقود والمالية ويشارك نماذج قراءة عبر منافذ محددة |
+| packages/club-management | تفويض المجلس والطاقم، الكشافة والصفقات والتسجيل وإدارة المباراة والبطولات. يثبت بيانات الموسم المستوردة إلى حزمة المحتوى |
+| packages/market | محاكاة الطلب والمنافسين والتسعير والصدَمات |
+| packages/content | تعريف السيناريو والقطاع والقواعد المعيّرة، والمخططات والتحقق |
+| packages/storage | مغلف الحفظ والترحيل والمستودع ومحوّلات تخزين المنصات |
+| packages/ui | واجهة DOM ومكونات التصميم والترجمة وعرض نماذج القراءة |
+| services/online | جلسات ومواسم ومخزن معاملات وإسقاطات مخصصة لكل لاعب |
+| tools/ وtests/ | تحقق البيانات وقياس الأداء وسيناريوهات عابرة للحزم |
 
-## Data flow
-Input/UI -> typed Command -> validation -> deterministic-capable fixed-step simulation -> immutable read model/events -> renderer + UI + audio. Save/load and replay consume versioned canonical state. AI submits the same commands as players.
+## تدفق الكتابة والقراءة
 
-## Simulation invariants
-- No wall-clock, DOM, random global calls or network access in core tick.
-- Fixed tick; explicit seeded PRNG; stable entity IDs and processing order.
-- Integer/fixed-point math for state-affecting calculations where needed.
-- Ownership and resource constraints checked server-side for online.
-- State hashes, replays, versioned saves, migration tests.
-- SoA/ECS-like processing only where profiling justifies it; composition by default.
-- Avoid unbounded allocation and long synchronous pathfinding on the UI thread; consider Web Workers with measured serialization cost.
+1. الواجهة تستقي نموذج قراءة من التطبيق. ترسل طلب معاينة ثم أمرًا يحوي معرفًا فريدًا ومعرف الكيان ومراجعة متوقعة وحمولة.
+2. منسق المحاكاة يتحقق من هوية الأمر والملكية والصلاحيات النشطة وتوافق المراجعة، ثم يمرر حالة مرحلية إلى المجال المتخصص. أخطاء التحقق رموز ثابتة الترجمة.
+3. العملية المقبولة تثبت الحالة والقيود والنتيجة كوحدة واحدة. يمكن إعادة نفس المعرف بنفس الحمولة والرد دون آثار إضافية. خادم الطور المتصل ينفذ ذلك داخل معاملة موثوقة مع قيد فريد لكل نطاق محاكاة.
+4. تتشكل نماذج قراءة غير قابلة للتعديل وتقارير مشتقة من حالة ملتزمة. تستخدم القيود المالية لشرح الأرقام. تسجل الأحداث بمعرف الارتباط ومصدر القرار.
 
-## Online
-Competitive play uses an authoritative server, not trusted clients. Evaluate command replication vs state snapshots based on bandwidth, cheating and latency tests. Single-player runs same core locally. Online backend is a separate deployment lifecycle.
+التطبيق والخادم يعيدان تركيب وحدات المجال نفسها. حزم المجال تعتمد على العقود والبيانات المحققة. حزمة العرض لا تعتمد على حالة كتابة المجال، والحفظ يتبادل لقطات قابلة للإصدار. يمنع نظام البناء استيراد ملفات الحزم الداخلية أو دورات الاعتماد. OOP مفيدة لواجهات المحولات ودورة حياة الخدمات، والتركيب والدوال النقية مفضلة في قواعد التشغيل. القياس يرشد إدخال البنى المعقدة أو التخزين الخاص.
 
-## Rendering & UX
-Start with a 2D/isometric performance spike. Use WebGL for map/world rendering and semantic DOM UI for controls and accessibility; avoid rendering every HUD control inside canvas. Responsive layout, touch targets, keyboard and pointer support, reduced motion, RTL-ready localization.
+## العثور على الكود حسب الميزة
 
-## Nonfunctional targets (provisional)
-Measure on named low/mid/high reference devices. Target responsive UI, stable simulation tick, crash-free sessions, memory ceilings, first meaningful interaction time. Define numeric budgets after profiling.
+تنظّم كل حزمة ملفاتها بأسماء المجال. مثلًا، شاشة مراجعة العقد ومكوناتها تقع تحت مسار العقود في الواجهة، والتحقق من العرض وقواعد التسليم داخل منطقة العقود في حزمة العمليات، والقيد المالي داخل حزمة المالية. تُسجّل بطاقة الميزة روابط نقاط الدخول والاختبارات عبر هذه الحزم. عند فصل ملف، احفظ واجهته العامة وافصل التخزين أو العرض أو قواعد المجال بحسب المسؤولية. تطبّق جميع المكونات [قاعدة حجم الملفات وتوثيق الكود](../engineering/STANDARDS.md#تنظيم-الميزات-وحجم-ملفات-الكود).
 
-## Open ADRs
-Rendering library, UI framework, world camera, backend transport, offline save strategy, minimum mobile devices, asset formats and monetization.
+## حدود قطاع الذكاء الاصطناعي
+
+تفصل [مواصفات القطاع](../product/AI_INDUSTRY.md) بين شراء السعة وتخصيصها، وحالة إصدارات النماذج، وتنفيذ الخدمة والمنافسة. تُعالج دفعات التوريد والإتاحة في مرحلة الاستلام، ويُحسم تخصيص الموارد والتدريب والتقييم والخدمة قبل إصدار الفواتير في مرحلة العمليات، ثم ترحّل التحصيلات والمصروفات وفق مراحل اليوم القائمة. تتبع وحدات السجل معرف العقد والدفعة أو الإصدار أو الحركة. تُكتب بصلاحيات وأوامر معلنة وتستخدم دفتر الأستاذ المشترك. يظهر في الحالة سبب الاختناق أو رفض الإطلاق، وترجع تقارير الهامش إلى المصادر المثبتة. تحفظ ملفات اللعب إصدارات بيانات القطاع والمعرفات وسياسات التخصيص. يُطبّق حد 350 سطرًا على الملفات اليدوية وتفصل الوحدات حسب مسؤولياتها.
+
+## حدود العالم وإدارة النادي
+
+تستهلك القطاعات خدمات [العالم](../product/WORLD_ECONOMY.md) لتقييم أهلية التبادل والتكلفة والحجز. تحافظ شركة الذكاء الاصطناعي على عقد السعة المتخصصة، ويستعمل [النادي](../product/CLUB_MANAGEMENT.md) نفس المالية والملكية مع عقد تفويضه الرياضي. تتشارك الحزم القيم الأساسية والأوامر بنسخها المثبتة. تتكون الكيانات من حالات وسياسات صغيرة مثل ولاية وملكية وولاية تسجيل. تخضع نتائج السياسة والملكية والحجز لعملية تثبيت ذرية عند اتصالها بالقيد. تستخدم محاكاة المباراة مصدر عشوائية محفوظًا مستقلًا عن اختيار سياسة الصعوبة الاقتصادية. تعزل حزمة المحتوى كتالوج الدوريات والنتائج المؤرخة، وواجهة النادي تستهلك حالات عامة للشاشات. راجع [عقود المجال](DOMAIN_OBJECTS.md) و[أمثلة القبول](../product/WORLD_SPORT_FIXTURES.md).
+
+## إعادة التشغيل والحفظ
+
+الحفظ يحمل schemaVersion وrulesetVersion وcontentVersion وscenarioId ومراجعة المرحلة وحالة مولد الأرقام، ولقطة وسجل أوامر بعد آخر نقطة تحقق عند الحاجة. تمثيل الحالة للمقارنة يثبت ترتيب المفاتيح/الكيانات وتشفير الأعداد الصحيحة. مصدر الوقت والبذرة حقن صريح. لا يدخل الوقت الحقيقي أو الشبكة أو DOM إلى المجال. يقرأ المحول آخر حفظ صالح إذا لم يكتمل حفظ أحدث، ويمنع كتابة نسخة أقدم فوق نسخة جديدة. ترحيل الحفظ يكون متسلسلًا ومختبرًا، ويحفظ الأصل حتى التحقق من النسخة الجديدة. يمنع فتح إصدار مستقبلي برسالة واضحة. يجتاز النقل الاختبارات عند انقطاع العملية قبل التثبيت وبعده.
+
+## وضع متصل خاضع للخادم
+
+تبدأ المنافسة بموسم قصير بقواعد وبيانات مثبتة، وشركات مستقلة تتنافس على فرص مشتركة. حالة الخادم مرجعية، ونطاق موسمي منفصل عن الحفظ الفردي. العميل يستعيد الحالة عبر مراجعة آخر إقرار واستعلام عن الأوامر المعلقة. تتعامل الخدمات مع الحمولات المتقادمة والارتدادات بتكرار آمن ونتائج واضحة. تصل نتائج المنافسين بالمستوى الذي تسمح به سياسة الموسم. حساب الموسم يعتمد على رأس المال والعائد المعدل بالمخاطر والالتزامات والتسليم وفق أوزان ثابتة منشورة للاعبين قبل البداية. تصدر القيم الفعلية عند موازنة أول موسم.
+
+## متطلبات أولية للقياس
+
+يُستهدف في الشريحة زمن إقرار مرئي محلي P95 دون 100ms، وفتح جلسة محفوظة دون 3 ثوان على جهاز Android متوسط يُسمى عند ET-014. يقاس أداء التقدم والمحاكاة خارج زمن تحميل الواجهة، ويفصل أثر الحفظ والتخزين. يحدد فريق الأداء في ET-014 عينة القياس وعدد الكيانات والذاكرة ونطاق القياس لكل جهاز. تطبيق الهاتف يدعم خلفية وتبديل اتجاه ومناطق آمنة؛ يعتمد الإصدار على اختبار فعلي.
+
+[قواعد الاقتصاد](../product/ECONOMY.md) · [القرارات](DECISIONS.md) · [مراحل التصعيد الهندسي](../production/ROADMAP.md)

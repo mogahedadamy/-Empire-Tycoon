@@ -1,0 +1,94 @@
+{
+  "season": "2026/27",
+  "observedAt": "2026-11-22",
+  "metrics": [
+    {
+      "kind": "uefa-mens-club-coefficient-five-season",
+      "sourceUpdatedAt": "2026-11-05",
+      "source": "https://www.uefa.com/nationalassociations/uefarankings/club/",
+      "rows": [
+        {
+          "rank": 1,
+          "club": "Bayern München",
+          "pointsThousandths": 133500
+        },
+        {
+          "rank": 2,
+          "club": "Arsenal",
+          "pointsThousandths": 132000
+        },
+        {
+          "rank": 3,
+          "club": "Real Madrid",
+          "pointsThousandths": 128500
+        },
+        {
+          "rank": 4,
+          "club": "Paris Saint-Germain",
+          "pointsThousandths": 127000
+        },
+        {
+          "rank": 5,
+          "club": "Inter",
+          "pointsThousandths": 119000
+        },
+        {
+          "rank": 6,
+          "club": "Manchester City",
+          "pointsThousandths": 110500
+        },
+        {
+          "rank": 7,
+          "club": "FC Barcelona",
+          "pointsThousandths": 110250
+        },
+        {
+          "rank": 8,
+          "club": "Liverpool",
+          "pointsThousandths": 109000
+        },
+        {
+          "rank": 9,
+          "club": "Borussia Dortmund",
+          "pointsThousandths": 102750
+        },
+        {
+          "rank": 10,
+          "club": "Bayer 04 Leverkusen",
+          "pointsThousandths": 97000
+        }
+      ]
+    },
+    {
+      "kind": "uefa-mens-association-coefficient-five-season",
+      "source": "https://www.uefa.com/",
+      "rows": [
+        {
+          "rank": 1,
+          "associationCode": "ENG",
+          "pointsThousandths": 107685
+        },
+        {
+          "rank": 2,
+          "associationCode": "ITA",
+          "pointsThousandths": 91732
+        },
+        {
+          "rank": 3,
+          "associationCode": "ESP",
+          "pointsThousandths": 86493
+        },
+        {
+          "rank": 4,
+          "associationCode": "GER",
+          "pointsThousandths": 84973
+        },
+        {
+          "rank": 5,
+          "associationCode": "FRA",
+          "pointsThousandths": 72296
+        }
+      ]
+    }
+  ]
+}

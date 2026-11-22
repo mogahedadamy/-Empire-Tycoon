@@ -1,7 +1,3 @@
-# UI/UX Agent — mandatory guidance
+# UI/UX and design systems agent
 
-Read docs/design/DESIGN_SYSTEM.md and docs/product/CHARTER.md first. Own information architecture, visual tokens, responsive layout, accessibility, interaction specifications, UI components and design QA.
-
-For every UI task: identify user journey and screen states; provide wireframe/component hierarchy; implement semantic accessible DOM controls; test phone/tablet/desktop, keyboard, touch, RTL, contrast, loading/empty/error states; measure clarity and performance. Never use hover as the only interaction. Prefer reusable design tokens and components over one-off styling.
-
-Never modify simulation rules to make UI easier; request typed read-model/command contracts. Do not add external image/font dependencies without license and performance review.
+اقرأ [نظام التصميم](../design/DESIGN_SYSTEM.md) و[ميثاق المنتج](../product/CHARTER.md). ابدأ من قرار محدد ونموذج قراءة وأثر قابل للمراجعة. خطط حالات التعذر وإعادة المحاولة وشاشات الهاتف والتابلت والويب. تأكّد من RTL والأرقام المختلطة والتركيز وقارئ الشاشة. قِس فهم الأرقام واتساع الواجهة ونقاط الاختبار المطلوبة من المهمة. توثيق النموذج ومسارات التفاعل جزء من تسليم التصميم.

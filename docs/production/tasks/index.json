@@ -1,0 +1,935 @@
+{
+  "schemaVersion": 1,
+  "projectPhase": "design-and-documentation",
+  "implementationActivation": "owner implementation instruction",
+  "tasks": [
+    {
+      "id": "ET-001",
+      "title": "تهيئة المستودع ومرجع العمل",
+      "stage": "A",
+      "owner": "Platform Lead",
+      "status": "ready",
+      "dependencies": [],
+      "file": "docs/production/tasks/ET-001.md",
+      "guides": [
+        "docs/agents/quality.md",
+        "docs/agents/mobile.md"
+      ],
+      "references": [
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/engineering/STANDARDS.md",
+        "docs/architecture/DECISIONS.md"
+      ]
+    },
+    {
+      "id": "ET-002",
+      "title": "عقود المحاكاة والوقت",
+      "stage": "A",
+      "owner": "Principal Simulation Engineer",
+      "status": "planned",
+      "dependencies": [
+        "ET-001"
+      ],
+      "file": "docs/production/tasks/ET-002.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-003",
+      "title": "دفتر الأستاذ والمال والقوائم",
+      "stage": "A",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-001"
+      ],
+      "file": "docs/production/tasks/ET-003.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-004",
+      "title": "قالب السيناريو والشركة الأولى",
+      "stage": "A",
+      "owner": "Game Director",
+      "status": "planned",
+      "dependencies": [
+        "ET-001"
+      ],
+      "file": "docs/production/tasks/ET-004.md",
+      "guides": [
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md"
+      ],
+      "references": [
+        "docs/product/CHARTER.md",
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-005",
+      "title": "اتجاه UX والأساس المشترك",
+      "stage": "A",
+      "owner": "UX Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-001"
+      ],
+      "file": "docs/production/tasks/ET-005.md",
+      "guides": [
+        "docs/agents/ui-ux.md",
+        "docs/agents/rendering.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/GAME_DESIGN.md"
+      ]
+    },
+    {
+      "id": "ET-006",
+      "title": "توريد ومخزون وتكاليف",
+      "stage": "B",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-002",
+        "ET-003",
+        "ET-004"
+      ],
+      "file": "docs/production/tasks/ET-006.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-007",
+      "title": "عمالة وطاقة وأجور",
+      "stage": "B",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-002",
+        "ET-003",
+        "ET-004"
+      ],
+      "file": "docs/production/tasks/ET-007.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/GAME_DESIGN.md"
+      ]
+    },
+    {
+      "id": "ET-008",
+      "title": "عقود وتسليم وفوترة وتحصيل",
+      "stage": "B",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-006",
+        "ET-007"
+      ],
+      "file": "docs/production/tasks/ET-008.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-009",
+      "title": "تمويل وضرائب واستحقاقات",
+      "stage": "B",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-002",
+        "ET-003",
+        "ET-004"
+      ],
+      "file": "docs/production/tasks/ET-009.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-010",
+      "title": "توقع السيولة والتعثر",
+      "stage": "B",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-008",
+        "ET-009"
+      ],
+      "file": "docs/production/tasks/ET-010.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-011",
+      "title": "واجهات إدارة الشركة والمراجعة المالية",
+      "stage": "B",
+      "owner": "UX Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-005",
+        "ET-008",
+        "ET-010"
+      ],
+      "file": "docs/production/tasks/ET-011.md",
+      "guides": [
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md"
+      ],
+      "references": [
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/GAME_DESIGN.md"
+      ]
+    },
+    {
+      "id": "ET-012",
+      "title": "حفظ وترحيل واستعادة اللعب الفردي",
+      "stage": "B",
+      "owner": "Platform Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-002",
+        "ET-008"
+      ],
+      "file": "docs/production/tasks/ET-012.md",
+      "guides": [
+        "docs/agents/mobile.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/architecture/DECISIONS.md"
+      ]
+    },
+    {
+      "id": "ET-013",
+      "title": "رحلة الطلب الكبير",
+      "stage": "B",
+      "owner": "Game Director",
+      "status": "planned",
+      "dependencies": [
+        "ET-011",
+        "ET-012"
+      ],
+      "file": "docs/production/tasks/ET-013.md",
+      "guides": [
+        "docs/agents/game-design.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY_FIXTURE.md",
+        "docs/design/DESIGN_SYSTEM.md"
+      ]
+    },
+    {
+      "id": "ET-014",
+      "title": "Capacitor ومصفوفة الأداء",
+      "stage": "B",
+      "owner": "Platform Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-005",
+        "ET-012"
+      ],
+      "file": "docs/production/tasks/ET-014.md",
+      "guides": [
+        "docs/agents/mobile.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/engineering/STANDARDS.md",
+        "docs/design/DESIGN_SYSTEM.md"
+      ]
+    },
+    {
+      "id": "ET-015",
+      "title": "التحقق من الشريحة ومراجعة UX",
+      "stage": "B",
+      "owner": "Quality Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-013",
+        "ET-014"
+      ],
+      "file": "docs/production/tasks/ET-015.md",
+      "guides": [
+        "docs/agents/quality.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md"
+      ],
+      "references": [
+        "docs/production/ROADMAP.md",
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/ECONOMY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-016",
+      "title": "طلب ومنافسون وصدمات السوق",
+      "stage": "C",
+      "owner": "Economy Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-015"
+      ],
+      "file": "docs/production/tasks/ET-016.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md"
+      ],
+      "references": [
+        "docs/product/ECONOMY.md",
+        "docs/product/GAME_DESIGN.md"
+      ]
+    },
+    {
+      "id": "ET-017",
+      "title": "التصنيع واللوجستيات والعقار",
+      "stage": "C",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-015"
+      ],
+      "file": "docs/production/tasks/ET-017.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/rendering.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-018",
+      "title": "تأليف محتوى وحملة وتوازن",
+      "stage": "C",
+      "owner": "Content Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-016",
+        "ET-017"
+      ],
+      "file": "docs/production/tasks/ET-018.md",
+      "guides": [
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-025",
+      "title": "تأسيس شركة ذكاء اصطناعي وبيانات القطاع",
+      "stage": "C",
+      "owner": "Game Director",
+      "status": "planned",
+      "dependencies": [
+        "ET-015",
+        "ET-016"
+      ],
+      "file": "docs/production/tasks/ET-025.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-026",
+      "title": "توريد المسرّعات والطاقة وتخصيص الحوسبة",
+      "stage": "C",
+      "owner": "Operations Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-017",
+        "ET-025"
+      ],
+      "file": "docs/production/tasks/ET-026.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/architecture/ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "ET-027",
+      "title": "مختبر النماذج والتقييم والإطلاق",
+      "stage": "C",
+      "owner": "Principal Simulation Engineer",
+      "status": "planned",
+      "dependencies": [
+        "ET-026"
+      ],
+      "file": "docs/production/tasks/ET-027.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/architecture/ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "ET-033",
+      "stage": "C",
+      "owner": "Economy Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "بلد التأسيس وسياسات التجارة والتمويل",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-033.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-034",
+      "stage": "C",
+      "owner": "Operations Lead",
+      "dependencies": [
+        "ET-017",
+        "ET-033"
+      ],
+      "title": "شبكات الإمداد والصدمات والتكلفة الواصلة",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-034.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-037",
+      "stage": "C",
+      "owner": "Sports Data Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "حزمة الأندية والمنافسات الحقيقية 2026/27",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-037.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-038",
+      "stage": "C",
+      "owner": "Sports Design Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "حوكمة النادي وتفويض مجلس الإدارة والطاقم",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-038.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/game-design.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md"
+      ]
+    },
+    {
+      "id": "ET-019",
+      "title": "أساس الخدمة المتصلة",
+      "stage": "D",
+      "owner": "Online Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-015"
+      ],
+      "file": "docs/production/tasks/ET-019.md",
+      "guides": [
+        "docs/agents/backend.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/architecture/DECISIONS.md"
+      ]
+    },
+    {
+      "id": "ET-020",
+      "title": "قواعد موسم وتجربة التنافس",
+      "stage": "D",
+      "owner": "Game Director",
+      "status": "planned",
+      "dependencies": [
+        "ET-016",
+        "ET-019"
+      ],
+      "file": "docs/production/tasks/ET-020.md",
+      "guides": [
+        "docs/agents/backend.md",
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-028",
+      "title": "خدمة API والفواتير وهامش التشغيل",
+      "stage": "D",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-027"
+      ],
+      "file": "docs/production/tasks/ET-028.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-029",
+      "title": "المنافسون وتوزيع الطلب والصفقات",
+      "stage": "D",
+      "owner": "Economy Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-016",
+        "ET-028"
+      ],
+      "file": "docs/production/tasks/ET-029.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-030",
+      "title": "واجهة تأسيس شركة الذكاء الاصطناعي وتشغيلها",
+      "stage": "D",
+      "owner": "UX Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-026",
+        "ET-027",
+        "ET-028",
+        "ET-029"
+      ],
+      "file": "docs/production/tasks/ET-030.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md"
+      ]
+    },
+    {
+      "id": "ET-031",
+      "title": "شريحة الذكاء الاصطناعي والتحقق عبر القطاعات",
+      "stage": "D",
+      "owner": "Quality Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-030"
+      ],
+      "file": "docs/production/tasks/ET-031.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/quality.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY_FIXTURE.md",
+        "docs/product/AI_INDUSTRY.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-035",
+      "stage": "D",
+      "owner": "Economy Lead",
+      "dependencies": [
+        "ET-016",
+        "ET-034"
+      ],
+      "title": "العلاقات والمنافسة والاحتكار والاستحواذ",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-035.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-036",
+      "stage": "D",
+      "owner": "Game Director",
+      "dependencies": [
+        "ET-035"
+      ],
+      "title": "صعوبة تلقائية تفسّر تعرض الشركة",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-036.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-039",
+      "stage": "D",
+      "owner": "Sports Design Lead",
+      "dependencies": [
+        "ET-034",
+        "ET-037",
+        "ET-038"
+      ],
+      "title": "الكشافة والانتقالات والمالية وأهلية التسجيل",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-039.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-040",
+      "stage": "D",
+      "owner": "Principal Simulation Engineer",
+      "dependencies": [
+        "ET-037",
+        "ET-039"
+      ],
+      "title": "جدول الموسم وقوة الأندية ومحاكاة المنافسات",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-040.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-041",
+      "stage": "D",
+      "owner": "UX Lead",
+      "dependencies": [
+        "ET-036",
+        "ET-039",
+        "ET-040"
+      ],
+      "title": "واجهات اختيار البلد ومجلس النادي والسوق",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-041.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/club-management.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/CLUB_MANAGEMENT.md"
+      ]
+    },
+    {
+      "id": "ET-042",
+      "stage": "D",
+      "owner": "Quality Lead",
+      "dependencies": [
+        "ET-031",
+        "ET-041"
+      ],
+      "title": "بوابة قابلية اللعب للعالم والأندية 2026/27",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-042.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/club-management.md",
+        "docs/agents/quality.md",
+        "docs/agents/game-design.md",
+        "docs/agents/ui-ux.md"
+      ],
+      "references": [
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-021",
+      "title": "اختبارات الإطلاق والمراقبة",
+      "stage": "E",
+      "owner": "Quality Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-018",
+        "ET-020",
+        "ET-031",
+        "ET-042"
+      ],
+      "file": "docs/production/tasks/ET-021.md",
+      "guides": [
+        "docs/agents/quality.md",
+        "docs/agents/mobile.md",
+        "docs/agents/backend.md",
+        "docs/agents/ui-ux.md"
+      ],
+      "references": [
+        "docs/production/ROADMAP.md",
+        "docs/engineering/STANDARDS.md"
+      ]
+    },
+    {
+      "id": "ET-022",
+      "title": "المجموعة والاستحواذ وإعادة الهيكلة",
+      "stage": "F",
+      "owner": "Finance Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-018",
+        "ET-021",
+        "ET-035"
+      ],
+      "file": "docs/production/tasks/ET-022.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/ui-ux.md"
+      ],
+      "references": [
+        "docs/product/GAME_DESIGN.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-023",
+      "title": "أوراق مالية وأصول استثمارية خيالية",
+      "stage": "F",
+      "owner": "Economy Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-022"
+      ],
+      "file": "docs/production/tasks/ET-023.md",
+      "guides": [
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/simulation.md"
+      ],
+      "references": [
+        "docs/research/REFERENCE.md",
+        "docs/product/ECONOMY.md"
+      ]
+    },
+    {
+      "id": "ET-024",
+      "title": "قرارات التوسعات والإيراد والتعاون",
+      "stage": "F",
+      "owner": "Executive Producer",
+      "status": "planned",
+      "dependencies": [
+        "ET-020",
+        "ET-021"
+      ],
+      "file": "docs/production/tasks/ET-024.md",
+      "guides": [
+        "docs/agents/game-design.md",
+        "docs/agents/backend.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/CHARTER.md",
+        "docs/architecture/DECISIONS.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
+      "id": "ET-032",
+      "title": "موسم تنافسي خاص بشركات الذكاء الاصطناعي",
+      "stage": "F",
+      "owner": "Online Lead",
+      "status": "planned",
+      "dependencies": [
+        "ET-020",
+        "ET-021",
+        "ET-031"
+      ],
+      "file": "docs/production/tasks/ET-032.md",
+      "guides": [
+        "docs/agents/ai-industry.md",
+        "docs/agents/backend.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/AI_INDUSTRY.md",
+        "docs/architecture/ARCHITECTURE.md",
+        "docs/production/ROADMAP.md"
+      ]
+    }
+  ]
+}

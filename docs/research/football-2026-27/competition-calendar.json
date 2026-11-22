@@ -1,0 +1,78 @@
+{
+  "season": "2026/27",
+  "observedAt": "2026-11-22",
+  "purpose": "published-reference-finals-and-windows",
+  "finals": [
+    {
+      "competition": "uefa-champions-league",
+      "start": "2027-06-05",
+      "end": "2027-06-05",
+      "status": "published",
+      "source": "https://www.uefa.com/uefachampionsleague/news/02a6-20d57cfcd03e-407c22a7f465-1000--2026-27-champions-league-teams-draws-format-final/"
+    },
+    {
+      "competition": "uefa-europa-league",
+      "start": "2027-05-26",
+      "end": "2027-05-26",
+      "status": "published",
+      "source": "https://www.uefa.com/uefaeuropaleague/news/02a6-20d57d095740-e1e0b3de85df-1000--2026-27-europa-league-teams-dates-draws-format-f/"
+    },
+    {
+      "competition": "uefa-conference-league",
+      "start": "2027-06-02",
+      "end": "2027-06-02",
+      "status": "published",
+      "source": "https://www.uefa.com/uefaconferenceleague/news/02a6-20d57d15f093-a90cf54c928f-1000--2026-27-conference-league-teams-dates-draws-format-f/"
+    },
+    {
+      "competition": "caf-champions-league",
+      "start": "2027-05-09",
+      "end": "2027-05-31",
+      "status": "published-window",
+      "source": "https://www.cafonline.com/news/caf-announces-match-calendar-for-totalenergies-caf-champions-league-2026-27-and-totalenergies-caf-confederation-cup-2026-27-seasons/"
+    },
+    {
+      "competition": "caf-confederation-cup",
+      "start": "2027-05-09",
+      "end": "2027-05-31",
+      "status": "published-window",
+      "source": "https://www.cafonline.com/news/caf-announces-match-calendar-for-totalenergies-caf-champions-league-2026-27-and-totalenergies-caf-confederation-cup-2026-27-seasons/"
+    },
+    {
+      "competition": "afc-champions-league-elite",
+      "start": "2027-05-01",
+      "end": "2027-05-01",
+      "status": "tentative",
+      "source": "https://www.the-afc.com/en/more/football_calendar.html"
+    },
+    {
+      "competition": "afc-champions-league-two",
+      "start": "2027-05-15",
+      "end": "2027-05-15",
+      "status": "tentative",
+      "source": "https://www.the-afc.com/en/more/football_calendar.html"
+    },
+    {
+      "competition": "fa-cup",
+      "start": "2027-05-22",
+      "end": "2027-05-22",
+      "status": "published",
+      "source": "https://www.thefa.com/competitions/thefacup/round-dates"
+    }
+  ],
+  "examples": {
+    "source": "https://www.uefa.com/uefachampionsleague/news/02a8-2174c9e9019d-f909a77bd77a-1000--2026-27-champions-league-al/",
+    "scheduled": [
+      {
+        "date": "2027-01-19",
+        "home": "Inter",
+        "away": "Liverpool"
+      },
+      {
+        "date": "2027-01-20",
+        "home": "Manchester United",
+        "away": "Bayern München"
+      }
+    ]
+  }
+}

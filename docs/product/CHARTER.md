@@ -1,23 +1,32 @@
-# Product Charter — Empire Tycoon
+# ميثاق Empire Tycoon
 
-## Confirmed
-Strategy game; hybrid single-player/multiplayer; custom-built game technology; no traditional game engine; Capacitor-based mobile application; premium professional UI/UX; maintainable, reliable, sustainable architecture.
+## متطلبات المشروع
 
-## Provisional concept (requires Game Director approval)
-A strategy/tycoon empire-building experience: city development, resource chains, trade, technology, factions, diplomacy, campaign and online competition/cooperation. Do not treat these mechanics as final commitments.
+- المنتج لعبة استراتيجية لإدارة الأعمال، بمستوى إنتاجي طموح وتجربة استخدام احترافية. مرجع Business Empire: RichMan نقطة انطلاق لفهم المجال، والمستهدف محاكاة أعمق بكثير.
+- لعبة فردية وطور متصل. تقنيات الويب أساس التطبيق، وCapacitor غلاف الهاتف. لا نطوّر محرك ألعاب ولا نعتمد محركًا تقليديًا.
+- مستودع المشروع هو المرجع التنفيذي، والمرحلة الحالية توثيق ونقاش فقط. تفعيل التنفيذ بتكليف واضح، بينما تتولى ملفات المهام توجيه العمل بعدها.
 
-## Experience pillars
-1. Strategic depth with readable consequences.
-2. Clear and delightful touch-first interactions.
-3. Satisfying progression and world feedback.
-4. Fair, reliable multiplayer with transparent rules.
-5. Accessibility, localization, and device-aware performance.
+## الوعد للاعب
 
-## Targets
-Web, Android and iOS proposed. Desktop packaging, offline-first persistence, monetization, target age, platform minimum versions, camera style (2D/isometric/3D), world scale, and match format remain open decisions.
+تتخذ قرارًا وتراقب أثره على النقد والتشغيل والسمعة، ثم تستخدم هذه الأدلة لتحسين الخطة التالية. تبدأ من شركة واحدة بموارد محدودة وتنتهي بإدارة رأس المال عبر شركات مترابطة. كل توسع يضيف خيارات والتزامات. قد تسجل أرباحًا وتفشل في دفع الرواتب، وقد تتخلى عن عقد يبدو مربحًا لتحمي السيولة.
 
-## Product guardrails
-No pay-to-win assumptions. Never implement monetization or telemetry without product/privacy review. Avoid scope expansion before a playable vertical slice.
+## قرارات تصميم مقترحة للمرحلة الأولى
 
-## Initial vertical slice
-One map; basic camera and selection; two resources; three building types; production loop; one mission; save/load; responsive HUD; onboarding; scripted AI; headless simulation test; a multiplayer connectivity spike (not a production service).
+- مدينة خيالية واحدة وعملة لعب واحدة، وقطاع تجهيز وتوزيع الأغذية مسارًا أولًا يربط المخزون بالموظفين والعقود والتمويل.
+- تقويم يبدأ بأشهر من 30 يومًا للمحاكاة، وقرارات مؤثرة عند الطلب، وتقدم زمني يتحكم فيه اللاعب الفردي. تقويم أبسط من التقويم المدني، مع تعريف واضح لمواعيد الاستحقاق.
+- حملة تمهيدية بثلاث قضايا مترابطة. اقتصاد منافس يحسب بنية تكلفة وطاقة ومخاطر، مع إمكان توسيع المحتوى من بيانات معرّفة.
+- اقتصاد غير مرتبط بأموال أو أسعار أو منصات تداول فعلية. كل سوق ومؤسسة وقواعد ضريبية في هذه المواصفات داخل اللعبة.
+- الويب وAndroid وiOS أهداف المشروع. يجب تثبيت مصفوفة الأجهزة وطريقة حفظ الهاتف وقياس الأداء قبل تثبيت التزامات الإطلاق.
+
+## نطاق التطوير
+
+| مستوى المنتج | المتوقع |
+|---|---|
+| الشريحة القابلة للعب | شركة غذائية، سلسلة من مورد إلى مستودع إلى عميل، قيد مالي، تمويل أولي، أزمة سيولة، حفظ واستعادة، تجربة عربية وإنجليزية |
+| الإصدار الفردي المخطط | الغذاء والتوزيع والتصنيع الخفيف واللوجستيات وقطاع شركات الذكاء الاصطناعي، وعقارات تشغيلية، وإدارة أندية كرة قدم. تتوسع البلدان والأسواق مع قواعد التجارة والتمويل والصعوبة التلقائية في الحملة وصندوق الرمل |
+| الإصدار الهجين المخطط | منافسة موسمية مستقلة بخادم مرجعي، مع استئناف الاتصال ومعايير عدالة ومراقبة |
+| توسعات محتملة | سوق أوراق مالية خيالي، الاستحواذ والدمج، مناطق وعملات، تعاون بين اللاعبين ومحتوى موسمي |
+
+قائمة المقتنيات الفاخرة والعملات الرقمية ليست التزامًا. تخضع أي إضافات للمفاضلة حسب مقدار القرار الاستراتيجي الذي تضيفه. لا تعتمد الشريحة على الإعلانات أو مشتريات تؤثر على المنافسة، ونموذج الإيراد التجاري قرار منفصل.
+
+[تصميم اللعب](GAME_DESIGN.md) · [قطاع الذكاء الاصطناعي](AI_INDUSTRY.md) · [الاقتصاد السياسي](WORLD_ECONOMY.md) · [إدارة الأندية](CLUB_MANAGEMENT.md) · [حالة القرارات](../architecture/DECISIONS.md)

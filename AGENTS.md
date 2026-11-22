@@ -1,37 +1,37 @@
-# Empire Tycoon — Agent Operating Contract
+# AGENTS.md — Empire Tycoon
 
-This is the root instruction file for all coding/design agents. **Always read this file before acting.** For each task, identify affected paths and read the linked domain guide(s) BEFORE editing. Do not ask the CEO to route routine tasks.
+Start with [the product charter](docs/product/CHARTER.md), [the decision log](docs/architecture/DECISIONS.md), and [the task board](docs/production/TASKS.md). The current phase is design and documentation. Begin implementation when the owner asks to start or gives an implementation task. A task marked ready has enough information to start after that instruction. This phase does not prohibit ordinary implementation once authorized.
 
-## Automatic task routing
-| Task keywords / paths | Mandatory instructions | Primary owner |
-|---|---|---|
-| Product, rules, monetization, balance | docs/product/CHARTER.md; docs/agents/game-design.md | Game Design |
-| Simulation, entities, economy, combat, AI | docs/architecture/ARCHITECTURE.md; docs/agents/simulation.md | Simulation |
-| Renderer, map, sprites, animation, performance | docs/agents/rendering.md; docs/design/DESIGN_SYSTEM.md | Rendering |
-| UI, UX, screens, layout, icons, typography, accessibility | docs/design/DESIGN_SYSTEM.md; docs/agents/ui-ux.md | UI/UX |
-| Capacitor, Android, iOS, native bridges | docs/agents/mobile.md; docs/architecture/ARCHITECTURE.md | Mobile |
-| Multiplayer, accounts, persistence, networking | docs/agents/backend.md; docs/architecture/ARCHITECTURE.md | Online |
-| Tests, build, CI, release, security | docs/engineering/STANDARDS.md; docs/agents/quality.md | Quality/Platform |
-| Architecture, dependencies, organizational decisions | docs/organization/ORG.md; docs/architecture/ADR-0001.md | CTO/Architecture |
+## Route work independently
 
-## Mandatory execution loop
-1. Read the relevant instructions and existing code; identify requirements and acceptance criteria.
-2. Classify work as **routine**, **architectural**, **product/design**, or **high risk**. Record assumptions.
-3. Write or update a scoped task plan and list impacted modules; avoid unrelated changes.
-4. Implement the smallest coherent change respecting module public APIs and component ownership.
-5. Add appropriate unit, integration, UI, accessibility, determinism, and/or performance tests.
-6. Run available checks; report commands, results, and any unverified behavior honestly.
-7. Update docs/ADRs when contracts or architectural decisions change; summarize changed files and risks.
-8. Open a PR for review; never bypass required checks or self-approve high-risk changes.
+1. If the request contains an ET ID, locate that exact record in [the task index](docs/production/tasks/index.json). Read its task file and every guide it names. If the owner says to start from the beginning or continue without an ID, choose the first ready task with completed dependencies in the index.
+2. For an unnumbered feature request, match its intent to the board and its paths to the table below. If no task exists, create a task with its own file, owner, guides, dependencies and acceptance criteria, then add it to the index and board. Cross-domain tasks read every matching guide; select a single primary owner from the task.
+3. Resolve the next routine design choice within the charter and task constraints. Record the assumption in the task or decisions log. Send unresolved approval items only to their accountable owner when the choice substantively changes accepted scope or a contract.
+4. Follow the task scope and acceptance criteria. Test through the normal interface, record actual results, and update status, evidence and dependencies in the task/index. When opening a PR cite the ET ID and evidence.
+5. A status of done needs evidence. After recording completion, mark any planned successor ready when all its dependencies are done and its stage gate is satisfied. Update both the index and affected task cards in the same change. Report failures and device checks still outstanding.
 
-## Autonomy boundaries
-Agents may independently route, plan, implement, test, and document routine work. Do not claim background autonomous execution unless an actual runner is configured. Do not deploy production, purchase services, expose secrets, delete data, or change security/financial policy without explicit authorized approval. Product scope and architectural reversals require owners in docs/organization/ORG.md.
+| Intent or path | Primary guide |
+|---|---|
+| Rules, campaigns, content, balance | [Game Design](docs/agents/game-design.md) |
+| Ledger, cash, inventory, policies, market, contracts, time, simulation | [Simulation](docs/agents/simulation.md) · [Economy](docs/agents/economy.md) |
+| AI company, compute procurement, GPU capacity, model launches, inference pricing, AI rivals | [AI industry](docs/agents/ai-industry.md) · [Economy](docs/agents/economy.md) |
+| Country selection, trade, political events, supply routes, takeovers, adaptive difficulty | [World economy](docs/agents/world-economy.md) · [Economy](docs/agents/economy.md) |
+| Clubs, scouting, delegated transfers, sports rules, 2026/27 football data | [Club management](docs/agents/club-management.md) |
+| Screens, UI, design system, localization, accessibility | [UI/UX](docs/agents/ui-ux.md) |
+| Visual assets, chart rendering or maps | [Art and rendering](docs/agents/rendering.md) |
+| Capacitor, iOS/Android, lifecycle or storage | [Mobile](docs/agents/mobile.md) |
+| Server, seasons, matchmaking, persistence of online sessions | [Online](docs/agents/backend.md) |
+| Test, CI, release, docs routing | [Quality](docs/agents/quality.md) |
+| Ownership, scope changes, dependency rules | [Organization](docs/organization/ORG.md) · [Architecture](docs/architecture/ARCHITECTURE.md) |
 
-## Definition of Done
-Functional acceptance criteria met; code readable and modular; tests passing or documented blocker; no secrets; accessible UI where applicable; performance budget checked; docs updated; no broken existing behavior.
+## Code organization and file size
 
-## Dependency direction
-apps -> game feature APIs -> simulation contracts; presentation never mutates simulation directly. Native adapters are isolated. Backend validates all competitive commands.
+Use the feature folders and public entry points described in the [engineering standards](docs/engineering/STANDARDS.md#تنظيم-الميزات-وحجم-ملفات-الكود). Keep one cohesive responsibility per hand-written code file. Aim for 200 lines or fewer, review the split when approaching 200, and keep every such file at or below 350 physical lines after formatting. This also applies to UI, styles, tests, build scripts, and workflows. Split by responsibility and preserve the public contract and behavior. Keep inline module and public-contract documentation current, and record the feature entry point and test path in its task card.
 
-## Conflict priority
-Explicit current task > security and safety constraints > ADRs and product charter > this root file > domain guides > local conventions. Escalate contradictory requirements; never silently override an approved ADR.
+Run the repository's file-size check before marking implementation done. [ET-001](docs/production/tasks/ET-001.md) defines its implementation and CI acceptance.
+
+## Product invariants
+
+The provincial grid under src/ is an earlier prototype. Use the product and task specs for rules and UX of the business game. Web technologies and Capacitor package the app with no game engine. The headless domain owns money and operational state; UI consumes read models and sends typed commands. Single-player and online share rules but retain separate authority and saves. Keep original content and assets. [Engineering standards](docs/engineering/STANDARDS.md) govern code and quality.
+
+Repo instructions and the index guide task selection when an agent is invoked. An agent or service that consumes these files must be configured separately to execute unattended.

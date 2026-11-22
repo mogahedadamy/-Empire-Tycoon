@@ -1,19 +1,29 @@
-# Engineering Standards
+# معايير الهندسة والجودة
 
-## Required
-Strict TypeScript; explicit public APIs; small cohesive modules; composition over deep inheritance; SOLID where beneficial; no God Objects or uncontrolled singletons; data-oriented hot paths after profiling; no circular package dependencies; typed commands and events; deterministic simulation boundaries.
+- TypeScript strict، أسماء تنقل مسؤولية المجال، وعقود ذات رسائل وأخطاء واضحة. SOLID عبر مسؤولية متماسكة، عقود ضيقة قابلة للاستبدال واعتماد على المنافذ عند الحاجة. استخدم OOP لدورة حياة المحولات ولعزل مواردها، وComposition ودوال مجال واضحة لقواعد اللعبة. أعد استخدام المصدر المرجعي للتكلفة والتقريب والتحويل.
+- تُنتج المكونات UI من حالات مقروءة وتستدعي أوامر. اختبر عقود التركيز واللمس وRTL وحالات الرفض. أي تغيير يكسر اعتمادًا أو يصعب ترحيله يُوثّق بقرار وعقد ترحيل.
+- تحقق من كل مدخل خارجي عند حد النظام. سجّل ارتباط الأمر ومراجعة الحالة ونوع الرفض، مع إبقاء الأسرار والبيانات الشخصية خارج السجلات. سلامة أفعال الخادم تظل بملك الخادم.
+- تغييرات قواعد المال أو الحفظ أو الاتصال تحتاج اختبارًا للآثار الجزئية والمحاولات المكررة والتزامن. أي حالة فشل يُتوقع فيها احتفاظ المستخدم بالعمل تُختبر عند الاستعادة. عقد مسار إنجاز مغلق وواضح لكل مهمة.
 
-## Quality gates
-Format, lint, typecheck, unit tests and dependency checks on PR; integration and replay/determinism tests on merge/nightly; device performance, accessibility, network soak and security checks before release. Never fabricate passing tests.
+## تنظيم الميزات وحجم ملفات الكود
 
-## Testing
-Unit: economy, costs, damage, invariants. Property-based: no invalid resources/ownership. Determinism: identical commands/seed -> canonical hashes. Integration: save/load, commands, renderer adapter. E2E: mobile touch, onboarding, accessibility. Security: untrusted commands and storage. Performance: map draw time, memory, tick latency, thermal behavior.
+- **الهدف 200 سطر أو أقل، والسقف الإلزامي 350 سطرًا لكل ملف كود مكتوب يدويًا.** عند الاقتراب من 200 سطر راجع حدود المسؤولية وقسّم الملف إذا بدأ يجمع أدوارًا مختلفة. يُرفض الملف من 351 سطرًا فما فوق. احسب جميع الأسطر الفعلية بعد التنسيق، ومنها التعليقات والفواصل الفارغة والسطر الأخير ولو لم ينتهِ بمحرف سطر جديد.
+- يسري السقف على الكود المكتوب يدويًا في كامل المستودع، بما في ذلك المكونات والقوالب وملفات الأنماط والاختبارات وأدوات البناء وملفات سير العمل والإعدادات التي تحدد سلوكًا قابلًا للتنفيذ. يُستثنى التوثيق والبيانات الصرفة، مثل فهرس المهام، والتبعيات الخارجية ومخرجات التوليد وملفات قفل الحزم. تُعرّف هذه الاستثناءات بحسب طبيعة الملف أو مصدره؛ ويظل القالب أو مولّد الكود المكتوب يدويًا خاضعًا للفحص.
+- حافظ على تنسيق الكود القياسي. تجنّب ضغط الشيفرة وتجميع تعليمات متعددة في سطر للتحايل على الحد. قسّم الميزات حسب مسؤولياتها الفعلية مع الحفاظ على العقود العامة ومسارات الاستدعاء والاختبارات.
+- اجمع ما يخص كل ميزة في مسار واضح باسم المجال. للشاشة ملف يركّب مكوناتها، وللعرض مكونات متماسكة، وللعمليات المالية وحدات قواعد مستقلة. تُنظّم ملفات الاختبارات حسب السلوك؛ سمّها باسم الميزة أو العقد الذي تغطيه. استخدم نقطة دخول عامة صغيرة عندما يتشارك أكثر من مستدعٍ واجهة الميزة، واحتفظ بالتفاصيل داخل المجلد.
+- وثّق عند الكتابة. اذكر غرض كل وحدة ومسؤوليتها في تعليق موجز، واستخدم TSDoc للعقود المصدّرة ذات السلوك المؤثر لشرح المدخلات والنتائج والأخطاء والآثار الجانبية حيث تنطبق. اشرح سبب قواعد غير بديهية قرب تنفيذها، مثل ترتيب الاستحقاق والتقريب. حدّث هذه الوثائق مع الكود في نفس التغيير. إذا كانت صيغة الملف لا تدعم التعليقات، يكون الشرح في دليل المجلد أو بطاقة المهمة.
+- سجّل في بطاقة المهمة مسار نقطة دخول الميزة، وملفات القواعد الأساسية، ومسار اختبار السلوك؛ حدّث هذه المراجع عند نقل الميزة. راجعها قبل إغلاق المهمة حتى يستطيع المراجع الانتقال من المعرّف إلى الكود والاختبار مباشرة.
+- الفحص الآلي جزء من [ET-001](../production/tasks/ET-001.md). يشغّل محليًا وفي CI على الملفات المشمولة، ويعرض مسار كل ملف مخالف وعدد أسطره، ويفشل عند تجاوز السقف. راجع وثائق الكود واختيار حدود المكونات أثناء المراجعة.
 
-## Code review
-At least one qualified reviewer; high-risk security, persistence, protocol and architectural changes require domain owner. Protected main branch; CI required. ADR for changes to package boundaries or runtime strategy.
+## مستويات الاختبار
 
-## Definition of Done
-Acceptance criteria, tests, a11y and performance impact, documentation, observability, migration/rollback as applicable. Never commit secrets, credentials, generated native build outputs or third-party licenses without review.
+| المستوى | أقل تغطية للشريحة |
+|---|---|
+| وحدة وخصائص | توازن القيد، حدود النقد والمخزون، التقريب، صلاحية الاستحقاق، اتساق المعاينة مع التنفيذ |
+| تكامل وإعادة تشغيل | السيناريو المالي كاملًا بقيم متطابقة، خطأ وسط معاملة، إعادة أمر، عدة أيام مقابل يوم بيوم |
+| حفظ ومنصة | سجل قديم، إصدار جديد، كتابة منقطعة، ملف فاسد، إغلاق التطبيق واستئنافه |
+| واجهة وسيناريو | تأسيس وعقد وتوريد وإقفال وتشخيص، بالعربية والإنجليزية، عبر لمس ولوحة مفاتيح |
+| أداء وتشغيل | p95 من الإقرار، تحميل الحفظ، زمن التقدم، حجم الذاكرة، واختبار حمل موسم قبل الإصدار |
+| اتصال | أرصدة وعروض متقادمة، إعادة اتصال، أمر وصل وإقرار انقطع، عزل جلسات ومعلومات |
 
-## Metrics
-P95 frame time, tick duration, memory, crash-free sessions, build latency, flaky tests, defect escape rate, MTTR. Do not use lines of code as productivity measure.
+تسجل نتيجة المهمة أوامر الفحص والنسخ والأجهزة، والفروق عن بنود القبول، والخطوة التالية. يسجل تغير سلوك المستخدم أو سياسات البيانات في وثائقه. يحدد قائد الجودة تغطية المراجعة بحسب المخاطرة ومراحل [الخارطة](../production/ROADMAP.md).

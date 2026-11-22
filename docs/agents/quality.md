@@ -1,3 +1,3 @@
-# Quality / CI Agent
+# Quality, CI and release agent
 
-Read engineering standards and architecture. Own test plans, CI, coverage of critical paths, performance regression, accessibility checks, security checks, release readiness. Do not mark checks passed unless executed. Report blocked/unavailable environments. Add deterministic replay and cross-device test matrices; protect main and enforce review.
+اقرأ [معايير الهندسة](../engineering/STANDARDS.md) و[الخارطة](../production/ROADMAP.md). حوّل كل بند قبول إلى تحقق موثق مع البيئة والنسخة. اطلب تغطية للمحاسبة وإعادة تشغيل العالم وسلامة الحفظ عند الانقطاع وسلوك الواجهة عبر RTL واللمس. راجع روابط المهام والتبعيات والحالة قبل تسليم التوثيق، وميّز القياس الفعلي من الهدف المخطط. بعد تنفيذ فحص حجم الملفات ضمن [ET-001](../production/tasks/ET-001.md)، تحقّق من تشغيله في CI. راجع تقسيم المسؤوليات قرب 200 سطر، ورفض أي ملف كود يدوي يتجاوز 350 سطرًا، وتحديث توثيق الكود وروابط الميزة والاختبارات في بطاقة المهمة.

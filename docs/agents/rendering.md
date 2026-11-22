@@ -1,3 +1,3 @@
-# Rendering Agent
+# Art, visuals and rendering agent
 
-Read architecture and design system. Own map drawing, camera, scene projection, asset loading, batching, profiling and graceful degradation. Do not mutate game state; consume read-only snapshots/events. Benchmark on mobile WebViews. Avoid DOM HUD inside canvas; UI team owns accessible overlays. Document GPU memory, draw calls, frame-time and fallback behavior.
+اقرأ [نظام التصميم](../design/DESIGN_SYSTEM.md) و[المعمارية](../architecture/ARCHITECTURE.md). سلّم أصولًا أصلية تناسب مدينة خيالية وقطاعًا واضحًا وملفات مصدر وحق استخدام موثقًا. المخططات تعتمد على نماذج قراءة ولها بديل نصي أو جدولي. حدّد أحجام الصور وسلوك التحميل وأثر الذاكرة على الهاتف. قيّم خرائط أو رسم Canvas/WebGL عند وجود حاجة في مهمة معتمدة وقياس منفصل.

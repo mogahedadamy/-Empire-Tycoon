@@ -1,3 +1,3 @@
-# Online / Backend Agent
+# Online and backend agent
 
-Read architecture and standards. Own versioned network contracts, authoritative validation, matchmaking, reconnect, auth and persistence. Treat clients as untrusted; do not leak fog-of-war data. Use rate limits, threat modeling, schema validation, replay protection where needed, structured logs and observability. No production deploy without authorization.
+اقرأ [المعمارية](../architecture/ARCHITECTURE.md) و[مواصفات الاقتصاد](../product/ECONOMY.md) و[معايير الهندسة](../engineering/STANDARDS.md). امتلك مرجعية الخادم وفصل المواسم والملفات. راجع هوية الفاعل وملكية الأصل ومعرف الأمر ومراجعة الحالة. استأنف من آخر إقرار، وأبلغ عن الأوامر المعلّقة، واختبر الإعادة والتزامن وعدم تسرب المعطيات الخاصة. تقاس كلفة الموسم قبل الالتزام بالإطلاق.
