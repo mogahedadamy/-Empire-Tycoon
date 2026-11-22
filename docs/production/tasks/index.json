@@ -37,7 +37,8 @@
       ],
       "references": [
         "docs/architecture/ARCHITECTURE.md",
-        "docs/product/ECONOMY.md"
+        "docs/product/ECONOMY.md",
+        "docs/architecture/ADR-0012.md"
       ]
     },
     {
@@ -271,7 +272,8 @@
       "references": [
         "docs/product/GAME_DESIGN.md",
         "docs/product/ECONOMY_FIXTURE.md",
-        "docs/design/DESIGN_SYSTEM.md"
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/engineering/PERFORMANCE.md"
       ]
     },
     {
@@ -293,7 +295,8 @@
       "references": [
         "docs/architecture/ARCHITECTURE.md",
         "docs/engineering/STANDARDS.md",
-        "docs/design/DESIGN_SYSTEM.md"
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/engineering/PERFORMANCE.md"
       ]
     },
     {
@@ -816,6 +819,28 @@
       ]
     },
     {
+      "id": "ET-043",
+      "title": "اختبار أداء العالم واختيار وحدة التسريع عند الحاجة",
+      "stage": "D",
+      "owner": "Principal Simulation Engineer",
+      "status": "planned",
+      "dependencies": [
+        "ET-042"
+      ],
+      "file": "docs/production/tasks/ET-043.md",
+      "guides": [
+        "docs/agents/simulation.md",
+        "docs/agents/mobile.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/architecture/ADR-0012.md",
+        "docs/engineering/PERFORMANCE.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/product/AI_INDUSTRY_FIXTURE.md"
+      ]
+    },
+    {
       "id": "ET-021",
       "title": "اختبارات الإطلاق والمراقبة",
       "stage": "E",
@@ -825,7 +850,8 @@
         "ET-018",
         "ET-020",
         "ET-031",
-        "ET-042"
+        "ET-042",
+        "ET-043"
       ],
       "file": "docs/production/tasks/ET-021.md",
       "guides": [

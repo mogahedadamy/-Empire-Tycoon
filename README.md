@@ -11,6 +11,7 @@
 | العالم والأندية | [البلدان والتجارة والمنافسة](docs/product/WORLD_ECONOMY.md) · [إدارة الأندية الرياضية](docs/product/CLUB_MANAGEMENT.md) · [بيانات كرة القدم 2026/27](docs/research/FOOTBALL_2026_27.md) |
 | قواعد المحاكاة | [مواصفات الاقتصاد](docs/product/ECONOMY.md) · [مثال مالي مرجعي](docs/product/ECONOMY_FIXTURE.md) |
 | تجربة الاستخدام | [نظام التصميم والشاشات](docs/design/DESIGN_SYSTEM.md) |
+| لغة اللعبة والأداء | [TypeScript وRust/WebAssembly](docs/architecture/ADR-0012.md) · [خطة قياس الأداء](docs/engineering/PERFORMANCE.md) |
 | الهندسة والقرارات | [المعمارية](docs/architecture/ARCHITECTURE.md) · [سجل القرارات](docs/architecture/DECISIONS.md) · [معايير الجودة](docs/engineering/STANDARDS.md) |
 | الأدوار والتسليم | [الفرق والصلاحيات](docs/organization/ORG.md) · [الخارطة](docs/production/ROADMAP.md) · [بنك المهام](docs/production/TASKS.md) |
 | نقطة دخول الوكيل | [AGENTS.md](AGENTS.md) · [فهرس المهام المقروء آليًا](docs/production/tasks/index.json) · [ET-001](docs/production/tasks/ET-001.md) |
