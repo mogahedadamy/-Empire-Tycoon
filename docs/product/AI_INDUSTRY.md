@@ -94,4 +94,6 @@
 - تصنيع الرقائق والذاكرة وسعة التغليف والاعتماد على الموردين. [NVIDIA Annual Report 2026](https://s201.q4cdn.com/141608511/files/doc_financials/2026/ar/2026-Annual-Report-Web.pdf)
 - ارتباط مراكز البيانات بالشبكة الكهربائية واختناقات الإمداد. [IEA Energy and AI](https://www.iea.org/reports/energy-and-ai)
 
+تستهلك مخاطر موقع مركز البيانات والتوريد والاستحواذ على المورد [قواعد البلدان والمنافسة المشتركة](WORLD_ECONOMY.md) عند توفرها. يحتفظ هذا القطاع بعقود سعة العتاد والطاقة والتوافق التقني.
+
 [مهام التنفيذ](../production/TASKS.md) · [معمارية اللعبة](../architecture/ARCHITECTURE.md)

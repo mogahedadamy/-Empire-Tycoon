@@ -15,6 +15,8 @@ Start with [the product charter](docs/product/CHARTER.md), [the decision log](do
 | Rules, campaigns, content, balance | [Game Design](docs/agents/game-design.md) |
 | Ledger, cash, inventory, policies, market, contracts, time, simulation | [Simulation](docs/agents/simulation.md) · [Economy](docs/agents/economy.md) |
 | AI company, compute procurement, GPU capacity, model launches, inference pricing, AI rivals | [AI industry](docs/agents/ai-industry.md) · [Economy](docs/agents/economy.md) |
+| Country selection, trade, political events, supply routes, takeovers, adaptive difficulty | [World economy](docs/agents/world-economy.md) · [Economy](docs/agents/economy.md) |
+| Clubs, scouting, delegated transfers, sports rules, 2026/27 football data | [Club management](docs/agents/club-management.md) |
 | Screens, UI, design system, localization, accessibility | [UI/UX](docs/agents/ui-ux.md) |
 | Visual assets, chart rendering or maps | [Art and rendering](docs/agents/rendering.md) |
 | Capacitor, iOS/Android, lifecycle or storage | [Mobile](docs/agents/mobile.md) |

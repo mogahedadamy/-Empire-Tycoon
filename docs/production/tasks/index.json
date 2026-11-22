@@ -448,6 +448,94 @@
       ]
     },
     {
+      "id": "ET-033",
+      "stage": "C",
+      "owner": "Economy Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "بلد التأسيس وسياسات التجارة والتمويل",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-033.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-034",
+      "stage": "C",
+      "owner": "Operations Lead",
+      "dependencies": [
+        "ET-017",
+        "ET-033"
+      ],
+      "title": "شبكات الإمداد والصدمات والتكلفة الواصلة",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-034.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-037",
+      "stage": "C",
+      "owner": "Sports Data Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "حزمة الأندية والمنافسات الحقيقية 2026/27",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-037.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-038",
+      "stage": "C",
+      "owner": "Sports Design Lead",
+      "dependencies": [
+        "ET-015"
+      ],
+      "title": "حوكمة النادي وتفويض مجلس الإدارة والطاقم",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-038.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/game-design.md",
+        "docs/agents/simulation.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md"
+      ]
+    },
+    {
       "id": "ET-019",
       "title": "أساس الخدمة المتصلة",
       "stage": "D",
@@ -586,6 +674,148 @@
       ]
     },
     {
+      "id": "ET-035",
+      "stage": "D",
+      "owner": "Economy Lead",
+      "dependencies": [
+        "ET-016",
+        "ET-034"
+      ],
+      "title": "العلاقات والمنافسة والاحتكار والاستحواذ",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-035.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-036",
+      "stage": "D",
+      "owner": "Game Director",
+      "dependencies": [
+        "ET-035"
+      ],
+      "title": "صعوبة تلقائية تفسّر تعرض الشركة",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-036.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/game-design.md",
+        "docs/agents/economy.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-039",
+      "stage": "D",
+      "owner": "Sports Design Lead",
+      "dependencies": [
+        "ET-034",
+        "ET-037",
+        "ET-038"
+      ],
+      "title": "الكشافة والانتقالات والمالية وأهلية التسجيل",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-039.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/world-economy.md",
+        "docs/agents/economy.md",
+        "docs/agents/simulation.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-040",
+      "stage": "D",
+      "owner": "Principal Simulation Engineer",
+      "dependencies": [
+        "ET-037",
+        "ET-039"
+      ],
+      "title": "جدول الموسم وقوة الأندية ومحاكاة المنافسات",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-040.md",
+      "guides": [
+        "docs/agents/club-management.md",
+        "docs/agents/simulation.md",
+        "docs/agents/game-design.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/product/CLUB_MANAGEMENT.md",
+        "docs/architecture/DOMAIN_OBJECTS.md"
+      ]
+    },
+    {
+      "id": "ET-041",
+      "stage": "D",
+      "owner": "UX Lead",
+      "dependencies": [
+        "ET-036",
+        "ET-039",
+        "ET-040"
+      ],
+      "title": "واجهات اختيار البلد ومجلس النادي والسوق",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-041.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/club-management.md",
+        "docs/agents/ui-ux.md",
+        "docs/agents/quality.md"
+      ],
+      "references": [
+        "docs/design/DESIGN_SYSTEM.md",
+        "docs/product/WORLD_ECONOMY.md",
+        "docs/product/CLUB_MANAGEMENT.md"
+      ]
+    },
+    {
+      "id": "ET-042",
+      "stage": "D",
+      "owner": "Quality Lead",
+      "dependencies": [
+        "ET-031",
+        "ET-041"
+      ],
+      "title": "بوابة قابلية اللعب للعالم والأندية 2026/27",
+      "status": "planned",
+      "file": "docs/production/tasks/ET-042.md",
+      "guides": [
+        "docs/agents/world-economy.md",
+        "docs/agents/club-management.md",
+        "docs/agents/quality.md",
+        "docs/agents/game-design.md",
+        "docs/agents/ui-ux.md"
+      ],
+      "references": [
+        "docs/product/WORLD_SPORT_FIXTURES.md",
+        "docs/research/FOOTBALL_2026_27.md",
+        "docs/production/ROADMAP.md"
+      ]
+    },
+    {
       "id": "ET-021",
       "title": "اختبارات الإطلاق والمراقبة",
       "stage": "E",
@@ -594,7 +824,8 @@
       "dependencies": [
         "ET-018",
         "ET-020",
-        "ET-031"
+        "ET-031",
+        "ET-042"
       ],
       "file": "docs/production/tasks/ET-021.md",
       "guides": [
@@ -616,7 +847,8 @@
       "status": "planned",
       "dependencies": [
         "ET-018",
-        "ET-021"
+        "ET-021",
+        "ET-035"
       ],
       "file": "docs/production/tasks/ET-022.md",
       "guides": [
