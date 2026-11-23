@@ -1,6 +1,8 @@
 /** Renders decision-first overview: active trade-offs first, explicit period metrics, and forecast. */
 import { action, el } from '../../../../packages/ui/src';
 import { dataTable } from '../company/view-tools';
+import { buildCampaignRibbon } from '../visuals/campaign-track';
+import { gameIcon } from '../visuals/icons';
 import {
   buildAlerts, buildDecisionLog, buildDiagnosisPanel, buildEvaluationReport, buildPostClosePanel,
   type CrisisPanelActions,
@@ -22,7 +24,7 @@ function buildProfitCard(model: JourneyReadModel, labels: JourneyLabels) {
   const { c, money } = labels;
   if (!model.monthOneIncome) {
     return el('section', 'panel metric',
-      el('h2', '', c.profitSinceFounding),
+      el('h2', 'title-with-icon', gameIcon('profit'), c.profitSinceFounding),
       money(model.income.netIncome),
       el('span', 'metric-note', c.confirmed),
     );
@@ -30,7 +32,7 @@ function buildProfitCard(model: JourneyReadModel, labels: JourneyLabels) {
   const monthTwoNet = model.monthTwoIncome?.netIncome ?? '0';
   const hasMonthTwoDelta = monthTwoNet !== '0';
   return el('section', 'panel metric metric-profit',
-    el('h2', '', c.monthOneProfitTitle),
+    el('h2', 'title-with-icon', gameIcon('profit'), c.monthOneProfitTitle),
     money(model.monthOneIncome.netIncome),
     el('div', 'metric-subrows',
       el('span', 'metric-subrow', el('span', '', c.profitSinceFounding, ': '), money(model.income.netIncome)),
@@ -50,12 +52,13 @@ export function journeyOverview(model: JourneyReadModel, labels: JourneyLabels, 
   const postCloseBlock = buildPostClosePanel(model, labels, options);
   const diagnosisBlock = buildDiagnosisPanel(model, labels, options);
   const hasPriorityDecision = Boolean(postCloseBlock || diagnosisBlock || report);
+  const campaignRibbon = buildCampaignRibbon(model.day, 45, labels.locale);
 
   const figures = el('div', 'metrics company-metrics',
-    el('section', 'panel metric metric-primary', el('h2', '', c.cashAvailableNow), money(model.balance.cash),
+    el('section', 'panel metric metric-primary', el('h2', 'title-with-icon', gameIcon('coins'), c.cashAvailableNow), money(model.balance.cash),
       action(c.cashSource, options.traceCash, 'trace')),
     el('section', 'panel metric',
-      el('h2', '', c.receivables),
+      el('h2', 'title-with-icon', gameIcon('invoice'), c.receivables),
       money(receivables),
       openInvoice ? el('span', 'metric-subrow', c.receivablesDueHint, ' ', day(openInvoice.dueDay)) : null,
       action(c.openInvoices, options.openInvoices, 'trace'),
@@ -123,11 +126,13 @@ export function journeyOverview(model: JourneyReadModel, labels: JourneyLabels, 
     : analysisGrid;
 
   return el('div', 'view-stack',
+    hasPriorityDecision ? null : campaignRibbon,
     report,
     postCloseBlock,
     diagnosisBlock,
     alertsBlock,
     figures,
+    hasPriorityDecision ? campaignRibbon : null,
     forecastSection,
     buildDecisionLog(model, labels),
   );

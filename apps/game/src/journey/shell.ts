@@ -1,6 +1,7 @@
 /** Renders the responsive shell chrome, unified company banner, and streamlined topbar controls. */
 import { action, applyLocale, el, notice, type Locale } from '../../../../packages/ui/src';
 import { industrySelectionLink } from '../projects/navigation';
+import { gameIcon, type GameIconName } from '../visuals/icons';
 import { guidanceBar, type JourneyScreen } from './guidance';
 import { missionCopy } from './mission-copy';
 import { playbookLink } from './playbook-entry';
@@ -28,16 +29,18 @@ function buildContextBanner(model: JourneyReadModel, strings: JourneyLabels, com
   const lastInvoice = model.invoices.at(-1);
   const contractNote = offer
     ? el('span', 'context-chip',
+      gameIcon('truck'),
       party(offer.customerId), ' · ',
       el('bdi', '', `${format.number(offer.deliveredQuantity)}/${format.number(offer.quantity)}`),
       offer.deliveredQuantity < offer.quantity ? ` · ${c.deliverByShort} ${format.number(offer.deliveryDueDay)}` : '',
     )
     : null;
   const shipmentNote = lastInvoice
-    ? el('span', 'context-chip context-shipment-chip', c.latestShipmentNote, ': ', money(lastInvoice.amountMinor), ' · ', day(lastInvoice.dueDay))
+    ? el('span', 'context-chip context-shipment-chip', gameIcon('invoice'), c.latestShipmentNote, ': ', money(lastInvoice.amountMinor), ' · ', day(lastInvoice.dueDay))
     : null;
   return el('section', `company-context-bar ${compact ? 'compact-context' : ''}`,
     el('div', 'context-identity',
+      gameIcon('warehouse'),
       el('strong', '', c.company),
       el('span', 'context-meta', `${c.sector} · ${c.city}`),
     ),
@@ -72,10 +75,15 @@ export function renderJourneyShell(options: ShellOptions) {
 
   const nav = el('nav', 'navigation company-nav');
   nav.setAttribute('aria-label', c.navigation);
-  const symbols = { overview: '◫', business: '◇', contracts: '≡', finance: '∷' };
+  const icons: Record<JourneyScreen, GameIconName> = {
+    overview: 'overview',
+    business: 'warehouse',
+    contracts: 'contract',
+    finance: 'ledger',
+  };
   for (const page of screens) {
     const button = action(c[page], () => options.navigate(page), 'nav-item');
-    const icon = el('span', 'nav-mark', symbols[page]);
+    const icon = el('span', 'nav-mark', gameIcon(icons[page]));
     icon.setAttribute('aria-hidden', 'true');
     button.prepend(icon);
     button.disabled = !model.founded;

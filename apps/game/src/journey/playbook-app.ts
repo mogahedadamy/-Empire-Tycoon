@@ -3,9 +3,11 @@ import '../theme.css';
 import '../layout.css';
 import '../components.css';
 import '../projects/style.css';
+import '../visuals/game-feel.css';
 import { difficultyIds, playbookRuns, type Difficulty, type PlayMode } from '../../../../packages/content/src';
 import { action, applyLocale, el, type Locale } from '../../../../packages/ui/src';
 import { industrySelectionLink } from '../projects/navigation';
+import { gameIcon, starRank } from '../visuals/icons';
 
 const root = document.querySelector<HTMLElement>('#app')!;
 let locale: Locale = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ar';
@@ -52,6 +54,8 @@ const en: typeof ar = {
   language: 'العربية',
 };
 
+const starsByLevel: Record<Difficulty, 1 | 2 | 3> = { supported: 1, standard: 2, expert: 3 };
+
 function render() {
   applyLocale(document.documentElement, locale);
   const l = locale === 'ar' ? ar : en;
@@ -66,7 +70,7 @@ function render() {
   quickStart.href = locale === 'en' ? '?lang=en' : '?';
   const recommended = el('section', 'panel playbook-featured',
     el('span', 'scope-tag scope-tag-campaign', l.recommendedTag),
-    el('h2', '', l.recommendedTitle),
+    el('h2', 'title-with-icon', gameIcon('trophy'), l.recommendedTitle),
     el('p', 'muted', l.recommendedBody),
     quickStart,
   );
@@ -80,7 +84,7 @@ function render() {
       render();
       root.querySelector<HTMLElement>('input[name="difficulty"]:checked')?.focus({ preventScroll: true });
     });
-    levels.append(el('label', 'plan playbook-level', input, el('strong', '', l[level])));
+    levels.append(el('label', 'plan playbook-level', input, el('span', 'playbook-level-stack', el('strong', '', l[level]), starRank(starsByLevel[level]))));
   }
   const activeHint = el('p', 'muted playbook-level-hint', l[`${difficulty}Hint`]);
 
@@ -102,10 +106,15 @@ function render() {
   }
 
   const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
+  const banner = el('img', 'scene-image');
+  banner.src = `${import.meta.env.BASE_URL}images/port-logistics.webp`;
+  banner.alt = '';
+  banner.width = 1120;
+  banner.height = 747;
   root.replaceChildren(el('main', 'operations-projects',
     el('header', 'project-header', el('strong', '', brand), industrySelectionLink(locale, 'project-back'), switchLanguage),
     el('div', 'project-content',
-      el('section', 'project-heading', el('h1', '', l.title), el('p', '', l.intro)),
+      el('section', 'project-heading project-heading-art', banner, el('h1', '', l.title), el('p', '', l.intro)),
       recommended,
       el('section', 'panel playbook-selector', levels, activeHint),
       el('h2', 'playbook-section-title', l.campaign),

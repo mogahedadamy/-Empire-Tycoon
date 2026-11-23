@@ -3,6 +3,7 @@ import '../theme.css';
 import '../layout.css';
 import '../components.css';
 import './style.css';
+import '../visuals/game-feel.css';
 import { action, applyLocale, el, focusHeading, type Locale } from '../../../../packages/ui/src';
 import { aiText } from '../ai/text';
 import { playbookLink } from '../journey/playbook-entry';
@@ -12,6 +13,23 @@ import { industrySelectionLink, projectHref } from './navigation';
 import { openProjectSave } from './save';
 import { projectText } from './text';
 import { projectConfirmButton, renderProjectReceipt, renderProjectTerms } from './views';
+
+const sectorArt: Record<'food' | Project | 'ai', string> = {
+  food: 'images/produce-terminal.webp',
+  manufacturing: 'images/light-factory.webp',
+  logistics: 'images/port-logistics.webp',
+  property: 'images/warehouse-property.svg',
+  ai: 'images/ai-datacenter.webp',
+};
+
+function artImage(file: string, className = '') {
+  const img = el('img', className);
+  img.src = `${import.meta.env.BASE_URL}${file}`;
+  img.alt = '';
+  img.width = 1120;
+  img.height = 747;
+  return img;
+}
 
 const params = new URLSearchParams(location.search);
 const root = document.querySelector<HTMLElement>('#app')!;
@@ -47,16 +65,13 @@ function nextStepsPanel(l: ReturnType<typeof projectText>) {
 
 function showIndustries() {
   const l = projectText(locale);
-  const photo = el('img', 'scene-image');
-  photo.src = `${import.meta.env.BASE_URL}images/produce-terminal.webp`;
-  photo.alt = '';
-  photo.width = 1120;
-  photo.height = 747;
+  const photo = artImage(sectorArt.food, 'scene-image');
   const cards = (['food', ...projects] as const).map((project) => {
     const isCampaign = project === 'food';
-    const scope = el('span', `scope-tag ${isCampaign ? 'scope-tag-campaign' : ''}`, isCampaign ? l.foodScope : l.projectScope);
+    const scope = el('span', `scope-tag ${isCampaign ? 'scope-tag-campaign' : 'scope-tag-dark'}`, isCampaign ? l.foodScope : l.projectScope);
     const link = el('a', `industry-option ${isCampaign ? 'industry-option-featured' : ''}`,
-      el('div', 'industry-option-head', el('h2', '', l[project]), scope),
+      el('div', 'industry-card-media', artImage(sectorArt[project]), scope),
+      el('h2', '', l[project]),
       el('p', '', l[`${project}Goal`]),
     );
     link.href = projectHref(project, locale);
@@ -66,7 +81,8 @@ function showIndustries() {
   });
   const ai = aiText(locale);
   const aiCard = el('a', 'industry-option',
-    el('div', 'industry-option-head', el('h2', '', ai.industry), el('span', 'scope-tag', ai.scope)),
+    el('div', 'industry-card-media', artImage(sectorArt.ai), el('span', 'scope-tag scope-tag-dark', ai.scope)),
+    el('h2', '', ai.industry),
     el('p', '', ai.industryGoal),
   );
   aiCard.href = projectHref('ai', locale);
@@ -97,7 +113,8 @@ async function showProject(project: Project) {
       !receipt || !store || (phase !== 'ready' && phase !== 'saveFailed'), () => { void confirm(); });
     const nextSteps = phase === 'saved' ? nextStepsPanel(l) : null;
     shell(el('div', 'project-content',
-      el('section', 'project-heading',
+      el('section', 'project-heading project-heading-art',
+        artImage(sectorArt[project], 'scene-image'),
         el('span', 'scope-tag scope-tag-dark', l.projectScope),
         el('h1', '', l[project]),
         el('p', '', l[`${project}Goal`]),

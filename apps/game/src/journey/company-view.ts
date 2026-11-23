@@ -2,6 +2,9 @@
 import type { Scenario } from '../../../../packages/content/src';
 import { action, detailRows, el } from '../../../../packages/ui/src';
 import { dataTable } from '../company/view-tools';
+import { buildCapacityMeters } from '../visuals/campaign-track';
+import { gameIcon } from '../visuals/icons';
+import { buildRouteBoard } from '../visuals/route-board';
 import type { JourneyLabels } from './text';
 import type { JourneyReadModel } from './types';
 
@@ -30,7 +33,7 @@ export function companyView(model: JourneyReadModel, labels: JourneyLabels, opti
   const openingOrder = model.orders.find(({ orderId }) => orderId === 'opening-stock');
 
   const supplyPanel = el('section', 'panel',
-    el('h2', '', c.supplyTitle),
+    el('h2', 'title-with-icon', gameIcon('truck'), c.supplyTitle),
     el('p', 'muted', labels.party(scenario.supplier.id)),
     detailRows([
       [c.orderQty, qty(scenario.supply.quantity)],
@@ -60,7 +63,7 @@ export function companyView(model: JourneyReadModel, labels: JourneyLabels, opti
   });
 
   const obligationsPanel = el('section', 'panel',
-    el('h2', '', c.obligationsTitle),
+    el('h2', 'title-with-icon', gameIcon('ledger'), c.obligationsTitle),
     detailRows([
       [c.payrollStatusLabel, el('span', 'badge', c[model.payroll.status])],
       [c.payroll, el('span', 'dates', day(model.payroll.dueDay), ' · ', money(model.payroll.amountMinor))],
@@ -70,12 +73,42 @@ export function companyView(model: JourneyReadModel, labels: JourneyLabels, opti
       : el('p', 'muted', c.noDates),
   );
 
+  const limits = model.capacity.limits;
+  const labor = Number(limits.labor);
+  const equipment = Number(limits.equipment);
+  const shipping = Number(limits.shipping);
+  const materials = Number(limits.materials);
+  const bottleneck = Math.min(labor, equipment, shipping, materials);
+  const dispatchMeters = buildCapacityMeters([
+    { icon: 'worker', label: c.labor, value: labor, formatted: qty(limits.labor), bottleneck: labor === bottleneck },
+    { icon: 'gear', label: c.equipment, value: equipment, formatted: qty(limits.equipment), bottleneck: equipment === bottleneck },
+    { icon: 'truck', label: c.shipping, value: shipping, formatted: qty(limits.shipping), bottleneck: shipping === bottleneck },
+    { icon: 'crate', label: c.materials, value: materials, formatted: qty(limits.materials), bottleneck: materials === bottleneck },
+  ]);
+
+  const stockOnHand = Number(model.inventory.quantity);
+  const routeMap = buildRouteBoard({
+    locale: labels.locale,
+    founded: model.founded,
+    contractSigned: model.offer?.acceptedDay !== null && model.offer !== null,
+    supplyOrdered: model.supplyOrdered,
+    stockOnHand,
+    stockCapacity: scenario.supply.quantity,
+    delivered: model.offer?.deliveredQuantity ?? 0,
+    goal: scenario.contract.quantity,
+    invoicesCount: model.invoices.length,
+    activeLeg: (model.offer?.deliveredQuantity ?? 0) >= scenario.contract.quantity
+      ? 'done'
+      : stockOnHand > 0 ? 'shipping' : model.supplyOrdered ? 'supply' : 'found',
+  });
+
   return el('div', 'view-stack',
     el('div', 'view-layout company-business',
-      el('section', 'panel company-location', photo, el('h2', '', c.company), el('p', 'muted', c.city, ' · ', c.sector), preview),
+      el('section', 'panel company-location', photo, el('h2', 'title-with-icon', gameIcon('warehouse'), c.company),
+        el('p', 'muted', c.city, ' · ', c.sector), routeMap, preview),
       el('div', 'view-stack',
         supplyPanel,
-        el('section', 'panel', el('h2', '', c.stock), el('p', 'muted', c.warehouse),
+        el('section', 'panel', el('h2', 'title-with-icon', gameIcon('crate'), c.stock), el('p', 'muted', c.warehouse),
           detailRows([
             [c.onHand, qty(model.inventory.quantity)],
             [c.reserved, qty(model.inventory.reserved)],
@@ -83,12 +116,7 @@ export function companyView(model: JourneyReadModel, labels: JourneyLabels, opti
             [c.bookValue, money(model.inventory.valueMinor)],
           ]),
         ),
-        el('section', 'panel', el('h2', '', c.dispatch), detailRows([
-          [c.labor, qty(model.capacity.limits.labor)],
-          [c.equipment, qty(model.capacity.limits.equipment)],
-          [c.shipping, qty(model.capacity.limits.shipping)],
-          [c.materials, qty(model.capacity.limits.materials)],
-        ])),
+        el('section', 'panel', el('h2', 'title-with-icon', gameIcon('gear'), c.dispatch), dispatchMeters),
       ),
     ),
     obligationsPanel,

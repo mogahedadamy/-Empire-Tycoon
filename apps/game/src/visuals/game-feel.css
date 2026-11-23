@@ -1,0 +1,272 @@
+/* Tactile business-tycoon game visuals: route diorama, campaign ribbon, capacity gauges, and illustrated sector cards. */
+.game-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  vertical-align: -0.2em;
+}
+.title-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-inline-size: 0;
+}
+.title-with-icon .game-icon { color: var(--green); inline-size: 1.2em; block-size: 1.2em; }
+.metric-primary .title-with-icon .game-icon { color: var(--gold); }
+
+/* Tactile embossed game buttons */
+.button.primary {
+  box-shadow: 0 3px 0 #0b352c, 0 6px 14px rgba(16, 43, 37, .16);
+}
+.button.primary:enabled:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0b352c;
+}
+.button.secondary, .button.language {
+  box-shadow: 0 2px 0 #ced3c6;
+}
+.button.secondary:enabled:active, .button.language:enabled:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0 0 #ced3c6;
+}
+.mission-primary {
+  box-shadow: 0 4px 0 #9f7937, 0 10px 22px rgba(0, 0, 0, .32);
+}
+.mission-primary:enabled:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #9f7937;
+}
+
+/* Live supply-chain route board */
+.route-board {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #16372c, #0f261e);
+  border: 1px solid #3c6555;
+  box-shadow: var(--shadow-sm);
+}
+.route-board-dark {
+  margin-block-start: 10px;
+  background: linear-gradient(180deg, #132c23, #0c1d17);
+  border-color: #466657;
+}
+.route-board-svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: 10px;
+}
+.route-board-legend {
+  direction: ltr;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  font-size: .74rem;
+  font-weight: 660;
+  color: #dbe8de;
+  text-align: center;
+}
+.route-legend-center { color: var(--gold); }
+
+/* 45-day campaign chapter ribbon */
+.campaign-ribbon {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fffdf6, #f4f1e2);
+  border-color: #cfc6a6;
+}
+.campaign-ribbon-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+}
+.campaign-ribbon-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #14362a;
+}
+.campaign-ribbon-title .game-icon { color: #b68432; }
+.campaign-track {
+  block-size: 8px;
+  border-radius: 999px;
+  background: #dfe2d5;
+  overflow: hidden;
+}
+.campaign-track-fill {
+  block-size: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #155d50, #c79a47);
+}
+.campaign-pins {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.campaign-pin {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  font-size: .72rem;
+  color: var(--muted);
+  text-align: center;
+}
+.campaign-dot {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 999px;
+  background: #c7cdc0;
+  border: 2px solid #fffdf7;
+}
+.campaign-pin.is-done .campaign-dot { background: var(--green); }
+.campaign-pin.is-done { color: #194738; font-weight: 640; }
+.campaign-pin.is-active .campaign-dot { background: #d49e3f; box-shadow: 0 0 0 3px rgba(212, 158, 63, .26); }
+.campaign-pin.is-active { color: #102b25; font-weight: 760; }
+
+/* Visual warehouse capacity gauges */
+.capacity-meters { display: grid; gap: 9px; margin-block-start: 10px; }
+.capacity-meter { display: grid; gap: 4px; }
+.capacity-meter-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px 10px;
+  font-size: .86rem;
+}
+.capacity-meter-label { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 620; }
+.capacity-meter-label .game-icon { color: var(--green); }
+.capacity-meter-bar {
+  block-size: 10px;
+  border-radius: 999px;
+  background: #e7eadf;
+  overflow: hidden;
+}
+.capacity-meter-fill {
+  display: block;
+  block-size: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1b6d5e, #4ea084);
+}
+.capacity-meter-fill.is-bottleneck { background: linear-gradient(90deg, #b85b30, #dc9348); }
+.capacity-meter-bottleneck .capacity-meter-label .game-icon { color: #b85b30; }
+
+/* Contract delivery visual track & seal */
+.contract-visual-track {
+  display: grid;
+  gap: 6px;
+  margin-block: 10px 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f5f4e9;
+  border: 1px solid #dadcc8;
+}
+.contract-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .76rem;
+  font-weight: 720;
+  background: #17493d;
+  color: #fce9c2;
+}
+.contract-bar {
+  block-size: 12px;
+  border-radius: 999px;
+  background: #dde1d4;
+  overflow: hidden;
+}
+.contract-bar-fill {
+  display: block;
+  block-size: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #155d50, #76b888);
+}
+
+/* Illustrated sector cards & scene headers */
+.industry-card-media {
+  position: relative;
+  margin: -13px -15px 6px;
+  block-size: 122px;
+  overflow: hidden;
+  border-radius: 13px 13px 0 0;
+  background: #18362c;
+}
+.industry-card-media img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center 52%;
+}
+.industry-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(16, 41, 33, .72), transparent 62%);
+}
+.industry-card-media .scope-tag {
+  position: absolute;
+  inset-block-end: 8px;
+  inset-inline-start: 10px;
+  z-index: 1;
+}
+.project-heading-art {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-block-size: 168px;
+  align-content: end;
+}
+.project-heading-art .scene-image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center 48%;
+  z-index: -2;
+}
+.project-heading-art::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, #0d231bf2 10%, #102b21c4 52%, rgba(16, 43, 33, .45) 100%);
+}
+.star-rank {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #b77e22;
+}
+.star-filled { inline-size: 14px; block-size: 14px; fill: currentColor; }
+.playbook-level-stack { display: grid; justify-items: center; gap: 2px; }
+.company-location .route-board { margin-block-start: 12px; }
+.mission-hud-label { display: inline-flex; align-items: center; gap: 5px; }
+.mission-hud-label .game-icon { color: var(--mission-accent); inline-size: 14px; block-size: 14px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .route-dash-animated { animation: routeFlow 1.6s linear infinite; }
+  .route-truck-moving { animation: truckBob 1.8s ease-in-out infinite; }
+  .industry-option { transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease; }
+  .industry-option:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+}
+@keyframes routeFlow {
+  to { stroke-dashoffset: -24; }
+}
+@keyframes truckBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}

@@ -2,6 +2,7 @@
 import { applyBasisPoints } from '../../../../packages/finance/src';
 import { action, detailRows, el, notice } from '../../../../packages/ui/src';
 import { dataTable } from '../company/view-tools';
+import { gameIcon } from '../visuals/icons';
 import type { JourneyLabels } from './text';
 import type { JourneyReadModel } from './types';
 
@@ -63,18 +64,18 @@ export function buildPostClosePanel(model: JourneyReadModel, labels: JourneyLabe
   defer.disabled = options.busy || !options.canWrite;
 
   const buyCard = el('article', 'tradeoff-choice tradeoff-choice-risk',
-    el('div', 'tradeoff-head', el('strong', '', c.restockOptionTitle), money(restockTerms.totalCostMinor)),
+    el('div', 'tradeoff-head', el('strong', 'title-with-icon', gameIcon('crate'), c.restockOptionTitle), money(restockTerms.totalCostMinor)),
     el('p', `choice-outcome ${!affordable || buyGap > 0n ? 'choice-outcome-warn' : 'choice-outcome-safe'}`, buyOutcome),
     buy,
   );
   const deferCard = el('article', 'tradeoff-choice tradeoff-choice-safe',
-    el('div', 'tradeoff-head', el('strong', '', c.deferOptionTitle), el('span', 'muted tradeoff-cost-free', c.noCashCost)),
+    el('div', 'tradeoff-head', el('strong', 'title-with-icon', gameIcon('shield'), c.deferOptionTitle), el('span', 'muted tradeoff-cost-free', c.noCashCost)),
     el('p', `choice-outcome ${deferCovered ? 'choice-outcome-safe' : 'choice-outcome-warn'}`, deferOutcome),
     defer,
   );
 
   return el('section', 'panel decision-card decision-priority',
-    el('div', 'panel-heading', el('h2', '', c.postCloseTitle), el('span', 'badge badge-warn', qty(restockTerms.quantity))),
+    el('div', 'panel-heading', el('h2', 'title-with-icon', gameIcon('crate'), c.postCloseTitle), el('span', 'badge badge-warn', qty(restockTerms.quantity))),
     el('div', 'tradeoff-facts',
       el('span', '', c.cashAvailableNow, ': ', money(model.balance.cash)),
       el('span', '', c.rentDueLabel, ': ', money(restockTerms.rentAmountMinor), ' · ', day(restockTerms.rentDueDay)),
@@ -115,7 +116,7 @@ export function buildDiagnosisPanel(model: JourneyReadModel, labels: JourneyLabe
     btn.disabled = options.busy || !options.canWrite;
     const covers = BigInt(earlyCollectionSummary.cashMinor) >= rentNeed;
     cards.append(el('article', 'containment-card',
-      el('p', 'choice-outcome choice-outcome-safe', covers ? c.coversRentNow : c.earlyCollectDetail),
+      el('p', 'choice-outcome choice-outcome-safe title-with-icon', gameIcon('bolt'), covers ? c.coversRentNow : c.earlyCollectDetail),
       compactMeta([
         [c.earlyCollectDetail, money(earlyCollectionSummary.cashMinor)],
         [c.earlyDiscountCost, money(earlyCollectionSummary.discountMinor)],
@@ -129,7 +130,7 @@ export function buildDiagnosisPanel(model: JourneyReadModel, labels: JourneyLabe
     btn.dataset.drawRescueLoan = '';
     btn.disabled = options.busy || !options.canWrite;
     cards.append(el('article', 'containment-card',
-      el('p', 'choice-outcome choice-outcome-warn', c.addsDebtNote),
+      el('p', 'choice-outcome choice-outcome-warn title-with-icon', gameIcon('bank'), c.addsDebtNote),
       compactMeta([
         [c.rescueLoanDetail, money(rescueLoanTerms.principalMinor)],
         [c.rescueMonthlyInterest, money(monthly)],
@@ -162,7 +163,7 @@ export function buildDiagnosisPanel(model: JourneyReadModel, labels: JourneyLabe
   }
 
   const section = el('section', 'panel diagnosis-panel decision-priority',
-    el('div', 'panel-heading', el('h2', '', c.diagnosisTitle), el('span', `badge ${badgeTone}`, c[stageKey])),
+    el('div', 'panel-heading', el('h2', 'title-with-icon', gameIcon('alert'), c.diagnosisTitle), el('span', `badge ${badgeTone}`, c[stageKey])),
     causeStrip,
     cards.childElementCount ? cards : null,
   );
@@ -178,7 +179,7 @@ export function buildEvaluationReport(model: JourneyReadModel, labels: JourneyLa
   const restart = action(c.newRun, options.startNewRun);
   restart.dataset.newRun = '';
   return el('section', 'panel report-panel',
-    el('h2', '', c.reportTitle),
+    el('h2', 'title-with-icon', gameIcon('trophy'), c.reportTitle),
     notice(c.reportTitle, c[evalKey], tone),
     detailRows([
       [c.objDelivery, model.evaluation.deliveredOnTime ? c.passed : c.failed],

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 747" width="1120" height="747">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f2b979"/>
+      <stop offset="52%" stop-color="#f8d8a2"/>
+      <stop offset="100%" stop-color="#fbe9c4"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4e7c85"/>
+      <stop offset="55%" stop-color="#6b9ca0"/>
+      <stop offset="100%" stop-color="#d4b37e"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ead7b3"/>
+      <stop offset="100%" stop-color="#c9ae83"/>
+    </linearGradient>
+    <linearGradient id="awning" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#215546"/>
+      <stop offset="100%" stop-color="#113128"/>
+    </linearGradient>
+    <linearGradient id="yard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c7b28f"/>
+      <stop offset="100%" stop-color="#8b7a62"/>
+    </linearGradient>
+    <linearGradient id="bayGlow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd585"/>
+      <stop offset="100%" stop-color="#916332"/>
+    </linearGradient>
+  </defs>
+  <rect width="1120" height="747" fill="url(#sky)"/>
+  <circle cx="930" cy="182" r="56" fill="#fff4cf" opacity="0.9"/>
+  <circle cx="930" cy="182" r="98" fill="#ffd995" opacity="0.28"/>
+  <path d="M0 305 Q210 250 430 286 T890 264 L1120 278 L1120 390 L0 390 Z" fill="#cfa980" opacity="0.65"/>
+  <path d="M580 296 L650 262 L735 280 L840 252 L960 278 L1120 264 L1120 342 L580 342 Z" fill="#b79168" opacity="0.8"/>
+  <rect x="0" y="330" width="1120" height="122" fill="url(#sea)"/>
+  <g fill="#f8e1a6" opacity="0.42">
+    <rect x="840" y="352" width="145" height="5" rx="2.5"/>
+    <rect x="865" y="370" width="102" height="4" rx="2"/>
+    <rect x="820" y="388" width="160" height="4" rx="2"/>
+    <rect x="875" y="405" width="90" height="3.5" rx="2"/>
+  </g>
+  <polygon points="0,445 1120,418 1120,747 0,747" fill="url(#yard)"/>
+  <g stroke="#786852" stroke-width="2" opacity="0.32">
+    <line x1="0" y1="530" x2="1120" y2="496"/>
+    <line x1="0" y1="608" x2="1120" y2="574"/>
+    <line x1="0" y1="686" x2="1120" y2="652"/>
+  </g>
+  <polygon points="62,216 838,164 838,530 62,576" fill="url(#stone)" stroke="#9a7d56" stroke-width="3"/>
+  <polygon points="838,164 1020,218 1020,516 838,530" fill="#b4956a" stroke="#856b48" stroke-width="3"/>
+  <polygon points="48,216 846,154 1036,214 840,180" fill="#174034"/>
+  <rect x="112" y="218" width="128" height="44" rx="22" fill="#294c40" stroke="#7d6444" stroke-width="3"/>
+  <rect x="290" y="206" width="128" height="44" rx="22" fill="#294c40" stroke="#7d6444" stroke-width="3"/>
+  <rect x="468" y="194" width="128" height="44" rx="22" fill="#294c40" stroke="#7d6444" stroke-width="3"/>
+  <rect x="646" y="182" width="128" height="44" rx="22" fill="#294c40" stroke="#7d6444" stroke-width="3"/>
+  <g fill="#f5c97a" opacity="0.55">
+    <rect x="128" y="232" width="96" height="16" rx="8"/>
+    <rect x="306" y="220" width="96" height="16" rx="8"/>
+    <rect x="484" y="208" width="96" height="16" rx="8"/>
+    <rect x="662" y="196" width="96" height="16" rx="8"/>
+  </g>
+  <polygon points="44,320 848,268 866,314 36,368" fill="url(#awning)"/>
+  <g stroke="#102b25" stroke-width="4">
+    <line x1="176" y1="312" x2="176" y2="570"/>
+    <line x1="354" y1="300" x2="354" y2="559"/>
+    <line x1="532" y1="288" x2="532" y2="548"/>
+    <line x1="710" y1="276" x2="710" y2="537"/>
+  </g>
+  <g>
+    <path d="M104 566 V406 Q176 364 248 406 V558 Z" fill="url(#bayGlow)" stroke="#6d563a" stroke-width="4"/>
+    <path d="M282 555 V394 Q354 352 426 394 V547 Z" fill="url(#bayGlow)" stroke="#6d563a" stroke-width="4"/>
+    <path d="M460 544 V382 Q532 340 604 382 V536 Z" fill="#2b3d38" stroke="#6d563a" stroke-width="4"/>
+    <path d="M638 533 V370 Q710 328 782 370 V525 Z" fill="url(#bayGlow)" stroke="#6d563a" stroke-width="4"/>
+  </g>
+  <g fill="#8f6336" stroke="#5c3d1e" stroke-width="2">
+    <rect x="122" y="492" width="44" height="36" rx="3"/>
+    <rect x="172" y="484" width="52" height="44" rx="3"/>
+    <rect x="142" y="454" width="46" height="34" rx="3"/>
+    <rect x="304" y="486" width="54" height="40" rx="3"/>
+    <rect x="364" y="476" width="42" height="48" rx="3"/>
+    <rect x="668" y="468" width="52" height="38" rx="3"/>
+  </g>
+  <g fill="#5b6f67" opacity="0.45">
+    <rect x="472" y="410" width="120" height="14"/>
+    <rect x="472" y="438" width="120" height="14"/>
+    <rect x="472" y="466" width="120" height="14"/>
+    <rect x="472" y="494" width="120" height="14"/>
+  </g>
+  <g transform="translate(690,486)">
+    <rect x="0" y="18" width="212" height="92" rx="10" fill="#f7f3e6" stroke="#62736d" stroke-width="3"/>
+    <path d="M212 42 H268 L286 72 V110 H212 Z" fill="#e8e2cf" stroke="#62736d" stroke-width="3"/>
+    <polygon points="222,50 262,50 274,72 222,72" fill="#2c5349"/>
+    <rect x="16" y="48" width="176" height="14" rx="4" fill="#175c4f"/>
+    <circle cx="52" cy="112" r="22" fill="#1c2725"/>
+    <circle cx="52" cy="112" r="10" fill="#c7c2b2"/>
+    <circle cx="246" cy="112" r="22" fill="#1c2725"/>
+    <circle cx="246" cy="112" r="10" fill="#c7c2b2"/>
+  </g>
+  <g transform="translate(88,522)">
+    <rect x="24" y="54" width="14" height="66" rx="4" fill="#634832"/>
+    <circle cx="31" cy="40" r="34" fill="#3b5e46"/>
+    <circle cx="54" cy="48" r="26" fill="#4f7455"/>
+    <circle cx="10" cy="50" r="24" fill="#2d4c38"/>
+  </g>
+  <g transform="translate(972,462)">
+    <rect x="26" y="64" width="14" height="72" rx="4" fill="#5b432e"/>
+    <ellipse cx="33" cy="36" rx="22" ry="52" fill="#274837"/>
+    <ellipse cx="42" cy="46" rx="15" ry="38" fill="#3a6049"/>
+  </g>
+</svg>

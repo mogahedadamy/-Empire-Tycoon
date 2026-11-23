@@ -52,5 +52,10 @@ p { line-height: 1.65; }
 .figure bdi { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .figure small { font-size: .72em; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0s !important; scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

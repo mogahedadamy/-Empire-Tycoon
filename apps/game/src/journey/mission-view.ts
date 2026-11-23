@@ -3,6 +3,8 @@ import { getPlaybookRun, type Scenario } from '../../../../packages/content/src'
 import { action, applyLocale, detailRows, el, notice, type Locale } from '../../../../packages/ui/src';
 import { previewModel, type FundingPlan } from '../preview-model';
 import { industrySelectionLink } from '../projects/navigation';
+import { gameIcon } from '../visuals/icons';
+import { buildRouteBoard, type RouteBoardState } from '../visuals/route-board';
 import type { JourneyScreen } from './guidance';
 import { missionCopy } from './mission-copy';
 import { readMissionStep, type MissionStep } from './mission-step';
@@ -43,10 +45,38 @@ function liveCompanyStrip(step: MissionStep, { model, scenario, labels }: Missio
   const awaiting = model.invoices.reduce((sum, invoice) => invoice.payment ? sum : sum + BigInt(invoice.amountMinor), 0n);
   const deadlineShown = step.id !== 'done' && model.offer?.acceptedDay !== null;
   return el('div', 'mission-hud',
-    el('div', 'mission-hud-cell', el('span', '', m.cashNow), money(model.balance.cash)),
-    el('div', 'mission-hud-cell', el('span', '', m.awaitingDue), money(awaiting.toString())),
-    deadlineShown ? el('div', 'mission-hud-cell', el('span', '', m.deadline), day(scenario.contract.deliveryDueDay)) : null,
+    el('div', 'mission-hud-cell', el('span', 'mission-hud-label', gameIcon('coins'), m.cashNow), money(model.balance.cash)),
+    el('div', 'mission-hud-cell', el('span', 'mission-hud-label', gameIcon('invoice'), m.awaitingDue), money(awaiting.toString())),
+    deadlineShown ? el('div', 'mission-hud-cell', el('span', 'mission-hud-label', gameIcon('clock'), m.deadline), day(scenario.contract.deliveryDueDay)) : null,
   );
+}
+
+function missionRouteVisual(step: MissionStep, { model, scenario, locale }: MissionViewOptions) {
+  if (!model.founded) return null;
+  const activeLeg: RouteBoardState['activeLeg'] = step.id === 'contract'
+    ? 'contract'
+    : step.id === 'order' || step.id === 'arrival'
+      ? 'supply'
+      : step.id === 'delivery-day'
+        ? 'warehouse'
+        : step.id === 'ship' || step.id === 'next-trip'
+          ? 'shipping'
+          : step.id === 'done'
+            ? 'done'
+            : 'found';
+  return buildRouteBoard({
+    locale,
+    founded: model.founded,
+    contractSigned: model.offer?.acceptedDay !== null && model.offer !== null,
+    supplyOrdered: model.supplyOrdered,
+    stockOnHand: Number(model.inventory.quantity),
+    stockCapacity: scenario.supply.quantity,
+    delivered: model.offer?.deliveredQuantity ?? 0,
+    goal: scenario.contract.quantity,
+    invoicesCount: model.invoices.length,
+    activeLeg,
+    dark: true,
+  });
 }
 
 function stageFacts(step: MissionStep, { model, scenario, plan, labels }: MissionViewOptions) {
@@ -181,7 +211,8 @@ export function renderOpeningMission(options: MissionViewOptions) {
   panel.setAttribute('aria-labelledby', heading.id);
   const status = el('p', 'save-status mission-save');
   const main = el('main', 'opening-mission',
-    header, scene(m.goal, m.companyTag, step.id === 'found'), liveCompanyStrip(step, options), stageList, panel, status,
+    header, scene(m.goal, m.companyTag, step.id === 'found'), liveCompanyStrip(step, options),
+    missionRouteVisual(step, options), stageList, panel, status,
   );
   main.dataset.missionStep = step.id;
   main.dataset.missionRevision = String(model.revision);

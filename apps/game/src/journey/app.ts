@@ -5,6 +5,7 @@ import '../components.css';
 import '../company/company.css';
 import './journey.css';
 import './mission.css';
+import '../visuals/game-feel.css';
 import { getPlaybookRun, scenarioIds } from '../../../../packages/content/src';
 import { createJourneyPerformance } from '../platform/performance';
 import { mountJourneyApp } from './mount';

@@ -1,6 +1,7 @@
 /** Presents contract signing, revision-aware delivery previews, and source-linked invoices. */
 import { action, detailRows, el, notice } from '../../../../packages/ui/src';
 import { dataTable, reference } from '../company/view-tools';
+import { gameIcon } from '../visuals/icons';
 import type { JourneyLabels } from './text';
 import type { JourneyDeliveryPreview, JourneyReadModel } from './types';
 
@@ -115,11 +116,24 @@ function decisionPanel(model: JourneyReadModel, labels: JourneyLabels, options: 
 }
 
 export function journeyContractsView(model: JourneyReadModel, labels: JourneyLabels, options: ContractsViewOptions) {
-  const { c, money, day, qty } = labels;
+  const { c, money, day, qty, format } = labels;
   const offer = model.offer;
+  const pct = offer ? Math.round((offer.deliveredQuantity / Math.max(1, offer.quantity)) * 100) : 0;
+  const barFill = el('span', 'contract-bar-fill');
+  barFill.setAttribute('style', `inline-size: ${pct}%`);
+  const visualTrack = offer ? el('div', 'contract-visual-track',
+    el('div', 'panel-heading',
+      el('span', 'contract-stamp', gameIcon(offer.status === 'offered' ? 'contract' : 'truck'),
+        offer.status === 'offered' ? c.signContractAction : `${format.number(offer.deliveredQuantity)} / ${format.number(offer.quantity)}`),
+      el('span', 'badge', `${format.number(pct)}%`),
+    ),
+    el('div', 'contract-bar', barFill),
+  ) : null;
+
   const terms = offer ? el('section', 'panel',
-    el('h2', '', c.contractTerms),
+    el('h2', 'title-with-icon', gameIcon('contract'), c.contractTerms),
     el('p', 'muted', labels.party(offer.customerId)),
+    visualTrack,
     detailRows([
       [c.rate, money(offer.unitPriceMinor)],
       [c.ordered, qty(offer.quantity)],
@@ -146,7 +160,7 @@ export function journeyContractsView(model: JourneyReadModel, labels: JourneyLab
     }
     return el('article', 'invoice-row',
       el('div', 'invoice-heading',
-        el('div', '', el('strong', '', labels.party(invoice.customerId)), reference(invoice.id)),
+        el('div', '', el('strong', 'title-with-icon', gameIcon('invoice'), labels.party(invoice.customerId)), reference(invoice.id)),
         el('span', `badge ${invoice.status === 'overdue' ? 'badge-danger' : ''}`, c[invoice.status]),
       ),
       detailRows([[c.amount, money(invoice.amountMinor)], [c.issued, day(invoice.issueDay)], [c.payDue, day(invoice.dueDay)]]),
@@ -154,7 +168,7 @@ export function journeyContractsView(model: JourneyReadModel, labels: JourneyLab
     );
   });
 
-  const section = el('section', 'panel invoices', el('h2', '', c.invoices),
+  const section = el('section', 'panel invoices', el('h2', 'title-with-icon', gameIcon('invoice'), c.invoices),
     entries.length ? el('div', 'invoice-grid', ...entries) : el('p', 'muted', c.noInvoice));
   section.id = 'invoices';
 
