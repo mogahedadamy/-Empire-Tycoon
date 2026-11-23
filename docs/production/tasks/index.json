@@ -294,7 +294,7 @@
       "title": "Capacitor ومصفوفة الأداء",
       "stage": "B",
       "owner": "Platform Lead",
-      "status": "blocked",
+      "status": "done",
       "evidence": "docs/production/tasks/ET-014.md#دليل-الإنجاز",
       "dependencies": [
         "ET-005",
@@ -318,7 +318,7 @@
       "title": "التحقق من الشريحة ومراجعة UX",
       "stage": "B",
       "owner": "Quality Lead",
-      "status": "blocked",
+      "status": "done",
       "evidence": "docs/production/tasks/ET-015.md#دليل-الإنجاز",
       "dependencies": [
         "ET-013",
@@ -343,7 +343,7 @@
       "title": "طلب ومنافسون وصدمات السوق",
       "stage": "C",
       "owner": "Economy Lead",
-      "status": "blocked",
+      "status": "done",
       "evidence": "docs/production/tasks/ET-016.md#دليل-الإنجاز",
       "dependencies": [
         "ET-015"
@@ -454,7 +454,7 @@
       "title": "مختبر النماذج والتقييم والإطلاق",
       "stage": "C",
       "owner": "Principal Simulation Engineer",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-026"
       ],
@@ -479,7 +479,7 @@
         "ET-015"
       ],
       "title": "بلد التأسيس وسياسات التجارة والتمويل",
-      "status": "planned",
+      "status": "ready",
       "file": "docs/production/tasks/ET-033.md",
       "guides": [
         "docs/agents/world-economy.md",
@@ -523,7 +523,7 @@
         "ET-015"
       ],
       "title": "حزمة الأندية والمنافسات الحقيقية 2026/27",
-      "status": "planned",
+      "status": "ready",
       "file": "docs/production/tasks/ET-037.md",
       "guides": [
         "docs/agents/club-management.md",
@@ -544,7 +544,7 @@
         "ET-015"
       ],
       "title": "حوكمة النادي وتفويض مجلس الإدارة والطاقم",
-      "status": "planned",
+      "status": "ready",
       "file": "docs/production/tasks/ET-038.md",
       "guides": [
         "docs/agents/club-management.md",
@@ -564,7 +564,7 @@
       "title": "أساس الخدمة المتصلة",
       "stage": "D",
       "owner": "Online Lead",
-      "status": "planned",
+      "status": "ready",
       "dependencies": [
         "ET-015"
       ],
