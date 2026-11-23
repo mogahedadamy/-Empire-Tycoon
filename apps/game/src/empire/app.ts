@@ -148,6 +148,11 @@ function buildContent(nowMs: number): HTMLElement {
         scheduleSave(true);
         render();
       },
+      onOpenOpportunity: (targetTab) => {
+        tab = targetTab;
+        subScreen = targetTab === 'business' && state.companies.length === 0 ? { type: 'start-business' } : null;
+        render();
+      },
     });
   }
 

@@ -1,4 +1,4 @@
-/** Renders the Business root tab, Start-a-Business catalog, and Manage-Company sub-screen. */
+/** Renders the Business root tab (with Flagship Venture Spotlight on 0/10), Start-a-Business catalog, and Manage-Company room. */
 import {
   BUSINESS_SECTORS, canMergeHolding, companyHourlyIncomeCents, companyUpgradeCostCents,
   getSectorDef, HOLDING_MERGE_COST_CENTS, MAX_COMPANIES, totalBusinessHourlyCents,
@@ -6,8 +6,9 @@ import {
 } from '../../../../packages/empire/src';
 import { action, el, type Locale } from '../../../../packages/ui/src';
 import { gameIcon } from '../visuals/icons';
-import { formatHourly, formatUsd } from './format';
+import { formatHourly, formatUsd, formatUsdParen } from './format';
 import { empireText } from './text';
+import { buildProgressBar } from './visuals';
 
 export interface BusinessHandlers {
   onOpenStartBusiness(): void;
@@ -29,8 +30,63 @@ function artThumb(art: string) {
   return img;
 }
 
+/** Eliminates dead whitespace when 0 companies are owned by showcasing the Flagship First Venture & 5-Sector Empire Ladder. */
+function buildFlagshipSpotlight(state: EmpireState, locale: Locale, handlers: BusinessHandlers): HTMLElement {
+  const ar = locale === 'ar';
+  const food = BUSINESS_SECTORS[0];
+  const pct = Math.min(100, Number((state.balanceCents * 100n) / food.startupCostCents));
+  const canAfford = state.balanceCents >= food.startupCostCents;
+  const gap = food.startupCostCents > state.balanceCents ? food.startupCostCents - state.balanceCents : 0n;
+
+  const cta = canAfford
+    ? action(`${ar ? 'أسّس الآن' : 'Launch now'} · \u2066${formatUsd(food.startupCostCents, true)}\u2069`, () => handlers.onFoundCompany('food'), 'primary')
+    : action(
+      ar ? `استعرض شروط التأسيس · متبقي \u2066${formatUsd(gap, true)}\u2069` : `View launch terms · \u2066${formatUsd(gap, true)}\u2069 needed`,
+      handlers.onOpenStartBusiness,
+      'secondary',
+    );
+
+  const spotlight = el('section', 'panel flagship-spotlight-card',
+    el('div', 'sector-launch-media',
+      artThumb(food.art),
+      el('span', 'media-pill media-pill-active', formatHourly(food.baseHourlyCents, locale, true)),
+    ),
+    el('div', 'sector-launch-body',
+      el('span', 'badge', ar ? 'المشروع الافتتاحي الموصى به · وادي المرسى' : 'Recommended First Venture · Wadi Al-Marsa'),
+      el('div', 'panel-heading',
+        el('h2', '', `${food.companyName[locale]} (${food.name[locale]})`),
+        el('bdi', 'sector-cost-tag', formatUsd(food.startupCostCents, true)),
+      ),
+      el('p', 'muted', food.tagline[locale]),
+      el('div', 'spotlight-progress-meta',
+        el('span', 'muted small-meta', ar ? 'جاهزية رأس المال' : 'Capital readiness'),
+        el('bdi', 'small-meta wealth-val', `${formatUsd(state.balanceCents, true)} / ${formatUsd(food.startupCostCents, true)} (${pct}%)`),
+      ),
+      buildProgressBar(pct, canAfford ? 'gold' : 'emerald'),
+      cta,
+    ),
+  );
+
+  const ladder = el('section', 'panel empire-ladder-card',
+    el('h2', 'title-with-icon', gameIcon('trophy'), ar ? 'خارطة قطاعات الإمبراطورية الخمسة' : '5-Sector Empire Expansion Roadmap'),
+    el('div', 'ladder-steps', ...BUSINESS_SECTORS.map((sec, i) =>
+      el('div', 'ladder-step',
+        el('span', 'ladder-num', String(i + 1)),
+        el('div', 'ladder-copy',
+          el('strong', '', sec.name[locale]),
+          el('span', 'muted small-meta', formatHourly(sec.baseHourlyCents, locale, true)),
+        ),
+        el('bdi', 'sector-cost-tag', formatUsd(sec.startupCostCents, true)),
+      ),
+    )),
+  );
+
+  return el('div', 'invest-stack', spotlight, ladder);
+}
+
 export function renderBusinessTab(state: EmpireState, nowMs: number, locale: Locale, handlers: BusinessHandlers): HTMLElement {
   const t = empireText(locale);
+  const ar = locale === 'ar';
   const hourly = totalBusinessHourlyCents(state, nowMs);
   const hourlyVal = el('span', 'biz-hero-amount', formatHourly(hourly, locale));
 
@@ -42,15 +98,14 @@ export function renderBusinessTab(state: EmpireState, nowMs: number, locale: Loc
   const summary = el('section', 'panel biz-hero-card',
     el('div', 'biz-hero-head',
       el('span', 'muted', t.totalHourlyBusiness),
-      el('span', 'badge', `${state.companies.length}/${MAX_COMPANIES}`),
+      el('span', 'badge nowrap-badge', `${state.companies.length} / ${MAX_COMPANIES}`),
     ),
     hourlyVal,
     startBtn,
   );
 
-  // Holding Merger banner (unlocked once player grows portfolio)
   const mergeReady = canMergeHolding(state);
-  const mergeBtn = action(`${t.holdingAction} (\u2066${formatUsd(HOLDING_MERGE_COST_CENTS, true)}\u2069)`, handlers.onMergeHolding, mergeReady ? 'primary' : 'secondary');
+  const mergeBtn = action(`${t.holdingAction} ${formatUsdParen(HOLDING_MERGE_COST_CENTS)}`, handlers.onMergeHolding, mergeReady ? 'primary' : 'secondary');
   mergeBtn.dataset.mergeHolding = '';
   mergeBtn.disabled = !mergeReady;
   const mergerCard = state.companies.length >= 2 ? el('section', 'panel holding-card',
@@ -67,13 +122,10 @@ export function renderBusinessTab(state: EmpireState, nowMs: number, locale: Loc
   );
 
   const list = state.companies.length === 0
-    ? el('section', 'panel empty-state-card',
-      gameIcon('warehouse', 'empty-icon'),
-      el('strong', '', t.noCompaniesTitle),
-      el('p', 'muted', t.noCompaniesBody),
-    )
+    ? buildFlagshipSpotlight(state, locale, handlers)
     : el('div', 'biz-list', ...state.companies.map((co) => {
       const def = getSectorDef(co.sector);
+      const strat = def.strategies.find((s) => s.id === co.strategyId) ?? def.strategies[0];
       const coHourly = companyHourlyIncomeCents(co, nowMs, state.holdingMerged);
       const boosted = nowMs < co.boostUntilMs;
       const card = el('button', 'owned-biz-card',
@@ -81,12 +133,13 @@ export function renderBusinessTab(state: EmpireState, nowMs: number, locale: Loc
         el('div', 'owned-biz-body',
           el('div', 'owned-biz-top',
             el('strong', '', def.companyName[locale]),
-            el('span', 'badge', `${t.level} ${co.level}`),
+            el('span', 'badge nowrap-badge', `${t.level} ${co.level}/10`),
           ),
-          el('span', 'muted owned-biz-sector', def.name[locale]),
+          el('span', 'muted owned-biz-sector', `${def.name[locale]} · ${strat.title[locale]}`),
+          buildProgressBar(co.level * 10, 'emerald'),
           el('div', 'owned-biz-foot',
-            el('span', 'biz-income-pill', formatHourly(coHourly, locale)),
-            boosted ? el('span', 'badge badge-boost', '+30%') : null,
+            el('span', 'biz-income-pill', formatHourly(coHourly, locale, true)),
+            boosted ? el('span', 'badge badge-boost', '+30%') : el('span', 'muted small-meta', ar ? 'إدارة ←' : 'Manage →'),
           ),
         ),
       );
@@ -99,15 +152,23 @@ export function renderBusinessTab(state: EmpireState, nowMs: number, locale: Loc
   return el('div', 'empire-view business-view', summary, mergerCard, listHeader, list);
 }
 
-/** Pushed sub-screen (Level 3): Catalog of all 5 real Empire Tycoon business sectors with USD cost & affordability. */
+/** Pushed sub-screen (Level 3): Catalog of all 5 real Empire Tycoon business sectors with USD cost & payback time. */
 export function renderStartBusinessView(state: EmpireState, locale: Locale, handlers: BusinessHandlers): HTMLElement {
   const t = empireText(locale);
+  const ar = locale === 'ar';
   const full = state.companies.length >= MAX_COMPANIES;
 
   const cards = BUSINESS_SECTORS.map((sector) => {
     const canAfford = !full && state.balanceCents >= sector.startupCostCents;
     const costStr = `\u2066${formatUsd(sector.startupCostCents, true)}\u2069`;
-    const label = full ? t.slotsFull : canAfford ? `${t.foundNow} · ${costStr}` : `${t.insufficientUsd} · ${costStr}`;
+    const gap = sector.startupCostCents > state.balanceCents ? sector.startupCostCents - state.balanceCents : 0n;
+    const pct = Math.min(100, Number((state.balanceCents * 100n) / sector.startupCostCents));
+    const paybackHours = Math.max(1, Math.round(Number(sector.startupCostCents) / Math.max(1, Number(sector.baseHourlyCents))));
+    const label = full
+      ? t.slotsFull
+      : canAfford
+        ? `${t.foundNow} · ${costStr}`
+        : `${t.insufficientUsd} · ${ar ? 'متبقي' : 'need'} \u2066${formatUsd(gap, true)}\u2069`;
     const btn = action(label, () => handlers.onFoundCompany(sector.id), canAfford ? 'primary' : 'secondary');
     btn.dataset.foundSector = sector.id;
     btn.disabled = !canAfford;
@@ -118,14 +179,18 @@ export function renderStartBusinessView(state: EmpireState, locale: Locale, hand
     return el('article', `panel sector-launch-card ${canAfford ? 'is-affordable' : 'is-locked'}`,
       el('div', 'sector-launch-media',
         artThumb(sector.art),
-        el('span', `media-pill ${canAfford ? 'media-pill-active' : ''}`, formatHourly(sector.baseHourlyCents, locale)),
+        el('span', `media-pill ${canAfford ? 'media-pill-active' : ''}`, formatHourly(sector.baseHourlyCents, locale, true)),
       ),
       el('div', 'sector-launch-body',
         el('div', 'panel-heading',
-          el('h2', '', sector.name[locale]),
+          el('div', '',
+            el('h2', '', sector.companyName[locale]),
+            el('span', 'muted small-meta', `${sector.name[locale]} · ${ar ? `استرداد رأس المال ~${paybackHours}س` : `Payback ~${paybackHours}h`}`),
+          ),
           costTag,
         ),
         el('p', 'muted', sector.tagline[locale]),
+        buildProgressBar(pct, canAfford ? 'gold' : 'emerald'),
         btn,
       ),
     );
@@ -156,11 +221,11 @@ export function renderManageCompanyView(
     artThumb(def.art),
     el('span', 'media-pill', `${def.name[locale]} · ${t.level} ${company.level}/10`),
     el('h1', '', def.companyName[locale]),
-    el('span', 'manage-hourly-hero', formatHourly(hourly, locale)),
+    el('span', 'manage-hourly-hero', formatHourly(hourly, locale, true)),
   );
 
   const upBtn = action(
-    company.level >= 10 ? t.maxLevel : `${t.upgradeCompany} ${company.level + 1} (${formatUsd(upgradeCost, true)})`,
+    company.level >= 10 ? t.maxLevel : `${t.upgradeCompany} ${company.level + 1} ${formatUsdParen(upgradeCost)}`,
     () => handlers.onUpgradeCompany(company.id),
     canUpgrade ? 'primary' : 'secondary',
   );

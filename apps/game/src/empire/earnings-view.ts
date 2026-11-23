@@ -1,24 +1,29 @@
-/** Renders the center Earnings tab: Neo-Bank USD card, $1-base tap pad, $500+ upgrade bar, and focus sprint. */
+/** Renders the center Earnings tab: Sovereign Bank Card, Tactile Vault Mint Pad, Upgrade Deck, and Next Opportunity Radar. */
 import {
-  getTapTier, tapValueCents, totalHourlyIncomeCents, type EmpireState,
+  computeWealth, getTapTier, tapValueCents, totalHourlyIncomeCents, type EmpireState,
 } from '../../../../packages/empire/src';
 import { action, el, type Locale } from '../../../../packages/ui/src';
 import { gameIcon } from '../visuals/icons';
 import { formatHourly, formatUsd, formatUsdExact } from './format';
 import { empireText } from './text';
+import { buildProgressBar, computeNextOpportunity, computeWealthTier } from './visuals';
 
 export interface EarningsHandlers {
   onTap(event: MouseEvent): void;
   onUpgradeTap(): void;
   onActivateBoost(): void;
+  onOpenOpportunity(tab: 'investing' | 'business' | 'items'): void;
 }
 
 export function renderEarningsTab(state: EmpireState, nowMs: number, locale: Locale, handlers: EarningsHandlers): HTMLElement {
   const t = empireText(locale);
+  const ar = locale === 'ar';
   const tier = getTapTier(state.tapLevel);
   const nextTier = tier.upgradeCostCents !== null ? getTapTier(state.tapLevel + 1) : null;
   const tapVal = tapValueCents(state, nowMs);
   const hourly = totalHourlyIncomeCents(state, nowMs);
+  const wealth = computeWealth(state);
+  const status = computeWealthTier(state, wealth.fortuneCents, locale);
   const upgradeCost = tier.upgradeCostCents;
   const pct = upgradeCost ? Math.min(100, Number((state.balanceCents * 100n) / upgradeCost)) : 100;
   const canUpgrade = upgradeCost !== null && state.balanceCents >= upgradeCost;
@@ -32,10 +37,12 @@ export function renderEarningsTab(state: EmpireState, nowMs: number, locale: Loc
 
   const tapValBdi = el('bdi', '', formatUsdExact(tapVal));
   tapValBdi.dir = 'ltr';
+
   const card = el('section', 'bank-card',
     el('div', 'bank-card-top',
       el('span', 'bank-chip', ''),
       el('span', 'bank-brand', t.bankName),
+      el('span', 'bank-tier-pill', `${status.badge} · ${status.title}`),
       el('span', 'bank-digits', el('bdi', '', `•••• ${state.cardLast4}`)),
     ),
     el('div', 'bank-card-balance',
@@ -55,7 +62,7 @@ export function renderEarningsTab(state: EmpireState, nowMs: number, locale: Loc
     ),
   );
 
-  // Boost / Focus Sprint ribbon attached under card (non-ad strategic sprint)
+  // Focus Sprint ribbon
   const boostActive = nowMs < state.tapBoostUntilMs;
   const boostCooling = !boostActive && nowMs < state.tapBoostCooldownUntilMs;
   const boostLeft = boostActive
@@ -100,12 +107,14 @@ export function renderEarningsTab(state: EmpireState, nowMs: number, locale: Loc
   );
   progressBox.querySelector('.live-pct')?.setAttribute('data-live-progress-pct', '');
 
-  // Large interactive Tap Arena
+  // Tactile Vault Mint Pad
   const gainBdi = el('bdi', 'tap-arena-gain', `+${formatUsdExact(tapVal)}`);
   gainBdi.dir = 'ltr';
   const tapBtn = el('button', 'tap-arena',
-    el('span', 'tap-arena-ring',
-      el('span', 'tap-arena-dollar', '$'),
+    el('span', 'tap-arena-halo',
+      el('span', 'tap-arena-ring',
+        el('span', 'tap-arena-dollar', '$'),
+      ),
     ),
     el('strong', 'tap-arena-title', t.tapPrompt),
     el('span', 'tap-arena-sub',
@@ -121,10 +130,32 @@ export function renderEarningsTab(state: EmpireState, nowMs: number, locale: Loc
   const stage = el('div', 'tap-stage', tapBtn);
   stage.dataset.tapStage = '';
 
-  return el('div', 'empire-view earnings-view', card, boostBtn, progressBox, stage);
+  // Next Empire Opportunity Radar (connects tapping directly to the living world)
+  const opp = computeNextOpportunity(state, locale);
+  const oppBar = buildProgressBar(opp.pct, opp.ready ? 'gold' : 'emerald');
+  oppBar.firstElementChild?.setAttribute('data-live-opp-fill', String(opp.targetCents));
+  const oppBtn = action(
+    opp.ready
+      ? (ar ? 'جاهز للفتح الآن ←' : 'Ready to launch →')
+      : (ar ? `استعرض الفرصة (${opp.pct}%)` : `View target (${opp.pct}%)`),
+    () => handlers.onOpenOpportunity(opp.targetTab),
+    opp.ready ? 'primary' : 'secondary',
+  );
+  oppBtn.dataset.openOpportunity = opp.targetTab;
+  const oppCard = el('section', 'panel opportunity-radar-card',
+    el('div', 'panel-heading',
+      el('strong', 'title-with-icon', gameIcon('trophy'), opp.title),
+      el('bdi', 'sector-cost-tag', formatUsd(opp.targetCents, true)),
+    ),
+    el('span', 'muted small-meta', opp.subtitle),
+    oppBar,
+    oppBtn,
+  );
+
+  return el('div', 'empire-view earnings-view', card, boostBtn, progressBox, stage, oppCard);
 }
 
-/** Updates live balance, progress bar, and upgrade button state in-place without tearing down the tap pad. */
+/** Updates live balance, progress bar, opportunity radar, and upgrade button in-place at 60fps. */
 export function patchEarningsLive(root: HTMLElement, state: EmpireState, nowMs: number, locale: Locale) {
   const tier = getTapTier(state.tapLevel);
   const upgradeCost = tier.upgradeCostCents;
@@ -150,5 +181,11 @@ export function patchEarningsLive(root: HTMLElement, state: EmpireState, nowMs: 
     upBtn.disabled = !canUpgrade;
     upBtn.classList.toggle('primary', canUpgrade);
     upBtn.classList.toggle('secondary', !canUpgrade);
+  }
+  const oppFill = root.querySelector<HTMLElement>('[data-live-opp-fill]');
+  if (oppFill) {
+    const target = BigInt(oppFill.dataset.liveOppFill || '250000');
+    const oppPct = Math.min(100, Number((state.balanceCents * 100n) / target));
+    oppFill.style.inlineSize = `${oppPct}%`;
   }
 }

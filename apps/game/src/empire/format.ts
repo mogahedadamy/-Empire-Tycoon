@@ -41,12 +41,16 @@ export function usdNode(cents: bigint, compact = false): HTMLElement {
   return node;
 }
 
-export function formatHourly(cents: bigint, locale: Locale): string {
-  const amt = formatUsd(cents, true);
+export function formatHourly(cents: bigint, locale: Locale, plus = false): string {
+  const amt = `${plus ? '+' : ''}${formatUsd(cents, true)}`;
   return locale === 'ar' ? `\u2066${amt}\u2069 / ساعة` : `${amt}/hr`;
+}
+
+export function formatUsdParen(cents: bigint, compact = true): string {
+  return `\u2066(${formatUsd(cents, compact)})\u2069`;
 }
 
 export function formatPercentBps(bps: number): string {
   const sign = bps > 0 ? '+' : '';
-  return `${sign}${(bps / 100).toFixed(2)}%`;
+  return `\u2066${sign}${(bps / 100).toFixed(2)}%\u2069`;
 }
