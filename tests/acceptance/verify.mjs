@@ -7,6 +7,7 @@ import { after, before, test } from 'node:test';
 import { chromium } from 'playwright-core';
 import { preview } from 'vite';
 import { audit, reviewLayout } from './accessibility.mjs';
+import { verifyAiFounding } from './ai-founding.mjs';
 import { checkMigration, command, firstClose, navigate, open, readOrReplaceSave, snapshot } from './journey.mjs';
 import { verifyOpeningMission } from './mission.mjs';
 import { verifyPlaybook } from './playbook.mjs';
@@ -65,6 +66,17 @@ test('launches authored chapters and independent free play on a phone-sized view
     const page = await browser.newPage({ viewport: { width: 360, height: 800 }, hasTouch: true });
     page.setDefaultTimeout(8000);
     await verifyPlaybook(page, missionUrl);
+  } finally {
+    await browser.close();
+  }
+});
+
+test('compares and founds an AI company without changing the food save', { timeout: 80_000 }, async () => {
+  const browser = await chromium.launch({ executablePath });
+  try {
+    const page = await browser.newPage({ viewport: { width: 360, height: 800 }, hasTouch: true });
+    page.setDefaultTimeout(8000);
+    await verifyAiFounding(page, missionUrl);
   } finally {
     await browser.close();
   }

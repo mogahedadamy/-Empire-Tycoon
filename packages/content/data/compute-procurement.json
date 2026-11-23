@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "scenarioId": "contract-before-launch",
+  "windows": [
+    { "id": "first-window", "day": 1, "hour": 9 },
+    { "id": "network-window", "day": 16, "hour": 9 },
+    { "id": "cooling-window", "day": 16, "hour": 10 }
+  ],
+  "groups": [
+    { "id": "harbor-cloud-basalt", "kind": "cloud", "supplierId": "harbor-cloud", "hardwareFamilyId": "basalt-80",
+      "units": 100, "reservedUnitPriceMinor": "400", "interruptibleUnitPriceMinor": "240" },
+    { "id": "plateau-cloud-basalt", "kind": "cloud", "supplierId": "plateau-compute", "hardwareFamilyId": "basalt-80",
+      "units": 36, "reservedUnitPriceMinor": "440", "interruptibleUnitPriceMinor": "280" },
+    { "id": "owned-wadi-basalt", "kind": "owned", "regionId": "wadi-harbor", "hardwareFamilyId": "basalt-80",
+      "installationDays": 2, "rackUnits": 160, "sitePowerWatts": 180000, "pueBps": 15000,
+      "fixedItWatts": 20000, "acceleratorWatts": 1000, "networkUnits": 90, "coolingUnits": 110 },
+    { "id": "owned-cove-dune", "kind": "owned", "regionId": "southern-cove", "hardwareFamilyId": "dune-48",
+      "installationDays": 2, "rackUnits": 40, "sitePowerWatts": 62000, "pueBps": 14000,
+      "fixedItWatts": 8000, "acceleratorWatts": 650, "networkUnits": 38, "coolingUnits": 36 }
+  ],
+  "hardwareOffers": [
+    { "id": "harbor-basalt-batch", "supplierId": "harbor-cloud", "hardwareFamilyId": "basalt-80",
+      "leadDays": 8, "units": 140, "unitPriceMinor": "36000" },
+    { "id": "plateau-basalt-batch", "supplierId": "plateau-compute", "hardwareFamilyId": "basalt-80",
+      "leadDays": 9, "units": 40, "unitPriceMinor": "34000" },
+    { "id": "cove-dune-batch", "supplierId": "cove-hosting", "hardwareFamilyId": "dune-48",
+      "leadDays": 9, "units": 40, "unitPriceMinor": "24000" }
+  ],
+  "memoryShock": { "sourceId": "tide-memory", "fromDay": 8, "throughDay": 10, "delayDays": 3, "probabilityBps": 8500 },
+  "limits": [
+    { "groupId": "harbor-cloud-basalt", "windowId": "first-window", "units": 24 },
+    { "groupId": "owned-wadi-basalt", "windowId": "cooling-window", "units": 80 }
+  ]
+}

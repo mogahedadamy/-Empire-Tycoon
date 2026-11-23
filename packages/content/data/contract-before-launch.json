@@ -1,0 +1,69 @@
+{
+  "id": "contract-before-launch", "schemaVersion": 1, "rulesetVersion": 1, "contentVersion": 1,
+  "seed": 250218, "currency": "GAME", "founderCapitalMinor": "16000000", "opportunityExpiresDay": 14,
+  "title": { "ar": "العقد قبل التشغيل", "en": "Contract Before Launch" },
+  "regions": [
+    { "id": "wadi-harbor", "name": { "ar": "وادي المرسى", "en": "Wadi Al Marsa" } },
+    { "id": "north-plateau", "name": { "ar": "الهضبة الشمالية", "en": "North Plateau" } },
+    { "id": "southern-cove", "name": { "ar": "الخليج الجنوبي", "en": "Southern Cove" } }
+  ],
+  "hardwareFamilies": [
+    { "id": "reef-32", "memoryGiB": 32, "interconnectGbps": 100 },
+    { "id": "basalt-80", "memoryGiB": 80, "interconnectGbps": 400 },
+    { "id": "dune-48", "memoryGiB": 48, "interconnectGbps": 200 }
+  ],
+  "suppliers": [
+    { "id": "harbor-cloud", "name": { "ar": "سحابة المرسى", "en": "Harbor Cloud" }, "regionId": "wadi-harbor",
+      "hardwareFamilyIds": ["reef-32", "basalt-80"], "memorySourceId": "tide-memory" },
+    { "id": "plateau-compute", "name": { "ar": "حوسبة الهضبة", "en": "Plateau Compute" }, "regionId": "north-plateau",
+      "hardwareFamilyIds": ["basalt-80"], "memorySourceId": "tide-memory" },
+    { "id": "cove-hosting", "name": { "ar": "استضافة الخليج", "en": "Cove Hosting" }, "regionId": "southern-cove",
+      "hardwareFamilyIds": ["dune-48"], "memorySourceId": "oasis-memory" }
+  ],
+  "buyers": [
+    { "id": "port-offices", "name": { "ar": "مكاتب الشحن", "en": "Port freight offices" }, "billing": "seats", "paymentTermsDays": 5 },
+    { "id": "trade-platforms", "name": { "ar": "منصات التجارة", "en": "Trade platforms" }, "billing": "usage", "paymentTermsDays": 14 },
+    { "id": "enterprise-research", "name": { "ar": "مختبرات المؤسسات", "en": "Enterprise research teams" }, "billing": "subscription", "paymentTermsDays": 21 },
+    { "id": "regional-integrators", "name": { "ar": "شركات التكامل الإقليمية", "en": "Regional integrators" }, "billing": "reserved-capacity", "paymentTermsDays": 7 }
+  ],
+  "licenses": [
+    { "id": "harbor-workflow-weights", "asset": "weights", "access": "licensed", "rights": ["commercial-use"] },
+    { "id": "trade-language-weights", "asset": "weights", "access": "licensed", "rights": ["commercial-use", "train", "host"] },
+    { "id": "atlas-prototype-weights", "asset": "weights", "access": "owned", "rights": ["commercial-use", "train", "host"] },
+    { "id": "reef-open-weights", "asset": "weights", "access": "open", "rights": ["commercial-use", "host", "redistribute"] },
+    { "id": "freight-evaluation-data", "asset": "data", "access": "licensed", "rights": ["evaluate"] },
+    { "id": "wadi-language-data", "asset": "data", "access": "licensed", "rights": ["train", "evaluate"] },
+    { "id": "research-corpus", "asset": "data", "access": "licensed", "rights": ["train", "evaluate"] },
+    { "id": "cove-evaluation-data", "asset": "data", "access": "owned", "rights": ["evaluate"] }
+  ],
+  "paths": [
+    {
+      "id": "licensed-app", "name": { "ar": "تطبيق متخصص", "en": "Specialized app" },
+      "dependency": { "ar": "يتوقف التطبيق على استمرار الإصدار المرخّص وسعره.", "en": "The app depends on the licensed version staying available at its current price." },
+      "buyerId": "port-offices", "supplierId": "harbor-cloud", "hardwareFamilyId": "reef-32",
+      "dataLicenseId": "freight-evaluation-data", "weightLicenseId": "harbor-workflow-weights",
+      "capacityPlan": "managed", "setupPayrollMinor": "1350000", "dailyCommitmentMinor": "88000", "commitmentDays": 14, "serviceStartsDay": 8
+    },
+    {
+      "id": "specialized-api", "name": { "ar": "واجهة API متخصصة", "en": "Specialized API" },
+      "dependency": { "ar": "يحجز العميل الكبير سعة تشغيل طويلة وقد يستهلكها عند الذروة.", "en": "A large customer can fill the long-term capacity reservation at peak times." },
+      "buyerId": "trade-platforms", "supplierId": "harbor-cloud", "hardwareFamilyId": "basalt-80",
+      "dataLicenseId": "wadi-language-data", "weightLicenseId": "trade-language-weights",
+      "capacityPlan": "reserved", "setupPayrollMinor": "2800000", "dailyCommitmentMinor": "135000", "commitmentDays": 30, "serviceStartsDay": 13
+    },
+    {
+      "id": "general-lab", "name": { "ar": "مختبر نماذج عامة", "en": "General model lab" },
+      "dependency": { "ar": "تحتاج تجربة التدريب إلى تزامن البيانات المرخّصة والفريق والحوسبة المتقطعة.", "en": "Training depends on licensed data, staff and interruptible compute being available together." },
+      "buyerId": "enterprise-research", "supplierId": "plateau-compute", "hardwareFamilyId": "basalt-80",
+      "dataLicenseId": "research-corpus", "weightLicenseId": "atlas-prototype-weights",
+      "capacityPlan": "interruptible", "setupPayrollMinor": "7900000", "dailyCommitmentMinor": "315000", "commitmentDays": 21, "serviceStartsDay": 33
+    },
+    {
+      "id": "open-weight-hosting", "name": { "ar": "استضافة أوزان مفتوحة", "en": "Open-weight hosting" },
+      "dependency": { "ar": "يعتمد التشغيل على توافق العتاد وحقوق الاستضافة والتوزيع للإصدار.", "en": "Hosting depends on compatible hardware and the version's hosting and distribution rights." },
+      "buyerId": "regional-integrators", "supplierId": "cove-hosting", "hardwareFamilyId": "dune-48",
+      "dataLicenseId": "cove-evaluation-data", "weightLicenseId": "reef-open-weights",
+      "capacityPlan": "on-demand", "setupPayrollMinor": "2400000", "dailyCommitmentMinor": "110000", "commitmentDays": 21, "serviceStartsDay": 13
+    }
+  ]
+}

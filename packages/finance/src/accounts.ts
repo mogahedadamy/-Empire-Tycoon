@@ -1,4 +1,4 @@
-/** The chart of accounts for the first business scenario, in reporting order. */
+/** The shared business chart of accounts, in reporting order. */
 export const chartOfAccounts = Object.freeze({
   cash: 'assets',
   receivables: 'assets',
@@ -19,6 +19,7 @@ export const chartOfAccounts = Object.freeze({
   costOfSales: 'costOfSales',
   payrollExpense: 'operatingExpenses',
   utilitiesExpense: 'operatingExpenses',
+  computeExpense: 'operatingExpenses',
   rentExpense: 'operatingExpenses',
   depreciationExpense: 'operatingExpenses',
   inventorySpoilageExpense: 'operatingExpenses',

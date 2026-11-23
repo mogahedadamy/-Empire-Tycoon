@@ -408,7 +408,8 @@
       "title": "تأسيس شركة ذكاء اصطناعي وبيانات القطاع",
       "stage": "C",
       "owner": "Game Director",
-      "status": "planned",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-025.md#دليل-الإنجاز",
       "dependencies": [
         "ET-015",
         "ET-016"
@@ -429,7 +430,8 @@
       "title": "توريد المسرّعات والطاقة وتخصيص الحوسبة",
       "stage": "C",
       "owner": "Operations Lead",
-      "status": "planned",
+      "status": "done",
+      "evidence": "docs/production/tasks/ET-026.md#دليل-الإنجاز",
       "dependencies": [
         "ET-017",
         "ET-025"

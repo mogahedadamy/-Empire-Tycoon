@@ -26,7 +26,7 @@ export async function verifyOperatingProjects(page, url) {
   const food = await readOrReplaceSave(page);
   await page.locator('[data-choose-industry]').tap();
   await page.getByRole('heading', { name: 'اختر مجال شركتك' }).waitFor();
-  assert.equal(await page.locator('[data-industry]').count(), 4);
+  assert.equal(await page.locator('[data-industry]').count(), 5);
   await audit(page, 'Arabic industry selection');
   await page.locator('[data-industry="manufacturing"]').tap();
   await page.locator(ready).waitFor({ state: 'attached' });

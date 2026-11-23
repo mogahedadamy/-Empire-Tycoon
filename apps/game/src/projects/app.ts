@@ -4,6 +4,7 @@ import '../layout.css';
 import '../components.css';
 import './style.css';
 import { action, applyLocale, el, focusHeading, type Locale } from '../../../../packages/ui/src';
+import { aiText } from '../ai/text';
 import { playbookLink } from '../journey/playbook-entry';
 import { createProjectClient } from './client';
 import { defaultChoice, isProject, projects, type Project, type ProjectChoice, type ProjectReceipt } from './model';
@@ -43,8 +44,12 @@ function showIndustries() {
     link.dataset.industry = project;
     return link;
   });
+  const ai = aiText(locale);
+  const aiCard = el('a', 'industry-option', el('h2', '', ai.industry), el('p', '', ai.industryGoal));
+  aiCard.href = projectHref('ai', locale);
+  aiCard.dataset.industry = 'ai';
   const hero = el('section', 'project-hero', photo, el('div', '', el('h1', '', l.choose), el('p', '', l.intro)));
-  shell(el('div', 'project-content', hero, el('div', 'industry-grid', ...cards), playbookLink(locale)), showIndustries, false);
+  shell(el('div', 'project-content', hero, el('div', 'industry-grid', ...cards, aiCard), playbookLink(locale)), showIndustries, false);
 }
 
 async function showProject(project: Project) {

@@ -84,6 +84,7 @@ const accountNames: Record<string, readonly [string, string]> = {
   contributedCapital: ['رأس المال', 'Contributed capital'], sales: ['المبيعات', 'Sales'],
   salesDiscounts: ['خصم المبيعات', 'Sales discounts'], costOfSales: ['تكلفة المبيعات', 'Cost of sales'],
   payrollExpense: ['مصروف الأجور', 'Payroll expense'], utilitiesExpense: ['مصروف المرافق', 'Utilities expense'],
+  computeExpense: ['مصروف الحوسبة', 'Compute expense'],
   rentExpense: ['مصروف الإيجار', 'Rent expense'], depreciationExpense: ['مصروف الإهلاك', 'Depreciation expense'],
   inventorySpoilageExpense: ['مصروف التلف', 'Inventory spoilage'], interestExpense: ['مصروف الفائدة', 'Interest expense'],
   taxExpense: ['مصروف الضريبة', 'Tax expense'],

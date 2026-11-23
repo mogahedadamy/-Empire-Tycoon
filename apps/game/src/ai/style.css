@@ -1,0 +1,33 @@
+/* Compares founding options in a single column on the phone and in pairs on wider screens. */
+.ai-paths {
+  display: grid;
+  gap: 12px;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.ai-paths legend { padding: 0 0 10px; font-size: 1.17rem; font-weight: 700; }
+.ai-path, .ai-summary { display: grid; gap: 10px; min-inline-size: 0; overflow-wrap: anywhere; }
+.ai-path:has(input:checked) { border-color: var(--green); border-inline-start-width: 3px; }
+.ai-path-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-block-size: 44px;
+  cursor: pointer;
+}
+.ai-path-label input { inline-size: 1.1em; block-size: 1.1em; flex: none; accent-color: var(--green); }
+.ai-path-label strong { color: var(--green); font-size: 1.16rem; }
+.ai-dependency { color: var(--ink); background: #edf2e9; border-radius: 8px; padding: 8px 10px; }
+.ai-dependency strong { display: block; }
+.ai-decision { display: grid; gap: 8px; min-inline-size: 0; }
+.ai-decision .ai-summary { padding: 12px; box-shadow: none; }
+.ai-summary .detail-rows dd, .ai-path .detail-rows dd { text-align: end; min-inline-size: 0; }
+.ai-summary .project-materials { min-inline-size: 0; }
+[data-confirm-ai] { min-block-size: 52px; }
+
+@media (max-width: 640px) {
+  .ai-paths { grid-template-columns: minmax(0, 1fr); }
+}
