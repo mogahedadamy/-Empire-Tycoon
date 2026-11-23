@@ -69,7 +69,7 @@ export async function verifyOpeningMission(page, url) {
   await open(page, url);
   assert.equal(await page.locator('[data-mission-step]').count(), 0);
 
-  await open(page, `${url}?scenario=big-order-tight`);
+  await open(page, new URL('?scenario=big-order-tight', url).href);
   await prepareFirstShipment(page);
   await move(page, 'ship', 'next-trip');
   assert.equal(await page.locator('.mission-count').textContent(), '٤٠ من ٧٠');

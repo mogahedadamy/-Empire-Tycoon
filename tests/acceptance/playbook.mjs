@@ -38,7 +38,7 @@ export async function verifyPlaybook(page, url) {
   await page.locator('[data-mission-step=next-trip]').waitFor();
   assert.equal(await page.locator('.mission-count').textContent(), '٣٦ من ٩٦');
 
-  await page.goto(url + '?playbook=1');
+  await page.goto(new URL('?playbook=1', url).href);
   await page.locator('[data-playbook-run=sandbox-harbor-supply-supported]').tap();
   await page.locator('[data-mission-step=found]').waitFor();
   await page.goto(campaign);

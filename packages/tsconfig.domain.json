@@ -21,6 +21,7 @@
     "club-management/src",
     "market/src",
     "content/src",
-    "storage/src"
+    "storage/src",
+    "empire/src"
   ]
 }

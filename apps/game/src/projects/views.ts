@@ -70,7 +70,7 @@ function renderPropertyComparison(receipt: Extract<ProjectReceipt, { project: 'p
 export function renderProjectReceipt(receipt: ProjectReceipt, choice: ProjectChoice, locale: Locale, confirmed: boolean) {
   const l = projectText(locale);
   const formatted = createFormatters(locale);
-  const money = (value: string) => figure(formatted.money(BigInt(value)), locale === 'ar' ? 'وحدة نقدية' : 'credits');
+  const money = (value: string) => figure(formatted.money(BigInt(value)), '$');
   const number = (value: number) => el('bdi', '', formatted.number(value));
   const day = (value: number) => el('span', '', l.day, ' ', number(value));
   const percentage = (value: number) => new Intl.NumberFormat(locale === 'ar' ? 'ar-u-nu-arab' : 'en',

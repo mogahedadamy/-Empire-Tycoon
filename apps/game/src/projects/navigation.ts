@@ -4,7 +4,8 @@ import { projectText } from './text';
 
 export function projectHref(industry: string, locale: Locale) {
   const params = new URLSearchParams();
-  if (industry !== 'food') params.set('industry', industry);
+  if (industry === 'food') params.set('mode', 'mission');
+  else params.set('industry', industry);
   if (locale === 'en') params.set('lang', locale);
   return `?${params}`;
 }

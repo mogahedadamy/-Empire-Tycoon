@@ -8,6 +8,7 @@ import { chromium } from 'playwright-core';
 import { preview } from 'vite';
 import { audit, reviewLayout } from './accessibility.mjs';
 import { verifyAiFounding } from './ai-founding.mjs';
+import { verifyInvestorSuperApp } from './empire.mjs';
 import { checkMigration, command, firstClose, navigate, open, readOrReplaceSave, snapshot } from './journey.mjs';
 import { verifyOpeningMission } from './mission.mjs';
 import { verifyPlaybook } from './playbook.mjs';
@@ -16,6 +17,7 @@ import { verifyOperatingProjects } from './projects.mjs';
 let server;
 let context;
 let profile;
+let baseUrl;
 let url;
 let missionUrl;
 
@@ -30,12 +32,24 @@ function launch() {
 
 before(async () => {
   server = await preview({ root: 'apps/game', preview: { host: '127.0.0.1' } });
-  missionUrl = `http://127.0.0.1:${server.httpServer.address().port}/`;
-  url = `${missionUrl}?mode=management`;
+  baseUrl = `http://127.0.0.1:${server.httpServer.address().port}/`;
+  missionUrl = `${baseUrl}?mode=mission`;
+  url = `${baseUrl}?mode=management`;
   profile = await mkdtemp(join(tmpdir(), 'empire-acceptance-'));
   context = await launch();
   context.setDefaultTimeout(8000);
   console.log((await (await context.newCDPSession(context.pages()[0])).send('Browser.getVersion')).product);
+});
+
+test('opens the Single-Shell USD Investor Super-App at / with $1/tap, 5-tab nav, sub-screen back flow, and reload persistence', { timeout: 80_000 }, async () => {
+  const browser = await chromium.launch({ executablePath });
+  try {
+    const page = await browser.newPage({ viewport: { width: 360, height: 800 }, hasTouch: true });
+    page.setDefaultTimeout(8000);
+    await verifyInvestorSuperApp(page, baseUrl);
+  } finally {
+    await browser.close();
+  }
 });
 
 test('opens the default Android-sized mission and leads to a confirmed delivery', { timeout: 80_000 }, async () => {

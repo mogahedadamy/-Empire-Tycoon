@@ -113,7 +113,10 @@ export function renderJourneyShell(options: ShellOptions) {
   language.lang = locale === 'ar' ? 'en' : 'ar';
   topActions.append(language);
 
+  const empireHome = el('a', 'button secondary industry-selection', locale === 'ar' ? 'محفظة الإمبراطورية' : 'Empire Hub');
+  empireHome.href = locale === 'en' ? '?lang=en' : './';
   const utility = el('div', 'workspace-utility',
+    empireHome,
     model.founded ? (() => {
       const guideToggle = action(guidanceSkipped ? c.showGuidance : c.skipGuidance, options.toggleGuidance, 'secondary');
       guideToggle.dataset.toggleGuidance = '';

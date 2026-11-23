@@ -59,14 +59,15 @@ function render() {
   const summary = current ? foundingSummary(current, locale, receipt) : null;
   const selectedPanel = summary && !receipt ? el('div', 'ai-decision', summary, button) : null;
   const day = createFormatters(locale).number(scenario.opportunityExpiresDay);
-  const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
+  const brandLink = el('a', 'project-brand-home', locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon');
+  brandLink.href = locale === 'en' ? '?lang=en' : './';
   const heroArt = el('img', 'scene-image');
   heroArt.src = `${import.meta.env.BASE_URL}images/ai-datacenter.webp`;
   heroArt.alt = '';
   heroArt.width = 1120;
   heroArt.height = 747;
   root.replaceChildren(el('main', 'operations-projects',
-    el('header', 'project-header', el('strong', '', brand), industrySelectionLink(locale, 'project-back'), language),
+    el('header', 'project-header', el('strong', '', brandLink), industrySelectionLink(locale, 'project-back'), language),
     el('div', 'project-content',
       el('section', 'project-heading project-heading-art',
         heroArt,

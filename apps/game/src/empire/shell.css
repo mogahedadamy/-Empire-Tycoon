@@ -1,0 +1,183 @@
+/* Single-Shell FinTech frame, persistent 5-tab Bottom Navigation Bar, and Level-3 sub-screen header. */
+#app:has(.empire-shell) {
+  display: block;
+  min-block-size: 100dvh;
+  background: #edf0e7;
+  padding: 0;
+}
+.empire-shell {
+  min-block-size: 100dvh;
+  max-inline-size: 560px;
+  margin-inline: auto;
+  background: #f5f6f0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 40px rgba(16, 43, 37, .08);
+}
+.empire-topbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: calc(10px + var(--safe-top)) 14px 10px;
+  background: rgba(251, 252, 248, .94);
+  backdrop-filter: blur(10px);
+  border-block-end: 1px solid #dde2d6;
+}
+.empire-topbar-start {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+}
+.empire-logo-mark {
+  display: grid;
+  place-items: center;
+  inline-size: 32px;
+  block-size: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #102b25, #1b6556);
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 1.05rem;
+  flex: 0 0 auto;
+}
+.empire-header-title {
+  font-size: 1.08rem;
+  font-weight: 760;
+  color: #102b25;
+  overflow-wrap: anywhere;
+}
+.empire-back-btn {
+  min-block-size: 44px;
+  padding: 6px 12px;
+  font-size: .86rem;
+}
+.empire-lang-btn {
+  min-block-size: 44px;
+  min-inline-size: 64px;
+  padding: 6px 11px;
+  font-size: .8rem;
+}
+.header-balance-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: #102b25;
+  color: #f8f5e8;
+  font-size: .82rem;
+  max-inline-size: 100%;
+}
+.header-balance-label { color: #b9cfc2; font-size: .74rem; }
+.header-balance-val { font-weight: 760; color: #fce6b6; font-variant-numeric: tabular-nums; }
+
+.empire-main {
+  flex: 1 1 auto;
+  padding: 12px 14px 20px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.has-bottom-nav .empire-main {
+  padding-block-end: calc(92px + var(--safe-bottom));
+}
+.empire-view {
+  display: grid;
+  gap: 12px;
+  min-inline-size: 0;
+}
+
+.offline-toast {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #e4f2e8;
+  border-color: #7eb092;
+}
+.offline-amount { font-weight: 800; color: #114b3c; }
+
+/* Persistent 5-Tab Bottom Navigation Bar */
+.bottom-nav {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 30;
+  max-inline-size: 560px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  gap: 2px;
+  padding: 6px 6px calc(8px + var(--safe-bottom));
+  background: rgba(255, 254, 250, .97);
+  border-block-start: 1px solid #d5dcd0;
+  box-shadow: 0 -6px 24px rgba(16, 43, 37, .09);
+}
+.bottom-nav-item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 3px;
+  min-block-size: 54px;
+  padding: 4px 2px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #556861;
+  font-size: .72rem;
+  font-weight: 660;
+  cursor: pointer;
+}
+.bottom-nav-item:hover { background: #edf3ec; color: #155d50; }
+.bottom-nav-item.is-active { color: #125c4e; font-weight: 780; }
+.bottom-nav-icon .game-icon { inline-size: 20px; block-size: 20px; }
+.bottom-nav-label {
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+  line-height: 1.15;
+}
+.bottom-nav-item.is-center { overflow: visible; }
+.center-fab {
+  display: grid;
+  place-items: center;
+  inline-size: 46px;
+  block-size: 46px;
+  margin-block-start: -22px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #176757, #0e3f35);
+  color: #ffe2a4;
+  font-size: 1.45rem;
+  font-weight: 850;
+  border: 3px solid #fffefa;
+  box-shadow: 0 6px 16px rgba(16, 43, 37, .28);
+}
+.bottom-nav-item.is-center.is-active .center-fab {
+  background: linear-gradient(145deg, #1e7c68, #125042);
+  box-shadow: 0 0 0 3px rgba(237, 197, 131, .55), 0 8px 18px rgba(16, 43, 37, .3);
+}
+.nav-alert-dot {
+  position: absolute;
+  inset-block-start: 6px;
+  inset-inline-end: 18%;
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 999px;
+  background: #178757;
+  border: 2px solid #fffefa;
+}
+
+@media (max-width: 390px) {
+  .empire-topbar { padding-inline: 10px; }
+  .empire-main { padding-inline: 10px; }
+  .header-balance-label { display: none; }
+}

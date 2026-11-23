@@ -67,7 +67,7 @@ function render() {
   switchLanguage.lang = locale === 'ar' ? 'en' : 'ar';
 
   const quickStart = el('a', 'button primary industry-selection', l.recommendedAction);
-  quickStart.href = locale === 'en' ? '?lang=en' : '?';
+  quickStart.href = locale === 'en' ? '?mode=mission&lang=en' : '?mode=mission';
   const recommended = el('section', 'panel playbook-featured',
     el('span', 'scope-tag scope-tag-campaign', l.recommendedTag),
     el('h2', 'title-with-icon', gameIcon('trophy'), l.recommendedTitle),
@@ -105,14 +105,15 @@ function render() {
     });
   }
 
-  const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
+  const brandLink = el('a', 'project-brand-home', locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon');
+  brandLink.href = locale === 'en' ? '?lang=en' : './';
   const banner = el('img', 'scene-image');
   banner.src = `${import.meta.env.BASE_URL}images/port-logistics.webp`;
   banner.alt = '';
   banner.width = 1120;
   banner.height = 747;
   root.replaceChildren(el('main', 'operations-projects',
-    el('header', 'project-header', el('strong', '', brand), industrySelectionLink(locale, 'project-back'), switchLanguage),
+    el('header', 'project-header', el('strong', '', brandLink), industrySelectionLink(locale, 'project-back'), switchLanguage),
     el('div', 'project-content',
       el('section', 'project-heading project-heading-art', banner, el('h1', '', l.title), el('p', '', l.intro)),
       recommended,

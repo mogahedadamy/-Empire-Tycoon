@@ -44,8 +44,9 @@ function shell(content: HTMLElement, render: () => void, back: boolean) {
     root.querySelector<HTMLElement>('.language')?.focus();
   }, 'language');
   language.lang = locale === 'ar' ? 'en' : 'ar';
-  const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
-  const main = el('main', 'operations-projects', el('header', 'project-header', el('strong', '', brand),
+  const brandLink = el('a', 'project-brand-home', locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon');
+  brandLink.href = locale === 'en' ? '?lang=en' : './';
+  const main = el('main', 'operations-projects', el('header', 'project-header', el('strong', '', brandLink),
     back ? industrySelectionLink(locale, 'project-back') : null, language), content);
   root.replaceChildren(main);
 }

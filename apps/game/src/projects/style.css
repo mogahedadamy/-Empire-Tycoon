@@ -8,6 +8,8 @@
 .operations-projects { max-inline-size: 920px; margin-inline: auto; padding: 12px clamp(12px, 4vw, 28px) 28px; }
 .project-header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-block-end: 12px; }
 .project-header strong { margin-inline-end: auto; color: #14362a; }
+.project-brand-home { color: inherit; text-decoration: none; }
+.project-brand-home:hover { text-decoration: underline; }
 .industry-selection { text-decoration: none; }
 .project-back { color: var(--green); font-size: .9rem; padding-inline: 6px; text-decoration: underline; text-underline-offset: .18em; }
 .project-content { display: grid; gap: 14px; }
