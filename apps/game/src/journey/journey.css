@@ -1,4 +1,4 @@
-/* Journey guidance, worker progress meter, containment options, and evaluation styling. */
+/* Journey company banner, decision-first trade-offs, crisis diagnosis, and responsive utility layout. */
 .rev-pill {
   font-size: .76rem;
   color: var(--muted);
@@ -6,82 +6,204 @@
   border-radius: 999px;
   padding: 2px 9px;
 }
+.company-context-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px clamp(16px, 4vw, 58px);
+  background: linear-gradient(135deg, #112921, #193b30);
+  color: #f8f5e8;
+  border-block-end: 2px solid #c9a66b;
+}
+.context-identity { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-inline-size: 0; }
+.context-identity strong { font-size: .96rem; color: #fff8e6; }
+.context-meta { font-size: .78rem; color: #c7d9ce; }
+.context-chips { display: flex; flex-wrap: wrap; gap: 6px; min-inline-size: 0; }
+.context-chip {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: .78rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #204437;
+  color: #f6e7c4;
+  border: 1px solid #3c6555;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+.compact-header { padding-block-start: clamp(12px, 2vw, 24px); }
+.compact-header .view-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-block-end: 8px;
+}
+.compact-header .view-header h1 { font-size: clamp(1.35rem, 2.8vw, 2.1rem); margin-block: 0; }
+.compact-header .save-status { margin-block-end: 8px; }
 .worker-banner {
   display: grid;
   gap: 8px;
-  margin-block-end: 14px;
-  padding: 12px 15px;
+  margin-block-end: 12px;
+  padding: 11px 14px;
   border-radius: 12px;
   background: #e6efe5;
   border: 1px solid #9ab5a6;
   color: #163d31;
 }
 .worker-banner[hidden] { display: none; }
-.worker-meter {
-  width: 100%;
-  block-size: 10px;
-  accent-color: var(--green);
-}
+.worker-meter { width: 100%; block-size: 10px; accent-color: var(--green); }
 .guidance-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-block-end: 16px;
+  gap: 10px;
+  margin-block-end: 14px;
   background: #f9f6ea;
   border-color: #cfc8aa;
+  box-shadow: var(--shadow-sm);
 }
-.guidance-copy {
+.guidance-copy { display: grid; gap: 4px; flex: 1 1 240px; min-inline-size: 0; }
+.guidance-actions { flex: 0 1 auto; min-inline-size: 0; max-inline-size: 100%; }
+.panel-actions { margin-block-start: 12px; }
+.decision-priority { box-shadow: var(--shadow-md); border-width: 1.5px; }
+.decision-card { border-color: #b79c5b; background: #fffdf5; }
+.tradeoff-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-block: 10px 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--surface-tint);
+  font-size: .88rem;
+  color: var(--ink);
+}
+.tradeoff-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tradeoff-choice {
   display: grid;
-  gap: 6px;
-  flex: 1 1 260px;
+  gap: 8px;
+  align-content: space-between;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
   min-inline-size: 0;
 }
-.guidance-actions {
-  flex: 0 1 auto;
-  min-inline-size: 0;
-  max-inline-size: 100%;
+.tradeoff-choice-risk { border-color: #d7be98; background: #fffcf5; }
+.tradeoff-choice-safe { border-color: #b6cabd; background: #f9fcf8; }
+.tradeoff-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 10px; }
+.tradeoff-cost-free { font-size: .82rem; font-weight: 620; }
+.tradeoff-choice > .button { width: 100%; }
+.choice-outcome {
+  margin: 0;
+  padding: 6px 9px;
+  border-radius: 8px;
+  font-size: .84rem;
+  font-weight: 650;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
-.panel-actions { margin-block-start: 14px; }
+.choice-outcome-warn { background: #f9e7dc; color: #7d2219; }
+.choice-outcome-safe { background: #e3efe4; color: #174a34; }
+.cause-strip, .containment-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin-block: 10px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f9f5eb;
+  border: 1px solid #e1d7bd;
+}
+.containment-meta { margin-block: 0; padding: 7px 9px; gap: 4px 10px; background: #f4f3ea; border-color: #dde0d2; }
+.cause-strip > div, .containment-meta > div { min-inline-size: 0; }
+.cause-strip dt, .containment-meta dt { font-size: .74rem; color: var(--muted); }
+.cause-strip dd, .containment-meta dd { font-weight: 680; font-size: .88rem; margin-block-start: 2px; overflow-wrap: anywhere; }
 .alert-card {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   margin-block-start: 0;
 }
-.alert-card > div { flex: 1 1 240px; min-inline-size: 0; }
+.alert-card > div { flex: 1 1 220px; min-inline-size: 0; }
 .badge-warn { background: #f5ead2; color: #5c3d0c; }
 .badge-danger { background: #f9e4df; color: #84231c; }
 .button.danger { background: var(--danger); color: white; }
 .button.danger:enabled:hover { background: #892822; }
-.containment-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  margin-block-start: 14px;
-}
+.containment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-block-start: 10px; }
 .containment-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   align-content: space-between;
-  padding: 14px;
+  padding: 11px;
   border-radius: 12px;
   border: 1px solid var(--line);
   background: #fbfaf3;
   min-inline-size: 0;
 }
 .containment-card > .button { width: 100%; }
-.decision-card { border-color: #c2b280; background: #fdfbf2; }
+.metric-subrows { display: grid; gap: 4px; margin-block-start: 4px; }
+.metric-subrow { display: block; font-size: .82rem; color: var(--muted); line-height: 1.4; }
+.metric-delta { color: #7d2219; font-weight: 640; }
+.why-drawer { display: grid; gap: 12px; }
+.why-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 48px;
+  font-weight: 660;
+  color: var(--green);
+  cursor: pointer;
+  padding-block: 12px;
+}
+.why-summary::after { content: '▾'; font-size: 1.1em; }
+.why-drawer[open] > .why-summary::after { content: '▴'; }
+.workspace-utility {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block-start: 22px;
+  padding-block-start: 16px;
+  border-block-start: 1px solid var(--line);
+}
+.workspace-utility .button { font-size: .84rem; }
 .report-panel .notice { margin-block: 10px 14px; }
 .navigation .nav-item:disabled { opacity: .55; }
 .industry-selection.button { text-decoration: none; }
 
 @media (max-width: 660px) {
-  .top-actions { width: 100%; justify-content: start; }
-  .top-actions .button { font-size: .78rem; padding-inline: 10px; }
-  .containment-grid { grid-template-columns: minmax(0, 1fr); }
-  .guidance-bar { padding: 14px; }
+  .sidebar { padding: 8px 12px; }
+  .brand { margin-block-end: 6px; }
+  .company-workspace .topbar { flex-direction: column; align-items: stretch; padding: 6px 14px; gap: 6px; min-block-size: 0; }
+  .company-context-bar { padding: 7px 14px; gap: 4px 8px; }
+  .compact-context { padding: 5px 14px; }
+  .compact-context .context-shipment-chip { display: none; }
+  .context-meta { display: none; }
+  .context-chip { font-size: .74rem; padding: 2px 8px; }
+  .compact-header { padding-block-start: 8px; }
+  .compact-header .view-header { margin-block-end: 2px; gap: 4px 8px; }
+  .compact-header .view-header .badge { display: none; }
+  .compact-header .view-header h1 { font-size: 1.25rem; }
+  .compact-header .save-status { margin-block-end: 6px; font-size: .75rem; }
+  .decision-priority { padding: 12px; }
+  .decision-priority .panel-heading h2 { font-size: 1.06rem; }
+  .tradeoff-facts { margin-block: 6px 8px; padding: 6px 10px; font-size: .82rem; gap: 4px 12px; }
+  .tradeoff-grid, .containment-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .tradeoff-choice, .containment-card { padding: 9px 10px; gap: 6px; }
+  .choice-outcome { padding: 4px 8px; font-size: .8rem; }
+  .cause-strip { margin-block-start: 6px; padding: 7px 10px; gap: 4px 10px; }
+  .top-actions { flex: 0 0 auto; width: 100%; justify-content: start; gap: 6px; }
+  .top-actions .button { font-size: .76rem; padding-inline: 9px; }
+  .guidance-bar { padding: 12px; }
+  .workspace-utility { gap: 6px; }
 }

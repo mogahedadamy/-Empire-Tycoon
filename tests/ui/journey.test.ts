@@ -190,6 +190,9 @@ it('plays the full success journey through the UI, stays interactive during long
   await flush(20);
   expect(app.getModel().day).toBe(31);
   navClick(0); // Overview
+  expect(env.root.querySelector('.company-context-bar')).not.toBeNull();
+  expect(env.root.querySelector('.metric-profit')?.textContent).toContain('Month 1 net income');
+  expect(env.root.querySelector('.why-drawer')).not.toBeNull();
   click('[data-approve-restock]');
   await flush();
   await app.flushSave();

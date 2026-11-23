@@ -1,8 +1,8 @@
-/** Renders the executive KPI cards, 30-day liquidity forecast, and crisis/report sections. */
+/** Renders decision-first overview: active trade-offs first, explicit period metrics, and forecast. */
 import { action, el } from '../../../../packages/ui/src';
 import { dataTable } from '../company/view-tools';
 import {
-  buildAlerts, buildDiagnosisPanel, buildPostClosePanel, buildReportAndLog,
+  buildAlerts, buildDecisionLog, buildDiagnosisPanel, buildEvaluationReport, buildPostClosePanel,
   type CrisisPanelActions,
 } from './crisis-panels';
 import type { JourneyLabels } from './text';
@@ -18,19 +18,49 @@ export interface OverviewOptions extends CrisisPanelActions {
   openEntry(id: string): void;
 }
 
+function buildProfitCard(model: JourneyReadModel, labels: JourneyLabels) {
+  const { c, money } = labels;
+  if (!model.monthOneIncome) {
+    return el('section', 'panel metric',
+      el('h2', '', c.profitSinceFounding),
+      money(model.income.netIncome),
+      el('span', 'metric-note', c.confirmed),
+    );
+  }
+  const monthTwoNet = model.monthTwoIncome?.netIncome ?? '0';
+  const hasMonthTwoDelta = monthTwoNet !== '0';
+  return el('section', 'panel metric metric-profit',
+    el('h2', '', c.monthOneProfitTitle),
+    money(model.monthOneIncome.netIncome),
+    el('div', 'metric-subrows',
+      el('span', 'metric-subrow', el('span', '', c.profitSinceFounding, ': '), money(model.income.netIncome)),
+      hasMonthTwoDelta
+        ? el('span', 'metric-subrow metric-delta', el('span', '', c.monthTwoDelta, ': '), money(monthTwoNet))
+        : null,
+    ),
+  );
+}
+
 export function journeyOverview(model: JourneyReadModel, labels: JourneyLabels, options: OverviewOptions) {
   const { c, money, day } = labels;
   const receivables = model.balance.accounts.find(({ account }) => account === 'receivables')?.amount ?? '0';
-  const displayedProfit = model.monthOneIncome ? model.monthOneIncome.netIncome : model.income.netIncome;
-  const profitLabel = model.monthOneIncome ? c.periodMonth1 : c.confirmed;
+  const openInvoice = model.invoices.find((inv) => !inv.payment);
+  const report = buildEvaluationReport(model, labels, options);
+  const alertsBlock = buildAlerts(model, labels, options);
+  const postCloseBlock = buildPostClosePanel(model, labels, options);
+  const diagnosisBlock = buildDiagnosisPanel(model, labels, options);
+  const hasPriorityDecision = Boolean(postCloseBlock || diagnosisBlock || report);
 
   const figures = el('div', 'metrics company-metrics',
-    el('section', 'panel metric metric-primary', el('h2', '', c.cash), money(model.balance.cash),
+    el('section', 'panel metric metric-primary', el('h2', '', c.cashAvailableNow), money(model.balance.cash),
       action(c.cashSource, options.traceCash, 'trace')),
-    el('section', 'panel metric', el('h2', '', c.receivables), money(receivables),
-      action(c.openInvoices, options.openInvoices, 'trace')),
-    el('section', 'panel metric', el('h2', '', c.profit), money(displayedProfit),
-      el('span', 'metric-note', profitLabel)),
+    el('section', 'panel metric',
+      el('h2', '', c.receivables),
+      money(receivables),
+      openInvoice ? el('span', 'metric-subrow', c.receivablesDueHint, ' ', day(openInvoice.dueDay)) : null,
+      action(c.openInvoices, options.openInvoices, 'trace'),
+    ),
+    buildProfitCard(model, labels),
   );
 
   const forecast = model.liquidity[options.mode];
@@ -76,22 +106,29 @@ export function journeyOverview(model: JourneyReadModel, labels: JourneyLabels, 
     return item;
   });
 
-  return el('div', 'view-stack',
-    figures,
-    buildAlerts(model, labels, options),
-    buildPostClosePanel(model, labels, options),
-    buildDiagnosisPanel(model, labels, options),
-    el('div', 'view-layout finance-layout',
-      el('section', 'panel',
-        el('div', 'panel-heading', el('h2', '', c.analysis), el('span', 'badge', c.predicted)),
-        controls, graph, dates, table,
-      ),
-      el('section', 'panel',
-        el('h2', '', c.nextDates),
-        movement.length ? el('ol', 'event-list company-events', ...movement) : el('p', 'muted', c.noDates),
-        ...alerts,
-      ),
+  const analysisGrid = el('div', 'view-layout finance-layout',
+    el('section', 'panel',
+      el('div', 'panel-heading', el('h2', '', c.analysis), el('span', 'badge', c.predicted)),
+      controls, graph, dates, table,
     ),
-    ...buildReportAndLog(model, labels, options),
+    el('section', 'panel',
+      el('h2', '', c.nextDates),
+      movement.length ? el('ol', 'event-list company-events', ...movement) : el('p', 'muted', c.noDates),
+      ...alerts,
+    ),
+  );
+
+  const forecastSection = hasPriorityDecision
+    ? el('details', 'why-drawer', el('summary', 'panel why-summary', c.whyForecastToggle), analysisGrid)
+    : analysisGrid;
+
+  return el('div', 'view-stack',
+    report,
+    postCloseBlock,
+    diagnosisBlock,
+    alertsBlock,
+    figures,
+    forecastSection,
+    buildDecisionLog(model, labels),
   );
 }

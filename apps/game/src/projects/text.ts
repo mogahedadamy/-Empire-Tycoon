@@ -25,6 +25,12 @@ const ar = {
   operating: 'تكاليف التشغيل شهريًا', noi: 'صافي دخل التشغيل شهريًا', debt: 'خدمة الدين شهريًا',
   monthly: 'النقد المتبقي شهريًا', exit: 'النقد عند الخروج من العقد', choice: 'قرارك', selected: 'الخطة المختارة',
   refundable: 'تأمين قابل للاسترداد', insurance: 'قسط التأمين الشهري ضمن التشغيل', propertyDetails: 'تفاصيل التكاليف والخروج',
+  foodScope: 'حملة قابلة للمتابعة · ٤٥ يومًا',
+  projectScope: 'تجربة قرار واحد',
+  nextTitle: 'الخطوة التالية',
+  nextBody: 'حُفظ قرارك الافتتاحي لهذا المجال. يمكنك الآن متابعة الحملة الكاملة في توزيع الأغذية أو مقارنة قطاع آخر.',
+  continueFood: 'تابع الحملة الكاملة (توزيع الأغذية)',
+  otherSectors: 'استعرض المجالات الأخرى',
 };
 
 const en: Record<keyof typeof ar, string> = {
@@ -51,6 +57,12 @@ const en: Record<keyof typeof ar, string> = {
   operating: 'Monthly operating costs', noi: 'Monthly net operating income', debt: 'Monthly debt service',
   monthly: 'Monthly cash after debt', exit: 'Cash at exit', choice: 'Your decision', selected: 'Selected plan',
   refundable: 'Refundable deposit', insurance: 'Monthly insurance included in costs', propertyDetails: 'Costs and exit details',
+  foodScope: 'Playable campaign · 45 days',
+  projectScope: 'Single-decision trial',
+  nextTitle: 'What comes next',
+  nextBody: 'Your opening decision for this sector is saved. Continue the full 45-day Food Distribution campaign or explore another sector.',
+  continueFood: 'Continue full campaign (Food distribution)',
+  otherSectors: 'Browse other industries',
 };
 
 export const projectText = (locale: Locale) => locale === 'ar' ? ar : en;

@@ -11,8 +11,9 @@
   font-weight: 650;
   text-align: center;
   overflow-wrap: anywhere;
-  transition: background 160ms ease, border-color 160ms ease;
+  transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
 }
+.button:enabled:active { transform: translateY(1px); }
 .button.primary { background: var(--green); color: white; }
 .button.primary:enabled:hover { background: #104a3e; }
 .button.primary:disabled { background: #405f55; color: #f1f5ee; }
@@ -38,6 +39,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: clamp(15px, 2.3vw, 25px);
+  box-shadow: var(--shadow-sm);
 }
 .panel h2, .plans legend { font-size: 1.22rem; font-weight: 700; }
 .panel-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }

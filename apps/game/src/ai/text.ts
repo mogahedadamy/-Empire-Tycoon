@@ -16,6 +16,11 @@ const ar = {
   unit: 'وحدة لعب', seats: 'مقاعد', usage: 'حسب الاستخدام', subscription: 'اشتراك', 'reserved-capacity': 'سعة مضمونة',
   managed: 'سعة مُدارة', reserved: 'حجز طويل', interruptible: 'ساعات متقطعة', 'on-demand': 'عند الطلب',
   open: 'مفتوحة', licensed: 'مرخّصة', owned: 'مملوكة',
+  scope: 'قرار التأسيس الأول',
+  nextTitle: 'الخطوة التالية',
+  nextBody: 'حُفظ تأسيس شركتك والتزام السعة لليوم الأول. تتوسع جولات تشغيل الذكاء الاصطناعي في المرحلة التالية؛ يمكنك متابعة حملة توزيع الأغذية الكاملة أو تجربة مجال آخر.',
+  continueFood: 'تابع الحملة الكاملة (توزيع الأغذية)',
+  otherSectors: 'استعرض المجالات الأخرى',
 };
 
 const en: Record<keyof typeof ar, string> = {
@@ -33,6 +38,11 @@ const en: Record<keyof typeof ar, string> = {
   unit: 'game units', seats: 'Seats', usage: 'Usage', subscription: 'Subscription', 'reserved-capacity': 'Reserved capacity',
   managed: 'Managed capacity', reserved: 'Long-term reservation', interruptible: 'Interruptible hours', 'on-demand': 'On demand',
   open: 'Open', licensed: 'Licensed', owned: 'Owned',
+  scope: 'Opening founding decision',
+  nextTitle: 'What comes next',
+  nextBody: 'Your Day 1 founding decision and compute commitment are saved. Ongoing AI operating rounds arrive in the next milestone; continue the full Food Distribution campaign or explore another sector.',
+  continueFood: 'Continue full campaign (Food distribution)',
+  otherSectors: 'Browse other industries',
 };
 
 export const aiText = (locale: Locale) => locale === 'ar' ? ar : en;

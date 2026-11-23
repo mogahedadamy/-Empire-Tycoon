@@ -27,6 +27,8 @@ export async function verifyOperatingProjects(page, url) {
   await page.locator('[data-choose-industry]').tap();
   await page.getByRole('heading', { name: 'اختر مجال شركتك' }).waitFor();
   assert.equal(await page.locator('[data-industry]').count(), 5);
+  assert.equal(await page.locator('[data-industry="food"][data-sector-scope="campaign"]').count(), 1);
+  assert.equal(await page.locator('[data-industry="manufacturing"][data-sector-scope="single-decision"]').count(), 1);
   await audit(page, 'Arabic industry selection');
   await page.locator('[data-industry="manufacturing"]').tap();
   await page.locator(ready).waitFor({ state: 'attached' });
@@ -40,6 +42,7 @@ export async function verifyOperatingProjects(page, url) {
   assert.equal(await row(page, 'ما يحدّ السعة الآن').textContent(), 'الآلة');
   assert.equal(await row(page, 'السعة المتاحة').textContent(), '٣٨');
   await confirm(page);
+  assert.equal(await page.locator('.project-next-steps [data-continue-campaign="food"]').count(), 1);
   await page.reload();
   await page.locator(saved).waitFor();
   assert.equal(await page.locator('input[name="service"]').isChecked(), true);

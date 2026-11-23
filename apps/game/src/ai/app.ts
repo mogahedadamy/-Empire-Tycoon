@@ -10,7 +10,7 @@ import { SaveError } from '../../../../packages/storage/src';
 import { openIndexedDbSaveStore } from '../../../../packages/storage/web/indexed-db';
 import { action, applyLocale, createFormatters, el, focusHeading, type Locale } from '../../../../packages/ui/src';
 import { createWorkerQuery } from '../platform/worker-query';
-import { industrySelectionLink } from '../projects/navigation';
+import { industrySelectionLink, projectHref } from '../projects/navigation';
 import { aiText } from './text';
 import { foundingOptions, foundingSummary } from './views';
 import type { AiAnswer, AiQuery } from './worker';
@@ -22,6 +22,19 @@ let quotes: readonly AiFoundingQuote[] = [];
 let selected: AiFoundingPath | null = null;
 let receipt: AiFoundingReceipt | null = null;
 let phase: 'loading' | 'ready' | 'saving' | 'saved' | 'error' | 'saveFailed' | 'conflict' = 'loading';
+
+function aiNextSteps(l: ReturnType<typeof aiText>) {
+  const food = el('a', 'button primary industry-selection', l.continueFood);
+  food.href = projectHref('food', locale);
+  food.dataset.continueCampaign = 'food';
+  const others = el('a', 'button secondary industry-selection', l.otherSectors);
+  others.href = projectHref('choose', locale);
+  return el('section', 'panel project-next-steps',
+    el('h2', '', l.nextTitle),
+    el('p', 'muted', l.nextBody),
+    el('div', 'actions panel-actions', food, others),
+  );
+}
 
 function render() {
   applyLocale(document.documentElement, locale);
@@ -45,15 +58,20 @@ function render() {
   const summary = current ? foundingSummary(current, locale, receipt) : null;
   const selectedPanel = summary && !receipt ? el('div', 'ai-decision', summary, button) : null;
   const day = createFormatters(locale).number(scenario.opportunityExpiresDay);
+  const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
   root.replaceChildren(el('main', 'operations-projects',
-    el('header', 'project-header', el('strong', '', 'Empire Tycoon'), industrySelectionLink(locale, 'project-back'), language),
+    el('header', 'project-header', el('strong', '', brand), industrySelectionLink(locale, 'project-back'), language),
     el('div', 'project-content',
-      el('section', 'project-heading', el('h1', '', scenario.title[locale]),
-        receipt ? null : el('p', '', l.intro.replace('{day}', day))),
+      el('section', 'project-heading',
+        el('span', 'scope-tag scope-tag-dark', l.scope),
+        el('h1', '', scenario.title[locale]),
+        receipt ? null : el('p', '', l.intro.replace('{day}', day)),
+      ),
       status,
       quotes.length && !receipt ? foundingOptions(quotes, locale, selected,
         phase === 'saving' || phase === 'conflict' || phase === 'error', pick, selectedPanel) : null,
       receipt ? summary : null,
+      receipt ? aiNextSteps(l) : null,
     ),
   ));
 }

@@ -1,4 +1,4 @@
-/** Renders the responsive shell chrome, topbar controls, guidance strip, and worker status container. */
+/** Renders the responsive shell chrome, unified company banner, and streamlined topbar controls. */
 import { action, applyLocale, el, notice, type Locale } from '../../../../packages/ui/src';
 import { industrySelectionLink } from '../projects/navigation';
 import { guidanceBar, type JourneyScreen } from './guidance';
@@ -19,6 +19,30 @@ function milestoneLabel(reason: NonNullable<JourneyReadModel['milestone']>['reas
     'scenario-end': c.milestoneEnd,
   };
   return map[reason];
+}
+
+function buildContextBanner(model: JourneyReadModel, strings: JourneyLabels, compact: boolean) {
+  if (!model.founded) return null;
+  const { c, format, day, money, party } = strings;
+  const offer = model.offer;
+  const lastInvoice = model.invoices.at(-1);
+  const contractNote = offer
+    ? el('span', 'context-chip',
+      party(offer.customerId), ' · ',
+      el('bdi', '', `${format.number(offer.deliveredQuantity)}/${format.number(offer.quantity)}`),
+      offer.deliveredQuantity < offer.quantity ? ` · ${c.deliverByShort} ${format.number(offer.deliveryDueDay)}` : '',
+    )
+    : null;
+  const shipmentNote = lastInvoice
+    ? el('span', 'context-chip context-shipment-chip', c.latestShipmentNote, ': ', money(lastInvoice.amountMinor), ' · ', day(lastInvoice.dueDay))
+    : null;
+  return el('section', `company-context-bar ${compact ? 'compact-context' : ''}`,
+    el('div', 'context-identity',
+      el('strong', '', c.company),
+      el('span', 'context-meta', `${c.sector} · ${c.city}`),
+    ),
+    el('div', 'context-chips', contractNote, shipmentNote),
+  );
 }
 
 export interface ShellOptions {
@@ -75,25 +99,31 @@ export function renderJourneyShell(options: ShellOptions) {
     next.dataset.advanceOne = '';
     next.disabled = busy || !model.canAdvance || !canWrite;
     topActions.append(next);
-
-    const guideToggle = action(guidanceSkipped ? c.showGuidance : c.skipGuidance, options.toggleGuidance, 'secondary');
-    guideToggle.dataset.toggleGuidance = '';
-    topActions.append(guideToggle);
   }
   const language = action(c.otherLanguage, options.toggleLanguage, 'language');
   language.setAttribute('aria-label', c.language);
   language.lang = locale === 'ar' ? 'en' : 'ar';
   topActions.append(language);
-  topActions.append(industrySelectionLink(locale, 'secondary'));
-  topActions.append(playbookLink(locale));
 
+  const utility = el('div', 'workspace-utility',
+    model.founded ? (() => {
+      const guideToggle = action(guidanceSkipped ? c.showGuidance : c.skipGuidance, options.toggleGuidance, 'secondary');
+      guideToggle.dataset.toggleGuidance = '';
+      return guideToggle;
+    })() : null,
+    industrySelectionLink(locale, 'secondary'),
+    playbookLink(locale),
+  );
+
+  const hasUrgentDecision = model.founded && screen === 'overview' &&
+    ((model.day >= 31 && model.restockChoice === 'pending' && model.distress.canOperate) || model.distress.stage !== 'healthy');
   const title = el('h1', '', model.founded ? c[`${screen}Title`] : c.setupTitle);
   title.id = 'page-title';
   const workerEl = el('div', 'worker-banner');
   workerEl.setAttribute('role', 'status');
   workerEl.setAttribute('aria-live', 'polite');
 
-  const guideEl = guidanceBar(model, strings, {
+  const guideEl = hasUrgentDecision ? null : guidanceBar(model, strings, {
     currentScreen: screen, skipped: guidanceSkipped,
     onSkip: options.toggleGuidance,
     onNavigate: options.navigate,
@@ -112,7 +142,8 @@ export function renderJourneyShell(options: ShellOptions) {
           el('span', 'rev-pill', `${c.workerRevision} `, el('bdi', '', format.number(model.revision)))),
         topActions,
       ),
-      el('div', 'content company-content',
+      buildContextBanner(model, strings, hasUrgentDecision),
+      el('div', `content company-content ${hasUrgentDecision ? 'compact-header' : ''}`,
         el('header', 'view-header company-header', el('span', 'badge', c.journeyBadge), title,
           model.founded ? null : el('p', '', c.setupIntro)),
         el('p', 'save-status', ''),
@@ -121,6 +152,7 @@ export function renderJourneyShell(options: ShellOptions) {
         mission,
         guideEl,
         options.activeScreen,
+        utility,
       ),
     ),
   );

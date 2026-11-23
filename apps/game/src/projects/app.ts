@@ -26,9 +26,23 @@ function shell(content: HTMLElement, render: () => void, back: boolean) {
     root.querySelector<HTMLElement>('.language')?.focus();
   }, 'language');
   language.lang = locale === 'ar' ? 'en' : 'ar';
-  const main = el('main', 'operations-projects', el('header', 'project-header', el('strong', '', 'Empire Tycoon'),
+  const brand = locale === 'ar' ? 'إمبراطورية الأعمال' : 'Empire Tycoon';
+  const main = el('main', 'operations-projects', el('header', 'project-header', el('strong', '', brand),
     back ? industrySelectionLink(locale, 'project-back') : null, language), content);
   root.replaceChildren(main);
+}
+
+function nextStepsPanel(l: ReturnType<typeof projectText>) {
+  const food = el('a', 'button primary industry-selection', l.continueFood);
+  food.href = projectHref('food', locale);
+  food.dataset.continueCampaign = 'food';
+  const others = el('a', 'button secondary industry-selection', l.otherSectors);
+  others.href = projectHref('choose', locale);
+  return el('section', 'panel project-next-steps',
+    el('h2', '', l.nextTitle),
+    el('p', 'muted', l.nextBody),
+    el('div', 'actions panel-actions', food, others),
+  );
 }
 
 function showIndustries() {
@@ -39,15 +53,25 @@ function showIndustries() {
   photo.width = 1120;
   photo.height = 747;
   const cards = (['food', ...projects] as const).map((project) => {
-    const link = el('a', 'industry-option', el('h2', '', l[project]), el('p', '', l[`${project}Goal`]));
+    const isCampaign = project === 'food';
+    const scope = el('span', `scope-tag ${isCampaign ? 'scope-tag-campaign' : ''}`, isCampaign ? l.foodScope : l.projectScope);
+    const link = el('a', `industry-option ${isCampaign ? 'industry-option-featured' : ''}`,
+      el('div', 'industry-option-head', el('h2', '', l[project]), scope),
+      el('p', '', l[`${project}Goal`]),
+    );
     link.href = projectHref(project, locale);
     link.dataset.industry = project;
+    link.dataset.sectorScope = isCampaign ? 'campaign' : 'single-decision';
     return link;
   });
   const ai = aiText(locale);
-  const aiCard = el('a', 'industry-option', el('h2', '', ai.industry), el('p', '', ai.industryGoal));
+  const aiCard = el('a', 'industry-option',
+    el('div', 'industry-option-head', el('h2', '', ai.industry), el('span', 'scope-tag', ai.scope)),
+    el('p', '', ai.industryGoal),
+  );
   aiCard.href = projectHref('ai', locale);
   aiCard.dataset.industry = 'ai';
+  aiCard.dataset.sectorScope = 'founding-decision';
   const hero = el('section', 'project-hero', photo, el('div', '', el('h1', '', l.choose), el('p', '', l.intro)));
   shell(el('div', 'project-content', hero, el('div', 'industry-grid', ...cards, aiCard), playbookLink(locale)), showIndustries, false);
 }
@@ -71,10 +95,15 @@ async function showProject(project: Project) {
     const result = receipt ? renderProjectReceipt(receipt, choice, locale, phase === 'saved') : null;
     const button = phase === 'saved' ? null : projectConfirmButton(choice, l,
       !receipt || !store || (phase !== 'ready' && phase !== 'saveFailed'), () => { void confirm(); });
+    const nextSteps = phase === 'saved' ? nextStepsPanel(l) : null;
     shell(el('div', 'project-content',
-      el('section', 'project-heading', el('h1', '', l[project]), el('p', '', l[`${project}Goal`])),
+      el('section', 'project-heading',
+        el('span', 'scope-tag scope-tag-dark', l.projectScope),
+        el('h1', '', l[project]),
+        el('p', '', l[`${project}Goal`]),
+      ),
       el('section', 'panel project-choice', renderProjectTerms(choice, locale, locked, (next) => { void refresh(next); })),
-      status, result, button,
+      status, result, button, nextSteps,
     ), render, true);
     if (activeInput) {
       Array.from(root.querySelectorAll<HTMLInputElement>('input'))

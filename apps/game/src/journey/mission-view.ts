@@ -24,7 +24,7 @@ interface MissionViewOptions {
   toggleLanguage(): void;
 }
 
-function scene(goal: string, opening: boolean) {
+function scene(goal: string, tag: string, opening: boolean) {
   const photo = el('img', 'scene-image');
   photo.src = `${import.meta.env.BASE_URL}images/produce-terminal.webp`;
   photo.alt = '';
@@ -32,7 +32,21 @@ function scene(goal: string, opening: boolean) {
   photo.height = 747;
   const title = el('h1', '', goal);
   title.id = 'mission-goal';
-  return el('div', opening ? 'mission-scene mission-scene-opening' : 'mission-scene', photo, title);
+  const copy = el('div', 'mission-scene-copy', el('span', 'mission-company-tag', tag), title);
+  return el('div', opening ? 'mission-scene mission-scene-opening' : 'mission-scene', photo, copy);
+}
+
+function liveCompanyStrip(step: MissionStep, { model, scenario, labels }: MissionViewOptions) {
+  if (!model.founded) return null;
+  const m = missionCopy(labels.locale);
+  const { money, day } = labels;
+  const awaiting = model.invoices.reduce((sum, invoice) => invoice.payment ? sum : sum + BigInt(invoice.amountMinor), 0n);
+  const deadlineShown = step.id !== 'done' && model.offer?.acceptedDay !== null;
+  return el('div', 'mission-hud',
+    el('div', 'mission-hud-cell', el('span', '', m.cashNow), money(model.balance.cash)),
+    el('div', 'mission-hud-cell', el('span', '', m.awaitingDue), money(awaiting.toString())),
+    deadlineShown ? el('div', 'mission-hud-cell', el('span', '', m.deadline), day(scenario.contract.deliveryDueDay)) : null,
+  );
 }
 
 function stageFacts(step: MissionStep, { model, scenario, plan, labels }: MissionViewOptions) {
@@ -66,16 +80,38 @@ function stageFacts(step: MissionStep, { model, scenario, plan, labels }: Missio
     case 'arrival':
       return step.action?.type === 'advance-through' ? detailRows([[c.orderArrival, day(step.action.day)]]) : null;
     case 'delivery-day':
-      return detailRows([[m.stock, qty(model.inventory.quantity)], [m.window, day(contract.deliveryStartsDay)]]);
+      return detailRows([
+        [m.stock, qty(model.inventory.quantity)], [m.window, day(contract.deliveryStartsDay)], [m.deadline, day(contract.deliveryDueDay)],
+      ]);
     case 'ship': {
       if (step.action?.type !== 'deliver') return null;
       const amount = BigInt(step.action.quantity) * BigInt(contract.unitPriceMinor);
-      return detailRows([[m.batch, qty(step.action.quantity)], [m.sale, money(amount.toString())], [m.due, day(contract.paymentDueDay)]]);
+      return detailRows([
+        [m.batch, qty(step.action.quantity)], [m.sale, money(amount.toString())],
+        [m.deadline, day(contract.deliveryDueDay)], [m.due, day(contract.paymentDueDay)],
+      ]);
     }
-    case 'next-trip':
-      return detailRows([[m.remaining, qty(contract.quantity - delivered)], [m.pendingCash, money(awaiting.toString())]]);
+    case 'next-trip': {
+      const latest = model.invoices.at(-1);
+      return el('div', 'mission-facts',
+        latest ? el('p', 'mission-credit-note', m.invoiceIssued, ' ', money(latest.amountMinor), ' · ', m.creditNote) : null,
+        detailRows([
+          [m.remaining, qty(contract.quantity - delivered)],
+          [m.pendingCash, money(awaiting.toString())],
+          [m.due, day(contract.paymentDueDay)],
+        ]),
+      );
+    }
     case 'done':
-      return detailRows([[m.pendingCash, money(awaiting.toString())]]);
+      return el('div', 'mission-facts',
+        detailRows([
+          [m.cashNow, money(model.balance.cash)],
+          [m.pendingCash, money(awaiting.toString())],
+          [m.due, day(contract.paymentDueDay)],
+          [m.stock, qty(model.inventory.quantity)],
+        ]),
+        el('p', 'mission-credit-note', m.nextMilestoneNote),
+      );
     case 'blocked': {
       const alert = model.pendingAlerts[0];
       const code = alert?.code ?? (model.offer?.status === 'expired' ? 'offer-expired'
@@ -144,7 +180,9 @@ export function renderOpeningMission(options: MissionViewOptions) {
   );
   panel.setAttribute('aria-labelledby', heading.id);
   const status = el('p', 'save-status mission-save');
-  const main = el('main', 'opening-mission', header, scene(m.goal, step.id === 'found'), stageList, panel, status);
+  const main = el('main', 'opening-mission',
+    header, scene(m.goal, m.companyTag, step.id === 'found'), liveCompanyStrip(step, options), stageList, panel, status,
+  );
   main.dataset.missionStep = step.id;
   main.dataset.missionRevision = String(model.revision);
   root.replaceChildren(main);

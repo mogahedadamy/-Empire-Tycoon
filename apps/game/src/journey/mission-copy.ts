@@ -39,6 +39,12 @@ const ar = {
   advanceBlocked: 'افتح إدارة الشركة للاطلاع على التنبيه ومتابعة اللعب.',
   retry: 'تعذّر تنفيذ الخطوة. راجع حالة الشركة وحاول مجددًا.',
   saved: 'التقدّم محفوظ',
+  cashNow: 'النقد المتاح',
+  awaitingDue: 'فواتير آجلة',
+  creditNote: 'النقد بقي ثابتًا لأن البيع آجل — الفاتورة مسجّلة وتُحصّل في موعدها.',
+  invoiceIssued: 'أُصدرت فاتورة بـ',
+  companyTag: 'سنابل الوادي · وادي المرسى',
+  nextMilestoneNote: 'التالي: إقفال الشهر الأول في اليوم ٣٠ ثم قرار التوسع قبل إيجار اليوم ٣٢.',
 };
 
 const en: { [key in keyof typeof ar]: (typeof ar)[key] } = {
@@ -79,6 +85,12 @@ const en: { [key in keyof typeof ar]: (typeof ar)[key] } = {
   advanceBlocked: 'Open company management to review the alert and continue.',
   retry: 'That move couldn’t be completed. Review your company and try again.',
   saved: 'Progress saved',
+  cashNow: 'Cash on hand',
+  awaitingDue: 'Credit invoices',
+  creditNote: 'Cash stayed unchanged because this is a credit sale — your invoice is booked and collects on its due day.',
+  invoiceIssued: 'Invoice issued for',
+  companyTag: 'Sanabel Distribution · Wadi Al Marsa',
+  nextMilestoneNote: 'Next up: Month 1 close on Day 30, then your expansion trade-off before Day 32 rent.',
 };
 
 export const missionCopy = (locale: Locale) => locale === 'ar' ? ar : en;

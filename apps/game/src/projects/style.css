@@ -1,4 +1,4 @@
-/* Touch-first project selection and decision receipts using the Wadi Al Marsa palette. */
+/* Touch-first project selection, scope tags, compact playbook launcher, and receipts. */
 #app:has(.operations-projects) {
   display: block;
   min-block-size: 100dvh;
@@ -16,7 +16,7 @@
   isolation: isolate;
   display: grid;
   align-items: end;
-  min-block-size: 205px;
+  min-block-size: 190px;
   padding: clamp(16px, 5vw, 32px);
   border-radius: 18px;
   overflow: hidden;
@@ -29,22 +29,38 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(0deg, #10251d, #10251de8 31%, transparent 100%);
+  background: linear-gradient(0deg, #10251d, #10251de8 34%, transparent 100%);
 }
-.project-hero h1, .project-heading h1 { font-size: clamp(1.65rem, 5vw, 3rem); line-height: 1.2; overflow-wrap: anywhere; }
+.project-hero h1, .project-heading h1 { font-size: clamp(1.6rem, 5vw, 2.8rem); line-height: 1.2; overflow-wrap: anywhere; }
 .project-heading {
   display: grid;
   gap: 8px;
-  padding: clamp(16px, 4vw, 28px);
+  justify-items: start;
+  padding: clamp(16px, 4vw, 26px);
   background: #17382c;
   color: #fff8e9;
   border-radius: 18px;
   border-inline-start: 6px solid #d4a969;
 }
+.scope-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: .74rem;
+  font-weight: 700;
+  background: #e7ede3;
+  color: #1c4738;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+.scope-tag-campaign { background: #155d50; color: #ffffff; }
+.scope-tag-dark { background: #254b3c; color: #f9e5be; border: 1px solid #487361; }
 .industry-grid, .project-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .industry-option {
   display: grid;
-  gap: 4px;
+  gap: 6px;
+  align-content: start;
   min-block-size: 72px;
   color: var(--ink);
   background: var(--surface);
@@ -53,15 +69,37 @@
   border-radius: 14px;
   padding: 13px 15px;
   text-decoration: none;
+  box-shadow: var(--shadow-sm);
 }
 .industry-option:hover { background: #f2f5ea; }
-.industry-option h2, .project-receipt h2 { color: #153f31; font-size: 1.25rem; }
-.industry-option p { color: var(--muted); }
+.industry-option-featured { border-color: #216655; border-inline-start-width: 6px; background: #fbfef9; }
+.industry-option-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.industry-option h2, .project-receipt h2 { color: #153f31; font-size: 1.18rem; }
+.industry-option p { color: var(--muted); font-size: .9rem; }
 .industry-option[data-industry='manufacturing'] { border-inline-start-color: #aa7453; }
 .industry-option[data-industry='logistics'] { border-inline-start-color: #477b99; }
 .industry-option[data-industry='property'] { border-inline-start-color: #807749; }
+.industry-option[data-industry='ai'] { border-inline-start-color: #2a557c; }
+.project-next-steps { display: grid; gap: 8px; border-color: #9cb9aa; background: #f8fcf7; box-shadow: var(--shadow-sm); }
+.project-next-steps h2 { color: #153f31; }
+.playbook-featured { display: grid; gap: 8px; justify-items: start; border-color: #216655; background: #fbfef9; box-shadow: var(--shadow-sm); }
+.playbook-selector { display: grid; gap: 8px; }
+.playbook-levels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+.playbook-levels legend { padding: 0 0 8px; font-size: 1.05rem; font-weight: 700; }
+.playbook-level { min-block-size: 46px; justify-content: center; padding: 8px 10px; text-align: center; }
+.playbook-level-hint { font-size: .86rem; }
+.playbook-section-title { font-size: 1.15rem; color: #153f31; margin-block-start: 4px; }
+.playbook-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .project-inputs { display: grid; gap: 12px; }
-.project-choice, .project-receipt { overflow-wrap: anywhere; }
+.project-choice, .project-receipt { overflow-wrap: anywhere; box-shadow: var(--shadow-sm); }
 .project-options .plan, .project-service { min-block-size: 46px; }
 [data-project-options='vacancy'] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .project-comparison { margin-block-start: 10px; }
@@ -73,5 +111,11 @@
 .project-materials summary { min-block-size: 44px; align-content: center; text-decoration: underline; }
 [data-confirm-project] { min-block-size: 52px; }
 @media (max-width: 600px) {
+  .project-header { gap: 4px 6px; padding-block-end: 10px; }
+  .project-header strong { font-size: .86rem; }
+  .project-header .project-back { font-size: .78rem; padding: 6px 4px; }
+  .project-header .language { min-inline-size: 58px; padding: 6px 8px; font-size: .76rem; }
   .industry-grid { grid-template-columns: minmax(0, 1fr); }
+  .playbook-levels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .playbook-level { padding: 6px 4px; font-size: .85rem; }
 }

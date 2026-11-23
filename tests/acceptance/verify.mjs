@@ -99,8 +99,15 @@ test('plays, reconciles, migrates and restores the Big Order through a productio
   });
   const closed = await readOrReplaceSave(page);
   await navigate(page, 'overview');
+  const deferBox = await page.locator('[data-defer-restock]').boundingBox();
+  assert.ok(deferBox && deferBox.y + deferBox.height <= 800, 'Day 31 buy/defer trade-off should fit above the phone fold');
+  assert.match(await page.locator('.decision-card').textContent(), /٤٠٠/);
   await command(page, '[data-approve-restock]');
   await page.locator('[data-distress-stage="warning"]').waitFor();
+  const earlyBox = await page.locator('[data-collect-early]').boundingBox();
+  assert.ok(earlyBox && earlyBox.y + earlyBox.height <= 800, 'Primary crisis containment action should fit above the phone fold');
+  assert.equal(await page.locator('.metric-profit h2').textContent(), 'صافي ربح الشهر الأول');
+  assert.match(await page.locator('.metric-profit .metric-subrows').textContent(), /الربح منذ التأسيس/);
   const warning = await readOrReplaceSave(page);
 
   await t.test('reconciles financial statements by period after a new cash transaction', async () => {
